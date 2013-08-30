@@ -6,4 +6,50 @@ Juaune Burgess
 Ben Creighton
 
 Section 1 Purpose:
-The purpose of this project is to create a simple database system.
+This project is a tool to help maximize procrastination. The goal is to schedule activities during freetime which would 
+otherwise be wasted by the user. The activities are selected randomly by the application to fill unused time. The system
+will use a super-uuber simplistic database to manage the different users and the activities that they are involved in.
+
+
+Sectction 2 High Level Entities:
+
+App:
+  the app user interface
+
+Database Engine:
+  The module does the actual manipulation of the database file based on the instructions recieved from the parser.
+
+Lexer
+  This module tokenizes a string of SQL commands from the user application into tokens that can be used by the parser.
+
+Parser
+  This module checks the simplistic SQL syntax of the token stream and then calls the Database Engine functions to exectue
+  the commands.
+
+Data Model
+  ...
+  
+Section 3 Low Level Design:
+
+App design:
+
+Engine design:
+
+Lexer:
+
+Parser:
+
+Data Model:
+
+Section 4 Benefits, assumptions, risks/issues:
+
+Benefits:
+The database is very simple. It should be easy to build and maintain.
+
+Assumptions:
+Assuming that the simplistic database will be robust enough to meet the needs of our application.
+We are assuming that we will be able to invent activities for our procrastination app.
+...
+
+Risks:
+The data is stored in plaintext. This makes the dabase insecure and vunerable to attack.
