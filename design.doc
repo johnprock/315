@@ -17,7 +17,7 @@ App:
   the app user interface
 
 Database Engine:
-  The module does the actual manipulation of the database file based on the instructions recieved from the parser.
+  The module does the actual manipulation of the database file based on the instructions recieved from the parser. It consists of a single class object.
 
 Lexer
   This module tokenizes a string of SQL commands from the user application into tokens that can be used by the parser.
@@ -34,6 +34,25 @@ Section 3 Low Level Design:
 App design:
 
 Engine design:
+  Class DB_Engine
+    Members:
+      Open_Files - a vector containing all of the file descriptors opened by the database engine.
+    Functions:
+      Open()
+      Close()
+      Write()
+      Exit()
+      Show()
+      Create()
+      Update()
+      Insert()
+      Delete()
+      Select()
+      Project()
+      Rename()
+      Operator+()
+      Operator-()
+      Operator*()
 
 Lexer:
 
