@@ -38,21 +38,21 @@ Engine design:
     Members:
       Open_Files - a vector containing all of the file descriptors opened by the database engine.
     Functions:
-      Open()
-      Close()
-      Write()
-      Exit()
-      Show()
-      Create()
-      Update()
-      Insert()
-      Delete()
-      Select()
-      Project()
-      Rename()
-      Operator+()
-      Operator-()
-      Operator*()
+      Open(String file_location) - Opens a database file at a given location
+      Close(int fd) - Takes a file descriptor and closes the database file
+      Write(string relation_name) - Creates a new relation database file
+      Show(string relation_name) - Returns a string showing a given relation or view
+      Create(string table_name, void* args) - Creates a blank table or entity schema
+      Update(string table_name, int row, column) - Updates a given column in an entity 
+      Insert(string table_name, void* args) - Inserts a new entity into a table
+      Delete(string relation_name) - Deletes an entire relation
+      Delete(string relation_name, string tuple) - Deletes a tuple from a relation
+      Select(string relation_name, void* args) - Returns a string containing the elements of the relation desired
+      Project(string relation_name, string attributes) - Returns the projection of a relation over a set of attributes
+      Rename(string relation_name) - Renames a relation or entity set
+      Operator+(string relation_name1, string relation_name2) - Returns the union of two relations
+      Operator-(string relation_name1, string relation_name2) - Returns the difference between two relations
+      Operator*(string relation_name1, string relation_name2) - Returns the cartesian product of two relations
 
 Lexer:
 
