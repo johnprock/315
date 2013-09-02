@@ -48,14 +48,14 @@ Engine design:
     Members:
       Open_Files - a vector containing all of the file descriptors opened by the database engine.
     Functions:
-      Open(String file_location) - Opens a database file at a given location
-      Close(int fd) - Takes a file descriptor and closes the database file
+      Open(String filename) - Opens a database file at a given location
+      Close() - Takes a file descriptor and closes the database file
       Write(Relation relation_name) - Creates a new relation database file
       Show(Relation relation_name) - Returns a View showing a given relation
-      Show(Entity_Set table_name) - Returns a View showing a given entity set
-      Create(Entity_Set table_name, void* args) - Creates a blank table or entity schema
-      Update(Entity_Set table_name, Tuple row, int column) - Updates a given column in an entity 
-      Insert(Entity_Set table_name, void* args) - Inserts a new entity into a table
+      Show(Table table_name) - Returns a View showing a given entity set
+      Create(Table table_name, void* args) - Creates a blank table or entity schema
+      Update(Table table_name, Tuple row, int column) - Updates a given column in an entity 
+      Insert(Table table_name, void* args) - Inserts a new entity into a table
       Delete(Relation relation_name) - Deletes an entire relation
       Delete(Relation relation_name, Tuple tuple) - Deletes a tuple from a relation
       Select(Relation relation_name, void* args) - Returns a Relation containing the elements of the relation desired
