@@ -1,5 +1,7 @@
-This is the design document for CSCE 315.
+Database project Design Document
+
 8/30/2013
+
 Authors:
 Patrick Rock
 Juaune Burgess
@@ -172,7 +174,6 @@ Assumptions:
   We are assuming that we will be able to invent activities for our procrastination app. Relations will be able to 
   contain entities. We are assuming that we will be able to create a system capable of understanding entites within 
   relations. We are assuming that the database will only be used to store entites built from integers and strings.
-...
 
 Risks:
 The data is stored in plaintext. This makes the database insecure and vunerable to attack. The app has the potential
