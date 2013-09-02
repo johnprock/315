@@ -8,7 +8,7 @@ Ben Creighton
 Section 1 Purpose:
 The purpose of this project is to create a simple database system and become familiar with version control systems.
 We have chosen to use git for version control. 
-This project is a tool to help maximize procrastination. The goal is to schedule activities during freetime which would 
+The app we have chosen to make for this project is a tool to help maximize procrastination. The goal is to schedule activities during freetime which would 
 otherwise be wasted by the user. The activities are selected randomly by the application to fill unused time. The system
 will use a super-uuber simplistic database to manage the different users and the activities that they are involved in.
 
@@ -80,5 +80,5 @@ We are assuming that we will be able to invent activities for our procrastinatio
 ...
 
 Risks:
-The data is stored in plaintext. This makes the dabase insecure and vunerable to attack. The app has the potential
+The data is stored in plaintext. This makes the database insecure and vunerable to attack. The app has the potential
 to ruin your GPA.
