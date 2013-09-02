@@ -171,7 +171,7 @@ Assumptions:
   Assuming that the simplistic database will be robust enough to meet the needs of our application.
   We are assuming that we will be able to invent activities for our procrastination app. Relations will be able to 
   contain entities. We are assuming that we will be able to create a system capable of understanding entites within 
-  relations.
+  relations. We are assuming that the database will only be used to store entites built from integers and strings.
 ...
 
 Risks:
