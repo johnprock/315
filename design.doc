@@ -6,7 +6,9 @@ Juaune Burgess
 Ben Creighton
 
 Section 1 Purpose:
-This project is a tool to help maximize procrastination. The goal is to schedule activities during freetime which would 
+The purpose of this project is to create a simple database system and become familiar with version control systems.
+We have chosen to use git for version control. 
+The app we have chosen to make for this project is a tool to help maximize procrastination. The goal is to schedule activities during freetime which would 
 otherwise be wasted by the user. The activities are selected randomly by the application to fill unused time. The system
 will use a super-uuber simplistic database to manage the different users and the activities that they are involved in.
 
@@ -21,13 +23,15 @@ Database Engine:
 
 Lexer
   This module tokenizes a string of SQL commands from the user application into tokens that can be used by the parser.
+  A token is the simplest unit in a language with lexical significance.
 
 Parser
   This module checks the simplistic SQL syntax of the token stream and then calls the Database Engine functions to exectue
-  the commands.
+  the commands. The parser uses a recursive descent technique and calls DB engine code as a side effect. 
 
 Data Model
-  ...
+  All data is stored as relationships. Relationships are tuples of values. We need to decide how to represent a relation
+  and a table in text for storage.
   
 Section 3 Low Level Design:
 
@@ -55,15 +59,20 @@ Engine design:
       Operator*(string relation_name1, string relation_name2) - Returns the cartesian product of two relations
 
 Lexer:
+  The lexer creates a token stream which can be scanned through a token at a time. The token stream can be backed up.
 
 Parser:
+  The parser performs syntax directed translation. Every production rule in the SQL grammar has a corresponding
+  function in the parser class which recognizes it.
 
 Data Model:
+  We could store tables and relations in JSON.  
 
 Section 4 Benefits, assumptions, risks/issues:
 
 Benefits:
-The database is very simple. It should be easy to build and maintain.
+The database is very simple. It should be easy to build and maintain. The app will help with procrastination.
+This should reduce stress and increase the happieness of users. Stress is the silent killer after all.
 
 Assumptions:
 Assuming that the simplistic database will be robust enough to meet the needs of our application.
@@ -71,4 +80,5 @@ We are assuming that we will be able to invent activities for our procrastinatio
 ...
 
 Risks:
-The data is stored in plaintext. This makes the dabase insecure and vunerable to attack.
+The data is stored in plaintext. This makes the database insecure and vunerable to attack. The app has the potential
+to ruin your GPA.
