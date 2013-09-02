@@ -16,18 +16,24 @@ will use a super-uuber simplistic database to manage the different users and the
 Sectction 2 High Level Entities:
 
 App:
-  the app user interface
-
+  The app allows the user to enter her schedule. The user should also be able to choose what sorts of activites 
+  she prefers. The app will examine your schedule and suggest fun activites. 
+  
 Database Engine:
-  The module does the actual manipulation of the database file based on the instructions recieved from the parser. It consists of a single class object.
+  The module does the actual manipulation of the database file based on the instructions recieved from the parser.
+  It consists of a single class object.
 
 Lexer
   This module tokenizes a string of SQL commands from the user application into tokens that can be used by the parser.
-  A token is the simplest unit in a language with lexical significance.
+  A token is the simplest unit in a language with lexical significance. 
+  The lexer creates a token stream which can be scanned through a token at a time. The token stream can be backed up.
 
 Parser
   This module checks the simplistic SQL syntax of the token stream and then calls the Database Engine functions to exectue
   the commands. The parser uses a recursive descent technique and calls DB engine code as a side effect. 
+  The parser performs syntax directed translation. Every production rule in the SQL grammar has a corresponding
+  function in the parser class which recognizes it. Terminal expressions call code within the DB engine if they evaluate
+  to true.
 
 Data Model
   All data is stored as relationships. Relationships are tuples of values. We need to decide how to represent a relation
@@ -60,14 +66,19 @@ Engine design:
       Operator*(Relation relation_name1, Relation relation_name2) - Returns the cartesian product of two relations
 
 Lexer:
-  The lexer creates a token stream which can be scanned through a token at a time. The token stream can be backed up.
+  Class Lexer
+    Members:
+      Token_Stream - a vector containing the tokenized input
+    Funtions:
+      get_token(int pos) - Returns a token. The argument specifies the token position relative to the current position.
+      consume_token() - Returns a token. Consumes one token from the stream. 
 
 Parser:
-  The parser performs syntax directed translation. Every production rule in the SQL grammar has a corresponding
-  function in the parser class which recognizes it.
+
 
 Data Model:
-  We could store tables and relations in JSON.  
+  We could store tables and relations in JSON. Each table will be a top level JSON object. Relations in the table will be
+  in an array inside the table object. 
 
 Section 4 Benefits, assumptions, risks/issues:
 
@@ -76,10 +87,12 @@ The database is very simple. It should be easy to build and maintain. The app wi
 This should reduce stress and increase the happieness of users. Stress is the silent killer after all.
 
 Assumptions:
-Assuming that the simplistic database will be robust enough to meet the needs of our application.
-We are assuming that we will be able to invent activities for our procrastination app.
+  Assuming that the simplistic database will be robust enough to meet the needs of our application.
+  We are assuming that we will be able to invent activities for our procrastination app. Relations will be able to 
+  contain entities. We are assuming that we will be able to create a system capable of understanding entites within 
+  relations.
 ...
 
 Risks:
 The data is stored in plaintext. This makes the database insecure and vunerable to attack. The app has the potential
-to ruin your GPA.
+to waste the users time.
