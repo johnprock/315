@@ -61,7 +61,8 @@ Attribute::Attribute(string _val, int _length) {
 //--RELATION CLASS--//
 //------------------//
 
-class Relation {
+
+class Tuple {
   public:
   private:
     vector<Attribute> attributes;
@@ -74,7 +75,7 @@ class Relation {
 class Table {
   public:
   private:
-    vector<Relation> relations;
+    vector<Tuple> tuples;
 };
 
 
