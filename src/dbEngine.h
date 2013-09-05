@@ -9,8 +9,9 @@ using namespace std;
 //--DATABASE ENGINE CLASS--//
 //-------------------------//
 
-class DB_Engine {
+class DbEngine {
   public:
     void create_table();
   private:
 };
+
