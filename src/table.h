@@ -6,9 +6,32 @@
 
 #include <string>
 #include <vector>
+#include <assert.h>
 using namespace std;
 
 
+//--------------//
+//--TYPE CLASS--//
+//--------------//
+
+class Type{
+  public:
+    Type();     //constructor for integer type
+    Type(int);  //constructor for varchar type
+    bool isInt();
+    int isVarchar();
+  private:
+    int size;
+};
+
+Type::Type() {
+  size = -1; //for integer types we set an impossible size
+}
+
+Type::Type(int _size) {
+  assert(_size > 0); //catch impossible sizes for varchars
+  size = _size;
+}
 
 //-------------------//
 //--ATTRIBUTE CLASS--//

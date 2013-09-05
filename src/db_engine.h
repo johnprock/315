@@ -10,4 +10,7 @@ using namespace std;
 //-------------------------//
 
 class DB_Engine {
+  public:
+    void create_table();
+  private:
 };
