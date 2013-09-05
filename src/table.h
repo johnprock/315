@@ -9,7 +9,11 @@
 using namespace std;
 
 
-// An attribute is either an integer or a varchar
+
+//-------------------//
+//--ATTRIBUTE CLASS--//
+//-------------------//
+
 class Attribute {
   public:
     Attribute(int);
@@ -30,12 +34,22 @@ Attribute::Attribute(string _val, int _length) {
   length = _length;
 }
 
+//------------------//
+//--RELATION CLASS--//
+//------------------//
+
 class Relation {
+  public:
   private:
     vector<Attribute> attributes;
 };
 
+//---------------//
+//--TABLE CLASS--//
+//---------------//
+
 class Table {
+  public:
   private:
     vector<Relation> relations;
 };

@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "table.h"
+#include "db_engine.h"
 
 int main() {
   return 0;
