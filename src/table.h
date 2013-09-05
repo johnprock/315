@@ -5,6 +5,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 using namespace std;
 
 
@@ -28,4 +29,15 @@ Attribute::Attribute(string _val, int _length) {
   stringVal = _val;
   length = _length;
 }
+
+class Relation {
+  private:
+    vector<Attribute> attributes;
+};
+
+class Table {
+  private:
+    vector<Relation> relations;
+};
+
 
