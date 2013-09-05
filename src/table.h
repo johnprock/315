@@ -58,7 +58,7 @@ Attribute::Attribute(string _val, int _length) {
 }
 
 //------------------//
-//--RELATION CLASS--//
+//--Tuple CLASS--//
 //------------------//
 
 
