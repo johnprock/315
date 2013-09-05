@@ -3,6 +3,7 @@
 // Database Engine Header
 
 #include "table.h"
+#include <vector>
 using namespace std;
 
 //-------------------------//
@@ -11,7 +12,10 @@ using namespace std;
 
 class DbEngine {
   public:
-    void create_table();
+    void createTable(vector<Type>);
   private:
+    vector<Table> tables;
 };
 
+void DbEngine::createTable(vector<Type> types) {
+}
