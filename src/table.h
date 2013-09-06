@@ -90,6 +90,7 @@ class Table {
     //getter's
     Tuple getTuple(int);
     vector<Type> getTypes();
+    int size();
   private:
     string name;
     vector<Tuple> tuples;
