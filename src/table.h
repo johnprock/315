@@ -69,7 +69,12 @@ class Tuple {
     Tuple(vector<Type>);
   private:
     vector<Attribute> attributes;
+    vector<Type> types;
 };
+
+Tuple::Tuple(vector<Type> _types) {
+  types = _types;
+}
 
 //---------------//
 //--TABLE CLASS--//
@@ -77,8 +82,15 @@ class Tuple {
 
 class Table {
   public:
+    Table(string, vector<Type>); // the table constructor takes as an argument a list of types that
+                         // that are present in the rows
   private:
+    string name;
     vector<Tuple> tuples;
+    vector<Type> types;
 };
+
+Table::Table(string, vector<Type>) {
+}
 
 
