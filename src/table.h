@@ -20,6 +20,7 @@ class Type{
     Type(int);  //constructor for varchar type
     bool isInt();
     int isVarchar();
+    bool operator==(Type);
   private:
     int length;
 };
@@ -85,7 +86,10 @@ class Table {
     Table(string, vector<Type>); // the table constructor takes as an argument a list of types that
                                  // that are present in the rows
     Table(vector<Type>);
+
+    //getter's
     Tuple getTuple(int);
+    vector<Type> getTypes();
   private:
     string name;
     vector<Tuple> tuples;
@@ -100,4 +104,8 @@ Table::Table(vector<Type>){
 
 Tuple Table::getTuple(int index){
     return tuples[index];
+}
+
+vector<Type> Table::getTypes(){
+    return types;
 }
