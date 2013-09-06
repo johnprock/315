@@ -83,7 +83,9 @@ Tuple::Tuple(vector<Type> _types) {
 class Table {
   public:
     Table(string, vector<Type>); // the table constructor takes as an argument a list of types that
-                         // that are present in the rows
+                                 // that are present in the rows
+    Table(vector<Type>);
+    Tuple getTuple(int);
   private:
     string name;
     vector<Tuple> tuples;
@@ -93,4 +95,9 @@ class Table {
 Table::Table(string, vector<Type>) {
 }
 
+Table::Table(vector<Type>){
+}
 
+Tuple Table::getTuple(int index){
+    return tuples[index];
+}
