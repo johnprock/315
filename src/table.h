@@ -21,16 +21,16 @@ class Type{
     bool isInt();
     int isVarchar();
   private:
-    int size;
+    int length;
 };
 
 Type::Type() {
-  size = -1; //for integer types we set an impossible size
+  length = -1; //for integer types we set an impossible size
 }
 
-Type::Type(int _size) {
-  assert(_size > 0); //catch impossible sizes for varchars
-  size = _size;
+Type::Type(int _length) {
+  assert(_length > 0); //catch impossible sizes for varchars
+  length = _length;
 }
 
 //-------------------//
@@ -45,25 +45,28 @@ class Attribute {
     int intVal;
     int length;
     string stringVal;
-    string type;
+    Type type;
 };
 
 Attribute::Attribute(int _val) {
   intVal = _val;
+  type = Type();
 }
 
 Attribute::Attribute(string _val, int _length) {
   stringVal = _val;
   length = _length;
+  type = Type(length);
 }
 
-//------------------//
+//---------------//
 //--Tuple CLASS--//
-//------------------//
+//---------------//
 
 
 class Tuple {
   public:
+    Tuple(vector<Type>);
   private:
     vector<Attribute> attributes;
 };

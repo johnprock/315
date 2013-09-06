@@ -7,5 +7,8 @@
 #include "dbEngine.h"
 
 int main() {
+  
+  Attribute attr = Attribute(1);
+
   return 0;
 }
