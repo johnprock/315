@@ -34,8 +34,18 @@ Type::Type(int _length) {
   length = _length;
 }
 
-bool Type::operator==(Type){
-  return true;          //lol, dont breathe this. 
+bool Type::isInt(){
+  if (length == -1) return false;
+}
+
+int Type::isVarchar(){
+  if (length == -1) return -1;
+  else return length;
+}
+
+bool Type::operator==(Type type){
+  if(length == type.length) return true;
+  else return false; 
 }
 
 //-------------------//
@@ -46,6 +56,7 @@ class Attribute {
   public:
     inline Attribute(int);
     inline Attribute(string);
+    bool operator==(Attribute);
   private:
     int intVal;
     int length;
@@ -64,6 +75,15 @@ Attribute::Attribute(string _val) {
   type = Type(length);
 }
 
+bool Attribute::operator==(Attribute attribute){
+  if(type.isInt()){
+    if(intVal == attribute.intVal) return true;
+  }
+  else if(stringVal == attribute.stringVal) return true;
+  else return false;
+}
+  
+
 //---------------//
 //--TUPLE CLASS--//
 //---------------//
@@ -80,6 +100,17 @@ class Tuple {
 
 Tuple::Tuple(vector<Type> _types) {
   types = _types;
+}
+
+bool Tuple::operator==(Tuple tuple){
+  //check size first
+  if(attributes.size() == tuple.attributes.size()){
+    for(int i = 0; i < attributes.size(); i++){
+      if(attributes[i] == tuple.attributes[i]) return false;
+    }
+    return true;
+  }
+  else return false;
 }
 
 //---------------//
@@ -128,6 +159,10 @@ Table::Table(vector<Type> _types){
 //Inserts a new Tuple into a Table
 void Table::insert(Tuple new_tuple){
   tuples.push_back(new_tuple);
+}
+
+//Deletes a Tuple in a Table
+void remove(Tuple tuple_name){
 }
 
 //Returns a Table that is the union of two Tables
