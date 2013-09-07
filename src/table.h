@@ -87,26 +87,23 @@ class Table {
                                  // that are present in the rows
     Table(vector<Type>);
 
-    //getter's
-    Tuple getTuple(int);
-    vector<Type> getTypes();
     int size();
+    //Returns a Table that is the union of two Tables
+    Table operator+(Table table);
+
+    //returns the difference between two Tables
+    Table operator-(Table table);
+
+    //Returns a table that is the cartesian product of two tables
+    Table operator*(Table table);
   private:
     string name;
     vector<Tuple> tuples;
     vector<Type> types;
 };
 
-Table::Table(string, vector<Type>) {
+Table::Table(string, vector<Type>){
 }
 
 Table::Table(vector<Type>){
-}
-
-Tuple Table::getTuple(int index){
-    return tuples[index];
-}
-
-vector<Type> Table::getTypes(){
-    return types;
 }
