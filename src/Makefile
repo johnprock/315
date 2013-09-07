@@ -5,7 +5,7 @@
 all: main
 
 main: dbEngine.h
-	g++ main.cpp table.cpp
+	g++ table.cpp main.cpp
 
 clean:
 	rm a.out

@@ -1,6 +1,12 @@
 #include <iostream>
 #include "table.h"
 
+
+//Inserts a new Tuple into a Table
+void Table::insert(Tuple new_tuple){
+  tuples.push_back(new_tuple);
+}
+
 //Returns a Table that is the union of two Tables
 Table Table::operator+(Table table){
   //check for union-compatibility first
@@ -15,10 +21,10 @@ Table Table::operator+(Table table){
   }
   else{
     Table temp = Table(table.types);
-    for (int i = 0; i < size(); i++){
+    for (int i = 0; i < tuples.size(); i++){
       temp.insert(tuples[i]);
     }
-    for (int i = 0; i < table.size(); i++){
+    for (int i = 0; i < table.tuples.size(); i++){
       temp.insert(table.tuples[i]);
     }
     return temp;

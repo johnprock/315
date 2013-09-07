@@ -16,8 +16,8 @@ using namespace std;
 
 class Type{
   public:
-    Type();     //constructor for integer type
-    Type(int);  //constructor for varchar type
+    inline Type();     //constructor for integer type
+    inline Type(int);  //constructor for varchar type
     bool isInt();
     int isVarchar();
     bool operator==(Type);
@@ -40,8 +40,8 @@ Type::Type(int _length) {
 
 class Attribute {
   public:
-    Attribute(int);
-    Attribute(string, int);
+    inline Attribute(int);
+    inline Attribute(string, int);
   private:
     int intVal;
     int length;
@@ -67,7 +67,7 @@ Attribute::Attribute(string _val, int _length) {
 
 class Tuple {
   public:
-    Tuple(vector<Type>);
+    inline Tuple(vector<Type>);
   private:
     vector<Attribute> attributes;
     vector<Type> types;
@@ -83,11 +83,10 @@ Tuple::Tuple(vector<Type> _types) {
 
 class Table {
   public:
-    Table(string, vector<Type>); // the table constructor takes as an argument a list of types that
+    inline Table(string, vector<Type>); // the table constructor takes as an argument a list of types that
                                  // that are present in the rows
-    Table(vector<Type>);
+    inline Table(vector<Type>);
 
-    int size();
     //Returns a Table that is the union of two Tables
     Table operator+(Table table);
 
@@ -96,6 +95,10 @@ class Table {
 
     //Returns a table that is the cartesian product of two tables
     Table operator*(Table table);
+
+    //Inserts a new Tuple into a Table
+    void insert(Tuple new_tuple);
+
   private:
     string name;
     vector<Tuple> tuples;
