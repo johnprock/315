@@ -71,8 +71,10 @@ class DbEngine {
 void DbEngine::createTable(vector<Type> types){
 }
 
+
+// THIS FUNCTION IS BROKEN, OPERATORS ONLY TAKE ONE ARGUMENT!
 //Returns a Table that is the union of two Tables
-Table DbEngine::operator+(Table table1, Table table2){
+/* Table DbEngine::operator+(Table table){
   //check for union-compatibility first
   if(table1.getTypes().size() == table2.getTypes().size(){
     for(int i = 0; i < table1.getTypes().size(); i++){
@@ -89,7 +91,7 @@ Table DbEngine::operator+(Table table1, Table table2){
       temp.insert(table2.getTupel(i);
     }
   }
-}
+}*/
 
 //returns the difference between two Tables
 Table DbEngine::operator-(Table table){
