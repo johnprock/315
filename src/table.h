@@ -116,10 +116,13 @@ class Table {
     vector<Type> types;
 };
 
-Table::Table(string, vector<Type>){
+Table::Table(string _name, vector<Type> _types){
+  name = _name;
+  types = _types;
 }
 
-Table::Table(vector<Type>){
+Table::Table(vector<Type> _types){
+  types = _types;
 }
 
 //Inserts a new Tuple into a Table
