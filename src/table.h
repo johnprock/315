@@ -162,7 +162,10 @@ void Table::insert(Tuple new_tuple){
 }
 
 //Deletes a Tuple in a Table
-void remove(Tuple tuple_name){
+void Table::remove(Tuple _tuple){
+for(std::vector<Tuple>::iterator it = tuples.begin(); it != tuples.end(); ++it) {
+ 
+  }
 }
 
 //Returns a Table that is the union of two Tables
