@@ -83,9 +83,9 @@ Tuple::Tuple(vector<Type> _types) {
 
 class Table {
   public:
-    inline Table(string, vector<Type>); // the table constructor takes as an argument a list of types that
+    Table(string, vector<Type>); // the table constructor takes as an argument a list of types that
                                  // that are present in the rows
-    inline Table(vector<Type>);
+    Table(vector<Type>);
 
     //Returns a Table that is the union of two Tables
     Table operator+(Table table);
@@ -104,9 +104,3 @@ class Table {
     vector<Tuple> tuples;
     vector<Type> types;
 };
-
-Table::Table(string, vector<Type>){
-}
-
-Table::Table(vector<Type>){
-}

@@ -1,6 +1,11 @@
 #include <iostream>
 #include "table.h"
 
+Table::Table(string, vector<Type>){
+}
+
+Table::Table(vector<Type>){
+}
 
 //Inserts a new Tuple into a Table
 void Table::insert(Tuple new_tuple){
