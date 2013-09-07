@@ -45,7 +45,7 @@ bool Type::operator==(Type){
 class Attribute {
   public:
     inline Attribute(int);
-    inline Attribute(string, int);
+    inline Attribute(string);
   private:
     int intVal;
     int length;
@@ -58,9 +58,9 @@ Attribute::Attribute(int _val) {
   type = Type();
 }
 
-Attribute::Attribute(string _val, int _length) {
+Attribute::Attribute(string _val) {
   stringVal = _val;
-  length = _length;
+  length = _val.length();
   type = Type(length);
 }
 

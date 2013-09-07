@@ -8,7 +8,11 @@
 
 int main() {
   
-  Attribute attr = Attribute(1);
-
+  // Testing code  
+  Attribute attr1 = Attribute(1);
+  Attribute attr2 = Attribute("attr");
+  Type type1 = Type();
+  Type type2 = Type(2);
+ 
   return 0;
 }
