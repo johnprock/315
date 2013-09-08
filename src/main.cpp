@@ -10,10 +10,10 @@
 int main() {
   
   // Testing code  
-  Attribute attr1 = Attribute(1);
-  Attribute attr2 = Attribute("attr");
-  Type type1 = Type();
-  Type type2 = Type(2);
+  Attribute attr1 = Attribute(1, true);
+  Attribute attr2 = Attribute("attr", true);
+  Type type1 = Type(true);
+  Type type2 = Type(2, true);
 
   vector<Attribute> attrs1;
   attrs1.push_back(attr1);

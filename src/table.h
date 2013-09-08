@@ -17,22 +17,31 @@ using namespace std;
 
 class Type{
   public:
-    Type();     //constructor for integer type
-    Type(int);  //constructor for varchar type
+    Type();
+    Type(bool);     //constructor for integer type
+    Type(int, bool);  //constructor for varchar type
     bool isInt();
     int isVarchar();
     bool operator==(Type);
+    bool isPrimary();
   private:
     int length;
+    bool primary; //is this a primary key
 };
 
 Type::Type() {
-  length = -1; //for integer types we set an impossible size
+
 }
 
-Type::Type(int _length) {
+Type::Type(bool _prime) {
+  length = -1; //for integer types we set an impossible size
+  primary = _prime;
+}
+
+Type::Type(int _length, bool _prime) {
   assert(_length > 0); //catch impossible sizes for varchars
   length = _length;
+  primary = _prime;
 }
 
 bool Type::isInt(){
@@ -49,14 +58,18 @@ bool Type::operator==(Type type){
   else return false; 
 }
 
+bool Type::isPrimary() {
+  return primary;
+}
+
 //-------------------//
 //--ATTRIBUTE CLASS--//
 //-------------------//
 
 class Attribute {
   public:
-    inline Attribute(int);
-    inline Attribute(string);
+    inline Attribute(int, bool);
+    inline Attribute(string, bool);
     bool operator==(Attribute);
     void show(); // used to display contents of database and debugging
     Type get_type();
@@ -71,15 +84,15 @@ Type Attribute::get_type() {
   return type;
 }
 
-Attribute::Attribute(int _val) {
+Attribute::Attribute(int _val, bool prime) {
   intVal = _val;
-  type = Type();
+  type = Type(prime);
 }
 
-Attribute::Attribute(string _val) {
+Attribute::Attribute(string _val, bool prime) {
   stringVal = _val;
   length = _val.length();
-  type = Type(length);
+  type = Type(length, prime);
 }
 
 bool Attribute::operator==(Attribute attribute){

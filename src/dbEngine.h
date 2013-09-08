@@ -22,15 +22,17 @@ class DbEngine {
     //Writes a given table into SQL instruction to a file in the database
     void Write(Table table_name);
 
+    //Closes the current database session
+    void Close();
+
     // Shows requested table
     void Show(Table table);
-
 
     //Updates an attribute in a given table and row.
     void Update(Table table_name, Tuple row, Attribute column);
 
     //Inserts a new Tuple into a Table
-    void Insert(Table table_name, void* args);
+    void Insert(Table table_name, Tuple tuple);
 
     //Deletes an entire Table
     void Delete(Table table_name);
@@ -39,7 +41,9 @@ class DbEngine {
     void Delete(Table table_name, Tuple tuple_name);
 
     //returns a tuple containing only the specified tuples
-    Table Select(Table table_name, Tuple tuple_name);
+    // takes an attribute name and a function pointer
+    // the function tests the attribute and decides if it should be selected
+    Table Select(Table table_name, string attr_name, bool (*f)(Attribute));
 
     //Returns a Table which is the projection of a table over a list of attributes
     void Project(Table table_name, Tuple attributes);
@@ -73,11 +77,11 @@ void DbEngine::createTable(string name, vector<Type> types) {
 
 
 void DbEngine::Open(string directory_name) {
-  //to be implemented
+  // this will wait until we have a working parser
 }
 
 void DbEngine::Write(Table table_name) {
-  //to be implemented
+  // this will wait until we have a working parser
 }
 
 void DbEngine::Show(Table table) {
@@ -88,7 +92,7 @@ void DbEngine::Update(Table table_name, Tuple row, Attribute column) {
 
 }
 
-void DbEngine::Insert(Table table_name, void* args) {
+void DbEngine::Insert(Table table_name, Tuple tuple) {
 
 }
 
@@ -100,7 +104,7 @@ void DbEngine::Delete(Table table_name, Tuple tuple_name) {
 
 }
 
-Table DbEngine::Select(Table table_name, Tuple tuple_name) {
+Table DbEngine::Select(Table table_name, string attr_name, bool (*f)(Attribute)) {
 
 }
 
@@ -109,7 +113,7 @@ void DbEngine::Project(Table table_name, Tuple attributes) {
 }
 
 void DbEngine::Rename(Table table_name) {
-    
+
 }
 
 
