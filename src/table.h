@@ -109,7 +109,8 @@ class Tuple {
     inline Tuple(vector<Type>); // used for empty tuples
     Tuple(vector<Attribute>);   // used to initialize full tuple
     bool operator==(Tuple);
-    void show();
+    void show(); 
+    vector<Type> get_types();
   private:
     vector<Attribute> attributes;
     vector<Type> types;
@@ -124,6 +125,10 @@ Tuple::Tuple(vector<Attribute> _attributes) {
   for(int i=0; i<attributes.size(); i++) {
     types.push_back(attributes[i].get_type());
   }
+}
+
+vector<Type> Tuple::get_types() {
+  return types;
 }
 
 bool Tuple::operator==(Tuple tuple){
@@ -154,6 +159,8 @@ class Table {
                                  // that are present in the rows
     Table(vector<Type>);         //for a blank table
 
+    Table(string, vector<Tuple>);        //initialize a full table
+
     //Returns a Table that is the union of two Tables
     Table operator+(Table table);
 
@@ -181,10 +188,17 @@ class Table {
 };
 
 void Table::show() {
+  cout << "Table: " << name << "\n\n";
   for(int i=0; i<tuples.size(); i++){
     tuples[i].show();
     cout << "\n";
   }
+}
+
+Table::Table(string _name, vector<Tuple> _tuples) {
+  tuples = _tuples;
+  name = _name;
+  types = _tuples[0].get_types(); // assume all tuples have the same types, might check this later
 }
 
 Table::Table(string _name, vector<Type> _types){
