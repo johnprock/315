@@ -17,10 +17,10 @@ class DbEngine {
     void createTable(string name, vector<Type> types);
     
     //opens and imports the SQL of all files in a directory into our object structure (Tables, Attributes, Tuples)
-    void Open(string directory_name);	
+    void Open(string directory);	
 
     //Writes a given table into SQL instruction to a file in the database
-    void Write(Table table_name);
+    void Write(Table table);
 
     //Closes the current database session
     void Close();
@@ -29,27 +29,27 @@ class DbEngine {
     void Show(Table table);
 
     //Updates an attribute in a given table and row.
-    void Update(Table table_name, Tuple row, Attribute column);
+    void Update(Table table, Tuple row, Attribute column);
 
     //Inserts a new Tuple into a Table
-    void Insert(Table table_name, Tuple tuple);
+    void Insert(Table table, Tuple tuple);
 
     //Deletes an entire Table
-    void Delete(Table table_name);
+    void Delete(Table table);
 
     //Deletes a Tuple in a Table
-    void Delete(Table table_name, Tuple tuple_name);
+    void Delete(Table table, Tuple tuple);
 
     //returns a tuple containing only the specified tuples
     // takes an attribute name and a function pointer
     // the function tests the attribute and decides if it should be selected
-    Table Select(Table table_name, string attr_name, bool (*f)(Attribute));
+    Table Select(Table table, string attr, bool (*f)(Attribute));
 
     //Returns a Table which is the projection of a table over a list of attributes
-    void Project(Table table_name, Tuple attributes);
+    void Project(Table table, Tuple attributes);
 
     //Renames a table
-    void Rename(Table table_name);
+    void Rename(Table table);
 
     //The following overloaded operators probably need to be fixed. Its been a while since I've messed with operator overloading. 
 
@@ -76,11 +76,11 @@ void DbEngine::createTable(string name, vector<Type> types) {
 }
 
 
-void DbEngine::Open(string directory_name) {
+void DbEngine::Open(string directory) {
   // this will wait until we have a working parser
 }
 
-void DbEngine::Write(Table table_name) {
+void DbEngine::Write(Table table) {
   // this will wait until we have a working parser
 }
 
@@ -88,31 +88,31 @@ void DbEngine::Show(Table table) {
     table.show();
 }
 
-void DbEngine::Update(Table table_name, Tuple row, Attribute column) {
+void DbEngine::Update(Table table, Tuple row, Attribute column) {
 
 }
 
-void DbEngine::Insert(Table table_name, Tuple tuple) {
+void DbEngine::Insert(Table table, Tuple tuple) {
 
 }
 
-void DbEngine::Delete(Table table_name) {
+void DbEngine::Delete(Table table) {
 
 }
 
-void DbEngine::Delete(Table table_name, Tuple tuple_name) {
+void DbEngine::Delete(Table table, Tuple tuple) {
 
 }
 
-Table DbEngine::Select(Table table_name, string attr_name, bool (*f)(Attribute)) {
+Table DbEngine::Select(Table table, string attr_name, bool (*f)(Attribute)) {
 
 }
 
-void DbEngine::Project(Table table_name, Tuple attributes) {
+void DbEngine::Project(Table table, Tuple attributes) {
 
 }
 
-void DbEngine::Rename(Table table_name) {
+void DbEngine::Rename(Table table) {
 
 }
 
