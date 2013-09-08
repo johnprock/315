@@ -22,10 +22,8 @@ class DbEngine {
     //Writes a given table into SQL instruction to a file in the database
     void Write(Table table_name);
 
-    //returns a formatted string to display the contents of a table.
-    //This might should be handled by something other than DbEngine. Though its either this or the Application according
-    //to our little diagram in the design.doc 
-    string Show(Table table_name);
+    // Shows requested table
+    void Show(Table table);
 
 
     //Updates an attribute in a given table and row.
@@ -68,9 +66,22 @@ class DbEngine {
 //--IMPLEMENTATIONS GO HERE--//
 //---------------------------//
 
-void DbEngine::createTable(string name, vector<Type> types){
+void DbEngine::createTable(string name, vector<Type> types) {
   Table new_table = Table(name, types);
   tables.push_back(new_table);
+}
+
+
+void DbEngine::Open(string directory_name) {
+  //to be implemented
+}
+
+void DbEngine::Write(Table table_name) {
+  //to be implemented
+}
+
+void DbEngine::Show(Table table) {
+    table.show();
 }
 
 
