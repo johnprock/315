@@ -13,6 +13,8 @@ int main() {
   Attribute attr2 = Attribute("attr");
   Type type1 = Type();
   Type type2 = Type(2);
- 
+   
+  attr1.show();
+  
   return 0;
 }

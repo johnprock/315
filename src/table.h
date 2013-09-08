@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <assert.h>
+#include <iostream>
 using namespace std;
 
 
@@ -35,12 +36,11 @@ Type::Type(int _length) {
 }
 
 bool Type::isInt(){
-  if (length == -1) return false;
+  if (length == -1) return true;
 }
 
 int Type::isVarchar(){
-  if (length == -1) return -1;
-  else return length;
+  return length;
 }
 
 bool Type::operator==(Type type){
@@ -57,6 +57,7 @@ class Attribute {
     inline Attribute(int);
     inline Attribute(string);
     bool operator==(Attribute);
+    void show(); // used to display contents of database and debugging
   private:
     int intVal;
     int length;
@@ -83,6 +84,14 @@ bool Attribute::operator==(Attribute attribute){
   else return false;
 }
   
+  void Attribute::show() {
+    if(type.isInt()) {
+      cout << intVal;
+    }
+    else {
+      cout << stringVal;
+    }
+  }
 
 //---------------//
 //--TUPLE CLASS--//
@@ -133,7 +142,7 @@ class Table {
     Table operator*(Table table);
     
     //copies a table to a new table
-    Table operator=(Table table);
+   // Table operator=(Table table);
 
     //Inserts a new Tuple into a Table
     void insert(Tuple new_tuple);

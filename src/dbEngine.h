@@ -14,7 +14,7 @@ class DbEngine {
   public:
     
     // The relation stored in the table has types equivilant to those in the argument vector
-    void createTable(vector<Type> types);
+    void createTable(string name, vector<Type> types);
     
     //opens and imports the SQL of all files in a directory into our object structure (Tables, Attributes, Tuples)
     void Open(string directory_name);	
@@ -68,7 +68,9 @@ class DbEngine {
 //--IMPLEMENTATIONS GO HERE--//
 //---------------------------//
 
-void DbEngine::createTable(vector<Type> types){
+void DbEngine::createTable(string name, vector<Type> types){
+  Table new_table = Table(name, types);
+  tables.push_back(new_table);
 }
 
 
