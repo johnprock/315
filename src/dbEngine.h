@@ -43,7 +43,7 @@ class DbEngine {
     //returns a tuple containing only the specified tuples
     // takes an attribute name and a function pointer
     // the function tests the attribute and decides if it should be selected
-    Table Select(Table table, string attr, bool (*f)(Attribute));
+    Table Select(Table table, string attr_name, bool (*f)(Attribute));
 
     //Returns a Table which is the projection of a table over a list of attributes
     void Project(Table table, Tuple attributes);
@@ -113,6 +113,10 @@ void DbEngine::Project(Table table, Tuple attributes) {
 }
 
 void DbEngine::Rename(Table table) {
+
+}
+
+void DbEngine::Close() {
 
 }
 
