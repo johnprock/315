@@ -171,7 +171,7 @@ class Table {
     Table operator*(Table table);
     
     //copies a table to a new table
-   // Table operator=(Table table);
+   // Table operator=(Table table); This is breaking the code
 
     //Inserts a new Tuple into a Table
     void insert(Tuple new_tuple);

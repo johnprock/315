@@ -84,6 +84,38 @@ void DbEngine::Show(Table table) {
     table.show();
 }
 
+void DbEngine::Update(Table table_name, Tuple row, Attribute column) {
+
+}
+
+void DbEngine::Insert(Table table_name, void* args) {
+
+}
+
+void DbEngine::Delete(Table table_name) {
+
+}
+
+void DbEngine::Delete(Table table_name, Tuple tuple_name) {
+
+}
+
+Table DbEngine::Select(Table table_name, Tuple tuple_name) {
+
+}
+
+void DbEngine::Project(Table table_name, Tuple attributes) {
+
+}
+
+void DbEngine::Rename(Table table_name) {
+    
+}
+
+
+
+
+// We may not need these operators...
 
 // THIS FUNCTION IS BROKEN, OPERATORS ONLY TAKE ONE ARGUMENT!
 //Returns a Table that is the union of two Tables
