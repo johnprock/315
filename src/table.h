@@ -37,6 +37,7 @@ Type::Type(int _length) {
 
 bool Type::isInt(){
   if (length == -1) return true;
+  return false;
 }
 
 int Type::isVarchar(){
@@ -58,12 +59,17 @@ class Attribute {
     inline Attribute(string);
     bool operator==(Attribute);
     void show(); // used to display contents of database and debugging
+    Type get_type();
   private:
     int intVal;
     int length;
     string stringVal;
     Type type;
 };
+
+Type Attribute::get_type() {
+  return type;
+}
 
 Attribute::Attribute(int _val) {
   intVal = _val;
@@ -100,8 +106,10 @@ bool Attribute::operator==(Attribute attribute){
 
 class Tuple {
   public:
-    inline Tuple(vector<Type>);
+    inline Tuple(vector<Type>); // used for empty tuples
+    Tuple(vector<Attribute>);   // used to initialize full tuple
     bool operator==(Tuple);
+    void show();
   private:
     vector<Attribute> attributes;
     vector<Type> types;
@@ -109,6 +117,13 @@ class Tuple {
 
 Tuple::Tuple(vector<Type> _types) {
   types = _types;
+}
+
+Tuple::Tuple(vector<Attribute> _attributes) {
+  attributes = _attributes;
+  for(int i=0; i<attributes.size(); i++) {
+    types.push_back(attributes[i].get_type());
+  }
 }
 
 bool Tuple::operator==(Tuple tuple){
@@ -120,6 +135,13 @@ bool Tuple::operator==(Tuple tuple){
     return true;
   }
   else return false;
+}
+
+void Tuple::show() {
+  for(int i=0; i<attributes.size(); i++) {
+    attributes[i].show();
+    cout << " ";
+  }
 }
 
 //---------------//
@@ -150,11 +172,20 @@ class Table {
     //Deletes a Tuple in a Table
     void remove(Tuple tuple_name);
 
+    void show();
+
   private:
     string name;
     vector<Tuple> tuples;
     vector<Type> types;
 };
+
+void Table::show() {
+  for(int i=0; i<tuples.size(); i++){
+    tuples[i].show();
+    cout << "\n";
+  }
+}
 
 Table::Table(string _name, vector<Type> _types){
   name = _name;

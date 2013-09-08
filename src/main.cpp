@@ -5,6 +5,7 @@
 #include <iostream>
 #include "table.h"
 #include "dbEngine.h"
+#include <vector>
 
 int main() {
   
@@ -13,8 +14,15 @@ int main() {
   Attribute attr2 = Attribute("attr");
   Type type1 = Type();
   Type type2 = Type(2);
+
+  vector<Attribute> attrs;
+  attrs.push_back(attr1);
+  attrs.push_back(attr2);
+
+  Tuple tuple1 = Tuple(attrs);
    
-  attr1.show();
-  
+  //attr1.show();
+  tuple1.show();
+
   return 0;
 }
