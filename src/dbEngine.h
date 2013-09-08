@@ -61,8 +61,9 @@ class DbEngine {
 
     //Returns a table that is the cartesian product of two tables
     Table operator*(Table table);
+    
 
-  private:
+  //private: //i made this public to get DbEngine.Show() to work. This is gross. 
     vector<Table> tables;
 };
 

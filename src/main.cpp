@@ -36,6 +36,14 @@ int main() {
   //attr1.show();
   //tuple1.show();
   table.show();
+  
+  //testing DbEngine interface
+  DbEngine db;
+  vector<Type> type_vector;
+  type_vector.push_back(Type(true));
+  type_vector.push_back(Type(2, true));
+  db.createTable("test_table", type_vector);
+  db.Show(db.tables[0]);
 
   return 0;
 }
