@@ -8,3 +8,23 @@ Additions to the design document
 
 9/5/2013
 Patrick is working on setting up data structures for the engine.
+
+9/8/2013
+Patrick is working on Create, Select, Insert, Delete, Rename, and Update
+Ben is working on Projection, Union, Difference, and Cross Product
+JuAnne: what are you working on
+
+The following functions are completed:
+show
+create Table
+
+The following functions are unfinished:
+insert into
+delete
+selection
+projection
+renaming
+set union
+set difference
+cross product
+update
