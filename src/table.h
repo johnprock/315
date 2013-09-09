@@ -197,6 +197,9 @@ class Table {
     //Deletes a Tuple in a Table
     void remove(Tuple tuple_name);
 
+    //Returns Table name
+    string getname();
+
     void show();
 
   private:
@@ -238,6 +241,11 @@ void Table::remove(Tuple _tuple){
 for(std::vector<Tuple>::iterator it = tuples.begin(); it != tuples.end(); ++it) {
  
   }
+}
+
+//Returns the name of the Table
+string Table::getname(){
+      return name;
 }
 
 //Returns a Table that is the union of two Tables
