@@ -193,6 +193,7 @@ void Tuple::show() {
 //---------------//
 //--TABLE CLASS--//
 //---------------//
+// Currently the names of attributes is stored in the attributes themselves. The names should be stored in the Table as well?
 
 class Table {
   public:

@@ -48,8 +48,8 @@ class DbEngine {
     //Returns a Table which is the projection of a table over a list of attributes
     void Project(Table table, Tuple attributes);
 
-    //Renames a table
-    Table Rename(vector<string>, Table table);
+    //Replaces the attribute names in the table with new_attribute_names
+    Table Rename(vector<string> new_attr_names, Table table);
 
     //The following overloaded operators probably need to be fixed. Its been a while since I've messed with operator overloading. 
 
@@ -157,8 +157,17 @@ void DbEngine::Project(Table table, Tuple attributes) {
 
 }
 
-Table DbEngine::Rename(vector<string>, Table table) {
-
+// changes the name of every attribute
+Table DbEngine::Rename(vector<string> names, Table table) {
+  // iterate down rows
+  for(int i=0; i<table.tuples.size(); i++) {
+    Tuple tuple = table.tuples[i];
+    // iterate across columns
+    for(int j=0; j<tuple.attributes.size(); j++) {
+        Attribute attr = tuple.attributes[j];
+        attr.name = names[j];
+    }
+  }
 }
 
 void DbEngine::Close() {
