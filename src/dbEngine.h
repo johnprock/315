@@ -104,8 +104,6 @@ void DbEngine::Insert(Table table, Tuple tuple) {
     for(int i = 0; i < tables.size(); i++){
         if(tables[i].getname() == table.getname())
 	    table.insert(tuple);
-	else
-	    i++;
 	}
 }
 
@@ -113,8 +111,6 @@ void DbEngine::Delete(Table table) {
     for(int i = 0; i < tables.size(); i++){
 	if(tables[i].getname() == table.getname())
 		tables.erase(tables.begin()+i);
-	else
-		i++;
     }
 }
 
@@ -125,12 +121,8 @@ void DbEngine::Delete(Table table, Tuple tuple) {
 		for(int j = 0; j < tuples.size(); j++){
 			if(tuples[j] == tuple)
 				tuples.erase(tuples.begin()+j);
-			else
-				j++;
 		}
 	}
-	else
-		i++;
     }
 }
 
