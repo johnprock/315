@@ -9,3 +9,6 @@ main: dbEngine.h
 
 clean:
 	rm a.out
+
+run: dbEngine.h
+	g++ -g main.cpp; ./a.out

@@ -85,8 +85,23 @@ int main() {
   //table3 = table3 - table2; //<---this causes std::bad_alloc to be thrown. dont know why yet.
   //table3.show();
 
+  // testing select
+  cout << "Selecting...";
   db.Select(table2, "attr3", f);
+  cout << "done.\n";
+
+  // testing update
+  cout << "Updating...";
+  db.Update(table2, "attr3", attr4, f);
+  cout << "done.\n";
   
+  // testing rename
+  vector<string> names;
+  names.push_back("test1");
+  names.push_back("test2");
+  cout << "Renaming...";
+  db.rename(names, table2);
+  cout << " done.\n";  
 
   return 0;
 }
