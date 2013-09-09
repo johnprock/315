@@ -12,17 +12,18 @@ Patrick is working on setting up data structures for the engine.
 9/8/2013
 Patrick is working on Create, Select, Rename, and Update
 Ben is working on Projection, Difference, and Cross Product
-JuAnne: Delete, Insert, Insert into
+JuAnne: Delete(table), Delete(tuple), Insert(table)
 
 The following functions are completed:
 show
 create Table
 Union
-delete
-insert
-insert into
+delete(tuple)
+delete(table)
+insert(table)
 
 The following functions are unfinished:
+insert into
 selection
 projection
 renaming
