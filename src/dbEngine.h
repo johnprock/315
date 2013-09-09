@@ -29,7 +29,7 @@ class DbEngine {
     void Show(Table table);
 
     //Updates an attribute in a given table and row.
-    void Update(Table table, Tuple row, Attribute column);
+    void Update(string attr_name, Attribute literal, bool (*f)(Attribute));
 
     //Inserts a new Tuple into a Table
     void Insert(Table table, Tuple tuple);
@@ -43,13 +43,13 @@ class DbEngine {
     //returns a tuple containing only the specified tuples
     // takes an attribute name and a function pointer
     // the function tests the attribute and decides if it should be selected
-    Table Select(Table table, string attr_name, bool (*f)(Attribute));
+    Table Select(Table table, bool (*f)(Attribute));
 
     //Returns a Table which is the projection of a table over a list of attributes
     void Project(Table table, Tuple attributes);
 
     //Renames a table
-    void Rename(Table table);
+    Table Rename(vector<string>, Table table);
 
     //The following overloaded operators probably need to be fixed. Its been a while since I've messed with operator overloading. 
 
@@ -89,7 +89,7 @@ void DbEngine::Show(Table table) {
     table.show();
 }
 
-void DbEngine::Update(Table table, Tuple row, Attribute column) {
+void DbEngine::Update(string attr_name, Attribute literal, bool (*f)(Attribute)) {
 
 }
 
@@ -127,7 +127,7 @@ void DbEngine::Delete(Table table, Tuple tuple) {
     }
 }
 
-Table DbEngine::Select(Table table, string attr_name, bool (*f)(Attribute)) {
+Table DbEngine::Select(Table table, bool (*f)(Attribute)) {
 
 }
 
@@ -135,7 +135,7 @@ void DbEngine::Project(Table table, Tuple attributes) {
 
 }
 
-void DbEngine::Rename(Table table) {
+Table DbEngine::Rename(vector<string>, Table table) {
 
 }
 
