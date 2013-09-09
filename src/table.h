@@ -221,11 +221,18 @@ class Table {
     //Returns the column corresponding to that attribute name in the table
     vector<Attribute> getColumn(string attr_name);
 
+    // returns 0 if the attribute is successfully changed, 1 for failure
+    int replaceAttribute(Attribute old_attr, Attribute new_attr);
+
   private:
     string name;
     vector<Tuple> tuples;
     vector<Type> types;
 };
+
+int Table::replaceAttribute(Attribute old_attr, Attribute new_attr) {
+  return 0;
+}
 
 vector<Attribute> Table::getColumn(string attr_name) {
   vector<Attribute> col;

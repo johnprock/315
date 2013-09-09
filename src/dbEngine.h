@@ -92,9 +92,11 @@ void DbEngine::Show(Table table) {
 // set attributes in column attr_name to attr if they pass the test function f
 void DbEngine::Update(Table table, string attr_name, Attribute attr, bool (*f)(Attribute)) {
   vector<Attribute> attrs = table.getColumn(attr_name);
-    if((*f)(attr) == true) { // then we update
-    ;
+  for(int i=0; i<attrs.size(); i++) {
+    if((*f)(attrs[i]) == true) { // then we update
+      ;
     }
+  }
 }
 
 void DbEngine::Insert(Table table, Tuple tuple) {
