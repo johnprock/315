@@ -24,7 +24,7 @@ class Type{
     int isVarchar();
     bool operator==(Type);
     bool isPrimary();
-  private:
+
     int length;
     bool primary; //is this a primary key
 };
@@ -74,7 +74,7 @@ class Attribute {
     void show(); // used to display contents of database and debugging
     Type get_type();
     string get_name();
-  private:
+
     int intVal;
     int length;
     string stringVal;
@@ -135,7 +135,7 @@ class Tuple {
     vector<Attribute> get_attributes();
     int getSize();
     int replaceAttribute(string attr_name, Attribute attr);
-  private:
+  
     vector<Attribute> attributes;
     vector<Type> types;
 };
@@ -234,7 +234,7 @@ class Table {
     // returns 0 if the attribute is successfully changed, 1 for failure
     int replaceAttribute(string attr_name, Attribute attr, int tuple);
 
-    private:
+    
     string name;
     vector<Tuple> tuples;
     vector<Type> types;
