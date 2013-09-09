@@ -29,7 +29,7 @@ class DbEngine {
     void Show(Table table);
 
     //Updates an attribute in a given table and row.
-    void Update(string attr_name, Attribute literal, bool (*f)(Attribute));
+    void Update(Table table, string attr_name, Attribute attr, bool (*f)(Attribute));
 
     //Inserts a new Tuple into a Table
     void Insert(Table table, Tuple tuple);
@@ -89,8 +89,12 @@ void DbEngine::Show(Table table) {
     table.show();
 }
 
-void DbEngine::Update(string attr_name, Attribute literal, bool (*f)(Attribute)) {
-
+// set attributes in column attr_name to attr if they pass the test function f
+void DbEngine::Update(Table table, string attr_name, Attribute attr, bool (*f)(Attribute)) {
+  
+    if((*f)(attr) == true) { // then we update
+    ;
+    }
 }
 
 void DbEngine::Insert(Table table, Tuple tuple) {
