@@ -363,5 +363,22 @@ Table Table::operator-(Table table){
 
 //Returns a table that is the cartesian product of two tables
 Table Table::operator*(Table table){
-
+	//create a new vector of all the types in both tables
+	vector<Type> new_types;
+	for(int i = 0; i < tuples[0].types.size(); i++) new_types.push_back(tuples[0].types[i]);
+	for(int i = 0; i < table.tuples[0].types.size(); i++) new_types.push_back(table.tuples[0].types[i]);
+	
+	//create the new table to be returned
+	Table temp = Table(new_types);
+	//new attribute vector for new tuple
+	vector<Attribute> new_attributes;
+	for(int i = 0; i < tuples.size(); i++){
+		for(int j = 0; j < table.tuples.size(); j++){
+			//create a new tuple
+			for(int k = 0; k < tuples.size(); k++) new_attributes.push_back(tuples[i].attributes[k]);
+			for(int k = 0; k < table.tuples.size(); k++) new_attributes.push_back(table.tuples[j].attributes[k]);
+			Tuple new_tuple = Tuple(new_attributes);
+		}
+	}
+	return temp;
 }

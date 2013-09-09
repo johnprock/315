@@ -81,6 +81,10 @@ int main() {
   //table3 = table3 - table2; //<---this causes std::bad_alloc to be thrown. dont know why yet.
   //table3.show();
   
+  std::cout<<"cross product: yolo";
+  table3 = table3 * table2;
+  table3.show();
+  
 
   return 0;
 }
