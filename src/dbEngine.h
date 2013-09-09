@@ -43,13 +43,13 @@ class DbEngine {
     //returns a tuple containing only the specified tuples
     // takes an attribute name and a function pointer
     // the function tests the attribute and decides if it should be selected
-    Table Select(Table table, string attr_name, bool (*f)(Attribute));
+    Table Select(Table table, string attr_name, bool (*f) (Attribute));
 
     //Returns a Table which is the projection of a table over a list of attributes
     void Project(Table table, Tuple attributes);
 
-    //Renames a table
-    Table Rename(vector<string>, Table table);
+    //Replaces the attribute names in the table with new_attribute_names
+    Table Rename(vector<string> new_attr_names, Table table);
 
     //The following overloaded operators probably need to be fixed. Its been a while since I've messed with operator overloading. 
 
@@ -135,16 +135,16 @@ void DbEngine::Delete(Table table, Tuple tuple) {
 }
 
 // selects all tuples whose attributes pass the testing function f
-Table DbEngine::Select(Table table, string attr_name, bool (*f)(Attribute)) {
+Table DbEngine::Select(Table table, string attr_name, bool (*f) (Attribute)) {
   Table new_table = Table(table.types); // this will be returned 
 
   // iterate down rows
   for(int i=0; i<table.tuples.size(); i++) {
     Tuple tuple = table.tuples[i];
     vector<Attribute> attrs = tuple.attributes;
-    for(int j=0; i<attrs.size(); j++) {
+    for(int j=0; j<attrs.size(); j++) {
       if(attrs[j].name == attr_name) {
-        if((*f)(attrs[j]) == true) {
+        if( f(attrs[j]) ) {
           new_table.insert(tuple);
         }
       }
@@ -157,8 +157,17 @@ void DbEngine::Project(Table table, Tuple attributes) {
 
 }
 
-Table DbEngine::Rename(vector<string>, Table table) {
-
+// changes the name of every attribute
+Table DbEngine::Rename(vector<string> names, Table table) {
+  // iterate down rows
+  for(int i=0; i<table.tuples.size(); i++) {
+    Tuple tuple = table.tuples[i];
+    // iterate across columns
+    for(int j=0; j<tuple.attributes.size(); j++) {
+        Attribute attr = tuple.attributes[j];
+        attr.name = names[j];
+    }
+  }
 }
 
 void DbEngine::Close() {

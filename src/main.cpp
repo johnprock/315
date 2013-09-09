@@ -7,6 +7,10 @@
 #include "dbEngine.h"
 #include <vector>
 
+bool f(Attribute a) {
+	return true;
+}
+
 int main() {
   
   // Testing code  
@@ -80,6 +84,8 @@ int main() {
   
   //table3 = table3 - table2; //<---this causes std::bad_alloc to be thrown. dont know why yet.
   //table3.show();
+
+  db.Select(table2, "attr3", f);
   
   std::cout<<"cross product: yolo";
   table3 = table3 * table2;
@@ -88,3 +94,5 @@ int main() {
 
   return 0;
 }
+
+
