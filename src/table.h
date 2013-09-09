@@ -68,8 +68,8 @@ bool Type::isPrimary() {
 
 class Attribute {
   public:
-    inline Attribute(int, bool);
-    inline Attribute(string, bool);
+    inline Attribute(int, bool, string);
+    inline Attribute(string, bool, string);
     bool operator==(Attribute);
     void show(); // used to display contents of database and debugging
     Type get_type();
@@ -90,15 +90,17 @@ Type Attribute::get_type() {
   return type;
 }
 
-Attribute::Attribute(int _val, bool prime) {
+Attribute::Attribute(int _val, bool prime, string _name) {
   intVal = _val;
   type = Type(prime);
+  name = _name;
 }
 
-Attribute::Attribute(string _val, bool prime) {
+Attribute::Attribute(string _val, bool prime, string _name) {
   stringVal = _val;
   length = _val.length();
   type = Type(length, prime);
+  name = _name;
 }
 
 bool Attribute::operator==(Attribute attribute){

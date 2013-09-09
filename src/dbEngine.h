@@ -91,7 +91,7 @@ void DbEngine::Show(Table table) {
 
 // set attributes in column attr_name to attr if they pass the test function f
 void DbEngine::Update(Table table, string attr_name, Attribute attr, bool (*f)(Attribute)) {
-  
+  vector<Attribute> attrs = table.getColumn(attr_name);
     if((*f)(attr) == true) { // then we update
     ;
     }

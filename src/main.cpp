@@ -10,8 +10,8 @@
 int main() {
   
   // Testing code  
-  Attribute attr1 = Attribute(1, true);
-  Attribute attr2 = Attribute("attr", true);
+  Attribute attr1 = Attribute(1, true, "attr1");
+  Attribute attr2 = Attribute("attr", true, "attr2");
   Type type1 = Type(true);
   Type type2 = Type(2, true);
 
@@ -46,8 +46,8 @@ int main() {
   db.Show(db.tables[0]);
   
   //testing union function
-  Attribute attr3 = Attribute(4, true);
-  Attribute attr4 = Attribute("BOLG", true);
+  Attribute attr3 = Attribute(4, true, "attr3");
+  Attribute attr4 = Attribute("BOLG", true, "attr4");
   
   vector<Attribute> attrs3;
   attrs3.push_back(attr3);
