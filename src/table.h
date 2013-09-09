@@ -79,7 +79,7 @@ class Attribute {
     int length;
     string stringVal;
     Type type;
-    string name;
+    string name;  // assume attributes have unique names
 };
 
 string Attribute::get_name() {
@@ -134,10 +134,20 @@ class Tuple {
     vector<Type> get_types();
     vector<Attribute> get_attributes();
     int getSize();
+    int replaceAttribute(string attr_name, Attribute attr);
   private:
     vector<Attribute> attributes;
     vector<Type> types;
 };
+
+int Tuple::replaceAttribute(string attr_name, Attribute attr) {
+
+  for(int i=0; i<attributes.size(); i++) {
+    if(attributes[i].get_name() == attr_name) {
+        attributes[i] = attr;
+    }
+  }
+}
 
 vector<Attribute> Tuple::get_attributes() {
   return attributes;
@@ -222,16 +232,16 @@ class Table {
     vector<Attribute> getColumn(string attr_name);
 
     // returns 0 if the attribute is successfully changed, 1 for failure
-    int replaceAttribute(Attribute old_attr, Attribute new_attr);
+    int replaceAttribute(string attr_name, Attribute attr, int tuple);
 
-  private:
+    private:
     string name;
     vector<Tuple> tuples;
     vector<Type> types;
 };
 
-int Table::replaceAttribute(Attribute old_attr, Attribute new_attr) {
-  return 0;
+int Table::replaceAttribute(string attr_name, Attribute attr, int tuple) {
+  tuples[tuple].replaceAttribute(attr_name, attr);
 }
 
 vector<Attribute> Table::getColumn(string attr_name) {
