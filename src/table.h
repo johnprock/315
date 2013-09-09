@@ -73,12 +73,18 @@ class Attribute {
     bool operator==(Attribute);
     void show(); // used to display contents of database and debugging
     Type get_type();
+    string get_name();
   private:
     int intVal;
     int length;
     string stringVal;
     Type type;
+    string name;
 };
+
+string Attribute::get_name() {
+  return name;
+}
 
 Type Attribute::get_type() {
   return type;
@@ -124,11 +130,16 @@ class Tuple {
     bool operator==(Tuple);
     void show(); 
     vector<Type> get_types();
+    vector<Attribute> get_attributes();
     int getSize();
   private:
     vector<Attribute> attributes;
     vector<Type> types;
 };
+
+vector<Attribute> Tuple::get_attributes() {
+  return attributes;
+}
 
 Tuple::Tuple(vector<Type> _types) {
   types = _types;
@@ -205,11 +216,32 @@ class Table {
 
     void show();
 
+    //Returns the column corresponding to that attribute name in the table
+    vector<Attribute> getColumn(string attr_name);
+
   private:
     string name;
     vector<Tuple> tuples;
     vector<Type> types;
 };
+
+vector<Attribute> Table::getColumn(string attr_name) {
+  vector<Attribute> col;
+
+  // iterate down rows
+  for(int i=0; i<tuples.size(); i++) {
+    Tuple tup = tuples[i];
+    vector<Attribute> attrs = tup.get_attributes();
+    
+    // iterate across columns
+    for(int j=0; j<attrs.size(); j++) {
+      if(attrs[j].get_name() == attr_name) {
+        col.push_back(attrs[j]);
+      }
+    }
+  }
+  return col;
+}
 
 void Table::show() {
   cout << "Table: " << name << "\n\n";
