@@ -44,6 +44,43 @@ int main() {
   type_vector.push_back(Type(2, true));
   db.createTable("test_table", type_vector);
   db.Show(db.tables[0]);
+  
+  //testing union function
+  Attribute attr3 = Attribute(4, true);
+  Attribute attr4 = Attribute("BOLG", true);
+  
+  vector<Attribute> attrs3;
+  attrs3.push_back(attr3);
+  attrs3.push_back(attr4);
+
+  vector<Attribute> attrs4;
+  attrs4.push_back(attr4);
+  attrs4.push_back(attr3);
+  
+  Tuple tuple3 = Tuple(attrs3);
+  Tuple tuple4 = Tuple(attrs4);
+  
+  vector<Tuple> tuples2;
+  tuples2.push_back(tuple3);
+  tuples2.push_back(tuple4);
+  
+  Table table2 = Table("test_table2", tuples2);
+  table2.show();
+  
+  Table table3 = table + table2; 
+  table3.show();
+  
+  //testing insert
+  vector<Attribute> attrs5;
+  attrs5.push_back(attr1);
+  attrs5.push_back(attr4);
+  Tuple tuple5 = Tuple(attrs5);
+  table3.insert(tuple5);
+  table3.show();
+  
+  //table3 = table3 - table2; //<---this causes std::bad_alloc to be thrown. dont know why yet.
+  //table3.show();
+  
 
   return 0;
 }

@@ -124,6 +124,7 @@ class Tuple {
     bool operator==(Tuple);
     void show(); 
     vector<Type> get_types();
+    int getSize();
   private:
     vector<Attribute> attributes;
     vector<Type> types;
@@ -138,6 +139,10 @@ Tuple::Tuple(vector<Attribute> _attributes) {
   for(int i=0; i<attributes.size(); i++) {
     types.push_back(attributes[i].get_type());
   }
+}
+
+int Tuple::getSize(){
+  return attributes.size();
 }
 
 vector<Type> Tuple::get_types() {
@@ -239,15 +244,12 @@ for(std::vector<Tuple>::iterator it = tuples.begin(); it != tuples.end(); ++it) 
 Table Table::operator+(Table table){
   //check for union-compatibility first
   if(tuples.size() == table.tuples.size()){
-    int i = 0;
-    while(i < types.size()){
-      if(types[i] == table.types[i]){           //if table1 and table2 are not equal
+    for(int i = 0; i < types.size(); i++){
+      if(!(types[i] == table.types[i])){           //if table1 and table2 are not equal
         std::cout<<"The tables are not union compatible\n";
-	break;
+        break;
       }
     }
-  }
-  else{
     Table temp = Table(table.types);
     for (int i = 0; i < tuples.size(); i++){
       temp.insert(tuples[i]);
@@ -257,29 +259,37 @@ Table Table::operator+(Table table){
     }
     return temp;
   }
+  else{
+    std::cout<<"The tables are not union compatible\n";
+  }
+  return table;         //WATCH OUT FOR THIS. returns the rhs table if they are not-union compatible
 }
 
 //returns the difference between two Tables
 Table Table::operator-(Table table){
   //check for union-compatibility first
-  if(tuples.size() == table.tuples.size()){
-    int i = 0;
-    while(i < types.size()){
-      if(types[i] == table.types[i]){           //if table1 and table2 are not equal
+  if(tuples[0].getSize() == table.tuples[0].getSize()){
+    for(int i = 0; i < types.size(); i++){
+      if(!(types[i] == table.types[i])){           //if table1 and table2 are not equal
         std::cout<<"The tables are not union compatible\n";
-	break;
+        break;
       }
     }
-  }
-  else{
-    Table temp = Table(table);    //make a copy of the left-hand-side table using DEFAULT copy constructor.
+    Table temp = Table(tuples[0].get_types());    //make a copy of the left-hand-side table using DEFAULT copy constructor.
+    for(int i = 0; i < tuples.size(); i++) temp.insert(tuples[i]);
     for (int i = 0; i < temp.tuples.size(); i++){
+      std::cout<<'i'<<i;
       for(int j = 0; j < tuples.size(); j++){
+        std::cout<<'j'<<j<<'\n';
         if (temp.tuples[j] == table.tuples[i]) temp.remove(tuples[i]);
       }
     }
     return temp;
   }
+  else{
+    std::cout<<"The tables are not union compatible\n";
+  }
+  return table;         //WATCH OUT FOR THIS. returns the rhs table if they are not-union compatible
 }
 
 //Returns a table that is the cartesian product of two tables
