@@ -90,11 +90,12 @@ void DbEngine::Show(Table table) {
 }
 
 // set attributes in column attr_name to attr if they pass the test function f
+// only updates one attribute at a time
 void DbEngine::Update(Table table, string attr_name, Attribute attr, bool (*f)(Attribute)) {
   vector<Attribute> attrs = table.getColumn(attr_name);
   for(int i=0; i<attrs.size(); i++) {
     if((*f)(attrs[i]) == true) { // then we update
-      ;
+      table.replaceAttribute(attr_name, attr, i);
     }
   }
 }
