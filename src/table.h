@@ -200,6 +200,9 @@ class Table {
     //Returns Table name
     string getname();
 
+    //Returns the Tuples vector
+    vector<Tuple> gettuples();
+
     void show();
 
   private:
@@ -246,6 +249,11 @@ void Table::remove(Tuple _tuple){
 //Returns the name of the Table
 string Table::getname(){
       return name;
+}
+
+//Returns the tuples vector
+vector<Tuple> Table::gettuples(){
+	return tuples;
 }
 
 //Returns a Table that is the union of two Tables

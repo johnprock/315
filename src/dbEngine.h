@@ -112,7 +112,19 @@ void DbEngine::Delete(Table table) {
 }
 
 void DbEngine::Delete(Table table, Tuple tuple) {
-
+    vector<Tuple> tuples = table.gettuples();
+    for(int i = 0; i < tables.size(); i++){
+	if(tables[i].getname() == table.getname()){
+		for(int j = 0; j < tuples.size(); j++){
+			if(tuples[j] == tuple)
+				tuples.erase(tuples.begin()+j);
+			else
+				j++;
+		}
+	}
+	else
+		i++;
+    }
 }
 
 Table DbEngine::Select(Table table, string attr_name, bool (*f)(Attribute)) {
