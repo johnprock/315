@@ -153,7 +153,7 @@ bool Tuple::operator==(Tuple tuple){
   //check size first
   if(attributes.size() == tuple.attributes.size()){
     for(int i = 0; i < attributes.size(); i++){
-      if(attributes[i] == tuple.attributes[i]) return false;
+      if(!(attributes[i] == tuple.attributes[i])) return false;
     }
     return true;
   }
@@ -235,8 +235,8 @@ void Table::insert(Tuple new_tuple){
 
 //Deletes a Tuple in a Table
 void Table::remove(Tuple _tuple){
-for(std::vector<Tuple>::iterator it = tuples.begin(); it != tuples.end(); ++it) {
- 
+  for(std::vector<Tuple>::iterator it = tuples.begin(); it != tuples.end(); ++it) {
+    if(*it == _tuple) tuples.erase(it);
   }
 }
 
@@ -281,7 +281,9 @@ Table Table::operator-(Table table){
       std::cout<<'i'<<i;
       for(int j = 0; j < tuples.size(); j++){
         std::cout<<'j'<<j<<'\n';
-        if (temp.tuples[j] == table.tuples[i]) temp.remove(tuples[i]);
+        if (temp.tuples[j] == table.tuples[i]){
+           temp.remove(tuples[j]);
+         }
       }
     }
     return temp;
