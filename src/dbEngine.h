@@ -94,7 +94,13 @@ void DbEngine::Update(Table table, Tuple row, Attribute column) {
 }
 
 void DbEngine::Insert(Table table, Tuple tuple) {
-
+    string table_name = table.getname();
+    for(int i = 0; i < tables.size(); i++){
+        if(tables[i].getname() == table_name)
+	    table.insert(tuple);
+	else
+	    i++;
+	}
 }
 
 void DbEngine::Delete(Table table) {
