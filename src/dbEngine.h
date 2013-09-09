@@ -94,9 +94,8 @@ void DbEngine::Update(Table table, Tuple row, Attribute column) {
 }
 
 void DbEngine::Insert(Table table, Tuple tuple) {
-    string table_name = table.getname();
     for(int i = 0; i < tables.size(); i++){
-        if(tables[i].getname() == table_name)
+        if(tables[i].getname() == table.getname())
 	    table.insert(tuple);
 	else
 	    i++;
@@ -104,7 +103,12 @@ void DbEngine::Insert(Table table, Tuple tuple) {
 }
 
 void DbEngine::Delete(Table table) {
-
+    for(int i = 0; i < tables.size(); i++){
+	if(tables[i].getname() == table.getname())
+		tables.erase(tables.begin()+i);
+	else
+		i++;
+    }
 }
 
 void DbEngine::Delete(Table table, Tuple tuple) {
