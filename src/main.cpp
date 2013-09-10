@@ -71,6 +71,7 @@ int main() {
   Table table2 = Table("test_table2", tuples2);
   table2.show();
   
+  //testing union
   Table table3 = table + table2; 
   table3.show();
   
@@ -81,9 +82,6 @@ int main() {
   Tuple tuple5 = Tuple(attrs5);
   table3.insert(tuple5);
   table3.show();
-  
-  //table3 = table3 - table2; //<---this causes std::bad_alloc to be thrown. dont know why yet.
-  //table3.show();
 
   // testing select
   cout << "Selecting...";
@@ -102,6 +100,16 @@ int main() {
   cout << "Renaming...";
   db.rename(names, table2);
   cout << " done.\n";  
+  
+  //testing difference product
+  cout<< "inserting tuples into table 2";
+  table.show();
+  table3 = table-table2;
+  table3.show();
+  
+  //testing cartesian product
+  table3 = table*table2;
+  table3.show(); 
 
   return 0;
 }

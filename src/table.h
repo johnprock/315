@@ -346,9 +346,7 @@ Table Table::operator-(Table table){
     Table temp = Table(tuples[0].get_types());    //make a copy of the left-hand-side table using DEFAULT copy constructor.
     for(int i = 0; i < tuples.size(); i++) temp.insert(tuples[i]);
     for (int i = 0; i < temp.tuples.size(); i++){
-      std::cout<<'i'<<i;
       for(int j = 0; j < tuples.size(); j++){
-        std::cout<<'j'<<j<<'\n';
         if (temp.tuples[j] == table.tuples[i]){
            temp.remove(tuples[j]);
          }
@@ -376,8 +374,12 @@ Table Table::operator*(Table table){
 	for(int i = 0; i < tuples.size(); i++){
 		for(int j = 0; j < table.tuples.size(); j++){
 			//create a new tuple
-			for(int k = 0; k < tuples.size(); k++) new_attributes.push_back(tuples[i].attributes[k]);
-			for(int k = 0; k < table.tuples.size(); k++) new_attributes.push_back(table.tuples[j].attributes[k]);
+			for(int k = 0; k < tuples.size(); k++){
+         new_attributes.push_back(tuples[i].attributes[k]);
+       }
+			for(int k = 0; k < table.tuples.size(); k++){
+         new_attributes.push_back(table.tuples[j].attributes[k]);
+       }
 			Tuple new_tuple = Tuple(new_attributes);
 		}
 	}
