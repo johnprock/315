@@ -49,7 +49,7 @@ class DbEngine {
     void Project(Table table, Tuple attributes);
 
     //Replaces the attribute names in the table with new_attribute_names
-    Table Rename(vector<string> new_attr_names, Table table);
+    Table rename(vector<string> new_attr_names, Table table);
 
     //The following overloaded operators probably need to be fixed. Its been a while since I've messed with operator overloading. 
 
@@ -104,8 +104,6 @@ void DbEngine::Insert(Table table, Tuple tuple) {
     for(int i = 0; i < tables.size(); i++){
         if(tables[i].getname() == table.getname())
 	    table.insert(tuple);
-	else
-	    i++;
 	}
 }
 
@@ -113,8 +111,6 @@ void DbEngine::Delete(Table table) {
     for(int i = 0; i < tables.size(); i++){
 	if(tables[i].getname() == table.getname())
 		tables.erase(tables.begin()+i);
-	else
-		i++;
     }
 }
 
@@ -125,12 +121,8 @@ void DbEngine::Delete(Table table, Tuple tuple) {
 		for(int j = 0; j < tuples.size(); j++){
 			if(tuples[j] == tuple)
 				tuples.erase(tuples.begin()+j);
-			else
-				j++;
 		}
 	}
-	else
-		i++;
     }
 }
 
@@ -158,16 +150,17 @@ void DbEngine::Project(Table table, Tuple attributes) {
 }
 
 // changes the name of every attribute
-Table DbEngine::Rename(vector<string> names, Table table) {
+Table DbEngine::rename(vector<string> names, Table table) {
   // iterate down rows
   for(int i=0; i<table.tuples.size(); i++) {
     Tuple tuple = table.tuples[i];
-    // iterate across columns
+     //iterate across columns
     for(int j=0; j<tuple.attributes.size(); j++) {
-        Attribute attr = tuple.attributes[j];
+       Attribute attr = tuple.attributes[j];
         attr.name = names[j];
     }
   }
+  return table;
 }
 
 void DbEngine::Close() {

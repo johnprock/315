@@ -21,13 +21,15 @@ Union
 delete(tuple)
 delete(table)
 insert(tuple)
+select
+rename
+update
 
 The following functions are unfinished:
 insert into
-selection
 projection
-renaming
+
 
 set difference
 cross product
-update
+
