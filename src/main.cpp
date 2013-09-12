@@ -119,7 +119,7 @@ int main() {
   table3.show(); 
 
   cout<<"\n\n\ntokenizer test\n========================\n";
-  string test_string = "OPEN a dude up";
+  string test_string = "OPEN a dude3 up 3 times +!=> %$blah";
   tokenizer T = tokenizer(&test_string);
   for(int i = 0; i < T.tokens.size(); i++) cout<<T.tokens[i]<<'\n';
   return 0;

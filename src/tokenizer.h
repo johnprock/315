@@ -13,6 +13,8 @@ class tokenizer{
   private:
     int position;
     bool match(string * text, int position , string exp);
+    string get_integer(string * text, int position);
+    string get_varchar(string * text, int position);
 };
 
 tokenizer::tokenizer(string * text){
@@ -36,65 +38,191 @@ tokenizer::tokenizer(string * text){
       //DELETE FROM
       //operators: == <- != < > <= >= + - *  ( ) 
       //literals: VARCHAR INTEGER
-  for(int position = 0; position < text->size(); position++){
+      position = 0;
+  while(position < text->size()){
   char c = (*text)[position];
   switch (c){
     case 'O':
       if(match(text, position, "OPEN")){
         tokens.push_back("OPEN");
         position += 4;
+        break;
       }
-      break;
     case 'C':
+      std::cout<<"yelo";
       if(match(text, position, "CLOSE")){
         tokens.push_back("CLOSE");
         position += 5;
+        break;
       }
       if(match(text, position, "CREATE TABLE")){
         tokens.push_back("CREATE TABLE");
         position += 12;
+        break;
       }
-      break;
     case 'W':
-      //WRITE
-      //WHERE
+      if(match(text, position, "WRITE")){
+        tokens.push_back("WRITE");
+        position += 5;
+        break;
+      }
+      if(match(text, position, "WHERE")){
+        tokens.push_back("WHERE");
+        position += 5;
+        break;
+      }
     case 'E':
-      //EXIT
+      if(match(text, position, "EXIT")){
+        tokens.push_back("EXIT");
+        position += 4;
+        break;
+      }
     case 'S':
-      //SHOW
-      //SET
-      //SELECT
+      if(match(text, position, "SHOW")){
+        tokens.push_back("SHOW");
+        position += 4;
+        break;
+      }
+      if(match(text, position, "SET")){
+        tokens.push_back("SET");
+        position += 3;
+        break;
+      }
+      if(match(text, position, "SELECT")){
+        tokens.push_back("SELECT");
+        position += 6;
+        break;
+      }
     case 'P':
-      //PRIMARY KEY
-      //PROJECT
+      if(match(text, position, "PRIMARY KEY")){
+        tokens.push_back("PRIMARY KEY");
+        position += 11;
+        break;
+      }
+      if(match(text, position, "PROJECT")){
+        tokens.push_back("PROJECT");
+        position += 7;
+        break;
+      }
     case 'U':
-      //UPDATE
+      if(match(text, position, "UPDATE")){
+        tokens.push_back("UPDATE");
+        position += 6;
+        break;
+      }
     case 'I':
-      //INSERT INTO
+      if(match(text, position, "INSERT INTO")){
+        tokens.push_back("INSERT INTO");
+        position += 11;
+        break;
+      }
     case 'V':
-      //VALUES FROM
-      //VALUES FROM RELATION
+      //CAUTION: check this case first since it contains the following
+      if(match(text, position, "VALUES FROM RELATION")){
+        tokens.push_back("VALUES FROM RELATION");
+        position += 20;
+        break;
+      }
+      if(match(text, position, "VALUES FROM")){
+        tokens.push_back("VALUES FROM");
+        position += 11;
+        break;
+      }
     case 'R':
-      //RENAME
+      if(match(text, position, "RENAME")){
+        tokens.push_back("RENAME");
+        position += 6;
+        break;
+      }
     case 'D':
-      //DELETE FROM
+      if(match(text, position, "DELETE FROM")){
+        tokens.push_back("DELETE FROM");
+        position += 11;
+        break;
+      }
     case '=':
-      //==
+      tokens.push_back("=");
+      position++;
+      break;
     case '<': 
-    //test
-      //<-
-      //<
-      //<=
+      if(match(text, position, "<-")){
+        tokens.push_back("<-");
+        position += 2;
+        break;
+      }
+      if(match(text, position, "<=")){
+        tokens.push_back("<=");
+        position += 2;
+        break;
+      }
+      else{
+        tokens.push_back("<");
+        position++;
+        break;
+      }
     case '!':
-      //!=
+      if(match(text, position, "!=")){
+        tokens.push_back("!=");
+        position += 2;
+        break;
+      }
     case '>':
-      //>
-      //>=
+      if(match(text, position, ">=")){
+        tokens.push_back(">=");
+        position += 2;
+        break;
+      }
+      else{
+        tokens.push_back(">");
+        position++;
+        break;
+      }
     case '+':
+      tokens.push_back("+");
+      position++;
+      break;
     case '-':
+      tokens.push_back("-");
+      position++;
+      break;
     case '*':
+      tokens.push_back("*");
+      position++;
+      break;
     case '(':
-    case ')':;
+      tokens.push_back("(");
+      position++;
+      break;
+    case ')':
+      tokens.push_back(")");
+      position++;
+      break;
+    case ',':
+      tokens.push_back(",");
+      position++;
+      break;
+    case '"':
+      tokens.push_back("\"");
+      position++;
+      break;
+    case ' ':
+    case '\t':
+    case '\n':
+      position++;
+      break;
+    default:
+      if(c <= '9' && c >= '0'){
+        string temp = get_integer(text, position);
+        tokens.push_back(temp);
+        position += temp.size();
+      }
+      if((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')){
+        string temp = get_varchar(text, position);
+        tokens.push_back(temp);
+        position += temp.size();
+      }
+      //ignore everything else
+      else position++;
   }
 }
 }
@@ -103,4 +231,26 @@ bool tokenizer::match(string * text, int position, string exp){
   string substring = text->substr(position, exp.size());
   if (substring == exp) return true;
   else return false;
+}
+
+string tokenizer::get_integer(string * text, int position){
+  char c = (*text)[position];
+  string integer;
+  while(c <= '9' && c >= '0'){
+    integer.push_back(c);
+    position++;
+    c = (*text)[position];
+  }
+  return integer;
+}
+
+string tokenizer::get_varchar(string * text, int position){
+  char c = (*text)[position];
+  string varchar;
+  while((c <= 'Z' && c >= 'A') || (c <= 'z' && c >= 'a') || (c <= '9' && c >= '0')){
+    varchar.push_back(c);
+    position++;
+    c = (*text)[position];
+  }
+  return varchar;
 }
