@@ -101,16 +101,23 @@ int main() {
   db.rename(names, table2);
   cout << " done.\n";  
   
-  //testing difference product
-  cout<< "inserting tuples into table 2";
+  //testing difference
+  cout<<"table1\n================\n";
+  table2.insert(tuple1);
+  table2.insert(tuple1);
+  table2.insert(tuple5);
+  table2.show();
+  cout<<"table2\n================\n";
   table.show();
-  table3 = table-table2;
+  cout<<"new table - table 2 is\n\n";
+  table3 = table2-table;
   table3.show();
   
   //testing cartesian product
   table3 = table*table2;
   table3.show(); 
 
+  cin.get();
   return 0;
 }
 

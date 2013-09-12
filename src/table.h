@@ -104,10 +104,17 @@ Attribute::Attribute(string _val, bool prime, string _name) {
 }
 
 bool Attribute::operator==(Attribute attribute){
+  //make sure they are both the same type
+  if(type.isInt() != attribute.type.isInt()) return false;
   if(type.isInt()){
-    if(intVal == attribute.intVal) return true;
+    if(intVal == attribute.intVal){
+	  if(stringVal == attribute.stringVal)return true;
+	}
+	else return false;
   }
-  else if(stringVal == attribute.stringVal) return true;
+  else if(stringVal == attribute.stringVal){
+	  if(intVal == attribute.intVal) return true;
+  }
   else return false;
 }
   
@@ -147,6 +154,7 @@ int Tuple::replaceAttribute(string attr_name, Attribute attr) {
         attributes[i] = attr;
     }
   }
+  return 0;
 }
 
 vector<Attribute> Tuple::get_attributes() {
@@ -243,6 +251,7 @@ class Table {
 
 int Table::replaceAttribute(string attr_name, Attribute attr, int tuple) {
   tuples[tuple].replaceAttribute(attr_name, attr);
+  return 0;
 }
 
 vector<Attribute> Table::getColumn(string attr_name) {
@@ -294,7 +303,10 @@ void Table::insert(Tuple new_tuple){
 //Deletes a Tuple in a Table
 void Table::remove(Tuple _tuple){
   for(std::vector<Tuple>::iterator it = tuples.begin(); it != tuples.end(); ++it) {
-    if(*it == _tuple) tuples.erase(it);
+    if(*it == _tuple){
+		tuples.erase(it);
+		it = tuples.begin();
+	}
   }
 }
 
@@ -345,10 +357,11 @@ Table Table::operator-(Table table){
     }
     Table temp = Table(tuples[0].get_types());    //make a copy of the left-hand-side table using DEFAULT copy constructor.
     for(int i = 0; i < tuples.size(); i++) temp.insert(tuples[i]);
-    for (int i = 0; i < temp.tuples.size(); i++){
-      for(int j = 0; j < tuples.size(); j++){
-        if (temp.tuples[j] == table.tuples[i]){
-           temp.remove(tuples[j]);
+
+	for(int j = 0; j < table.tuples.size(); j++){
+      for (int i = 0; i < temp.tuples.size(); i++){
+              if (temp.tuples[i] == table.tuples[j]){
+           temp.remove(tuples[i]);
          }
       }
     }
@@ -369,19 +382,20 @@ Table Table::operator*(Table table){
 	
 	//create the new table to be returned
 	Table temp = Table(new_types);
-	//new attribute vector for new tuple
-	vector<Attribute> new_attributes;
 	for(int i = 0; i < tuples.size(); i++){
 		for(int j = 0; j < table.tuples.size(); j++){
-			//create a new tuple
-			for(int k = 0; k < tuples.size(); k++){
-         new_attributes.push_back(tuples[i].attributes[k]);
-       }
-			for(int k = 0; k < table.tuples.size(); k++){
-         new_attributes.push_back(table.tuples[j].attributes[k]);
-       }
+			//new attribute vector for new tuple
+			vector<Attribute> new_attributes;
+			for(int k = 0; k < tuples[i].attributes.size(); k++){
+				new_attributes.push_back(tuples[i].attributes[k]);
+			}
+			for(int k = 0; k < table.tuples[j].attributes.size(); k++){
+				new_attributes.push_back(table.tuples[j].attributes[k]);
+			}
 			Tuple new_tuple = Tuple(new_attributes);
+			temp.tuples.push_back(new_tuple);
 		}
 	}
+	//TODO: remove duplicates.
 	return temp;
 }
