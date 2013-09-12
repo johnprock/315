@@ -80,7 +80,8 @@ tokenizer::tokenizer(string * text){
       //DELETE FROM
     case '=':
       //==
-    case '<':
+    case '<': 
+    //test
       //<-
       //<
       //<=
