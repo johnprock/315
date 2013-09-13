@@ -119,8 +119,11 @@ int main() {
   table3.show(); 
 
   cout<<"\n\n\ntokenizer test\n========================\n";
-  string test_string = "OPEN a dude3 up 3 times +!=> %$blah";
-  tokenizer T = tokenizer(&test_string);
+  string test_string1 = "INSERT INTO animals VALUES FROM (\"Joe\", \"cat\", 4);";
+  string test_string2 = "CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);";
+  string test_string3 = "common_names <- project (name) (select (aname == name && akind != kind) (a * animals));";
+
+  tokenizer T = tokenizer(&test_string3);
   for(int i = 0; i < T.tokens.size(); i++) cout<<T.tokens[i]<<'\n';
   return 0;
 }

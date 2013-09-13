@@ -49,7 +49,6 @@ tokenizer::tokenizer(string * text){
         break;
       }
     case 'C':
-      std::cout<<"yelo";
       if(match(text, position, "CLOSE")){
         tokens.push_back("CLOSE");
         position += 5;
@@ -203,6 +202,10 @@ tokenizer::tokenizer(string * text){
       break;
     case '"':
       tokens.push_back("\"");
+      position++;
+      break;
+    case ';':
+      tokens.push_back(";");
       position++;
       break;
     case ' ':
