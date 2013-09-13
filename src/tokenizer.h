@@ -1,4 +1,5 @@
 //class tokenizer, tokenizes a string
+#pragma once
 
 #include <string>
 #include <vector>

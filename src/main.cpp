@@ -7,6 +7,7 @@
 #include "dbEngine.h"
 #include <vector>
 #include "tokenizer.h"
+#include "parser.h"
 
 bool f(Attribute a) {
 	return true;
