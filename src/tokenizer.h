@@ -140,9 +140,11 @@ tokenizer::tokenizer(string * text){
         break;
       }
     case '=':
-      tokens.push_back("=");
-      position++;
-      break;
+	  if(match(text, position, "==")){	
+        tokens.push_back("==");
+        position += 2;
+        break;
+	  }
     case '<': 
       if(match(text, position, "<-")){
         tokens.push_back("<-");
@@ -219,7 +221,7 @@ tokenizer::tokenizer(string * text){
         tokens.push_back(temp);
         position += temp.size();
       }
-      if((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')){
+      if((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c == '_')){
         string temp = get_varchar(text, position);
         tokens.push_back(temp);
         position += temp.size();
@@ -250,7 +252,7 @@ string tokenizer::get_integer(string * text, int position){
 string tokenizer::get_varchar(string * text, int position){
   char c = (*text)[position];
   string varchar;
-  while((c <= 'Z' && c >= 'A') || (c <= 'z' && c >= 'a') || (c <= '9' && c >= '0')){
+  while((c <= 'Z' && c >= 'A') || (c <= 'z' && c >= 'a') || (c <= '9' && c >= '0') || (c == '_')){
     varchar.push_back(c);
     position++;
     c = (*text)[position];
