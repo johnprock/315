@@ -1,4 +1,4 @@
-//class tokenizer, tokenizes a string
+//class Tokenizer, tokenizes a string
 #pragma once
 
 #include <string>
@@ -6,10 +6,11 @@
 
 using namespace std;
 
-class tokenizer{
+class Tokenizer{
   public:
-    //constructor actually does the tokenizer
-    tokenizer(string * text);
+    //constructor actually does the Tokenizer
+    Tokenizer(string * text);
+    Tokenizer();
     vector<string> tokens;
   private:
     int position;
@@ -18,7 +19,9 @@ class tokenizer{
     string get_varchar(string * text, int position);
 };
 
-tokenizer::tokenizer(string * text){
+Tokenizer::Tokenizer(){}
+
+Tokenizer::Tokenizer(string * text){
     //all possible tokens
       //OPEN
       //CLOSE
@@ -233,13 +236,13 @@ tokenizer::tokenizer(string * text){
 }
 }
 
-bool tokenizer::match(string * text, int position, string exp){
+bool Tokenizer::match(string * text, int position, string exp){
   string substring = text->substr(position, exp.size());
   if (substring == exp) return true;
   else return false;
 }
 
-string tokenizer::get_integer(string * text, int position){
+string Tokenizer::get_integer(string * text, int position){
   char c = (*text)[position];
   string integer;
   while(c <= '9' && c >= '0'){
@@ -250,7 +253,7 @@ string tokenizer::get_integer(string * text, int position){
   return integer;
 }
 
-string tokenizer::get_varchar(string * text, int position){
+string Tokenizer::get_varchar(string * text, int position){
   char c = (*text)[position];
   string varchar;
   while((c <= 'Z' && c >= 'A') || (c <= 'z' && c >= 'a') || (c <= '9' && c >= '0') || (c == '_')){

@@ -6,12 +6,17 @@
 #include "tokenizer.h"
 using namespace std;
 
-class parser {
+class Parser {
   public:
+    Parser(string text);
+
   	// main parsing function
     bool parse();
   
   private:
+    Tokenizer tokenizer;
+    string command;
+
   	// parsing helper functions, called by parse()
   	// query parsing functions
   	bool parse_query();
@@ -72,3 +77,8 @@ class parser {
     bool parse_typed_attribute_list();
 
 };
+
+Parser::Parser(string _command) {
+	command = _command;
+	tokenizer = Tokenizer(&command); 
+}
