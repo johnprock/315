@@ -12,6 +12,8 @@ class Parser {
     Parser(string text);
 
   	// main parsing function
+  	// some parsing functions return a bool to indicate a sucessfull parse
+  	// others return data that is the result of the parse
     bool parse();
   
   private:
@@ -19,11 +21,15 @@ class Parser {
     string command;
     DbEngine db;
 
+    vector<Attribute> attrs;
+    vector<Attribute> primes;
+    vector<Type> types;
+
   	// parsing helper functions, called by parse()
   	// query parsing functions
   	bool parse_query();
 
-    bool parse_relation();
+    string parse_relation();
 
     bool parse_identifier();
 
@@ -99,7 +105,8 @@ bool Parser::parse() {
 //-----------------//
 bool Parser::parse_query() {
 	tokenizer.checkpoint();
-	bool ret = parse_relation()                  && 
+	string name;
+	bool ret = (name = parse_relation()) != ""   && 
 	           tokenizer.consume_token("<-")     && 
 	           parse_expr()                      &&
 	           tokenizer.consume_token(";")      ;
@@ -113,8 +120,12 @@ bool Parser::parse_query() {
     return ret;
 }
 
-bool Parser::parse_relation() {
-	return isid(tokenizer.get_token());
+string Parser::parse_relation() {
+	if (isid(tokenizer.get_token())) {
+	  tokenizer.index++;
+	  return tokenizer.get_token();
+	}
+	else return "";
 }
 
 bool Parser::parse_expr() {
@@ -192,18 +203,21 @@ bool Parser::parse_show() {
 
 bool Parser::parse_create() {
 	tokenizer.checkpoint();
+
 	string name = "";
-	vector<Type> types;
-	bool ret =  tokenizer.consume_token("CREATE TABLE") &&
-	            parse_relation()                        &&
-	            tokenizer.consume_token("(")            &&
-	            parse_typed_attribute_list()            &&
-	            tokenizer.consume_token(")")            &&
-                tokenizer.consume_token("PRIMATY_KEY")  &&
-                tokenizer.consume_token("(")            &&
-                parse_attribute_list()                  &&
-                tokenizer.consume_token(")")            ;
+
+
+	bool ret =  tokenizer.consume_token("CREATE TABLE")                       &&
+	            (name = parse_relation()) != ""                               &&
+	            tokenizer.consume_token("(")                                  &&
+	            parse_typed_attribute_list()                                  &&
+	            tokenizer.consume_token(")")                                  &&
+              tokenizer.consume_token("PRIMATY_KEY")                        &&
+              tokenizer.consume_token("(")                                  &&
+	            parse_attribute_list()                                        &&
+              tokenizer.consume_token(")")                                  ;
 	if(ret){
+	  //execute db engine calls
 	  db.createTable(name, types);	
 	}
 	else {
@@ -234,8 +248,13 @@ bool Parser::parse_attribute_list() {
 	bool ret = parse_attribute_name();
 	while(tokenizer.consume_token(",") && parse_attribute_name()) // consume list
 		;
-	if(!ret) tokenizer.backup();
-	return ret;
+	if(!ret){
+      tokenizer.backup();
+      return true;
+    }
+    else {
+	    return false;
+    }
 }
 
 // may return data representing the contents of the list 
@@ -244,8 +263,14 @@ bool Parser::parse_typed_attribute_list() {
 	bool ret = parse_attribute_name() && parse_type();
 	while(tokenizer.consume_token(",") && parse_attribute_name() && parse_type()) // arbitrary number of name type pairs
 		;
-	if(!ret) tokenizer.backup();
- 	return ret;
+	if(!ret) {
+	  tokenizer.backup();
+	  return true;
+	}
+	else {
+	  return false;
+	}
+ 	
 }
 
 bool Parser::parse_type() {
