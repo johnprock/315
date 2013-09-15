@@ -14,15 +14,26 @@ class Tokenizer{
     vector<string> tokens;
     bool consume_token(string in); //consumes a token if in matches the token
     string get_token();  //returns current token in stream
-    int index;
+    void checkpoint();   //set a chekpoint to back up to 
+    void backup();
+    int index;  //current index in token stream
   private:
     int position;
+    int point;
     bool match(string * text, int position , string exp);
     string get_integer(string * text, int position);
     string get_varchar(string * text, int position);
 };
 
 Tokenizer::Tokenizer(){}
+
+void Tokenizer::checkpoint() {
+  point = index;
+}
+
+void Tokenizer::backup() {
+  index = point;
+}
 
 bool Tokenizer::consume_token(string in) {
   if(index == tokens.size()) {
@@ -65,6 +76,7 @@ Tokenizer::Tokenizer(string * text){
       //literals: VARCHAR INTEGER
       position = 0;
       index = 0;
+      point = 0;
   while(position < text->size()){
   char c = (*text)[position];
   switch (c){

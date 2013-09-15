@@ -183,6 +183,7 @@ bool Parser::parse_show() {
 }
 
 bool Parser::parse_create() {
+	tokenizer.checkpoint();
 	bool ret =  tokenizer.consume_token("CREATE TABLE") &&
 	            parse_relation()                        &&
 	            tokenizer.consume_token("(")            &&
