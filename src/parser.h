@@ -4,6 +4,7 @@
 #pragma once
 
 #include "tokenizer.h"
+#include "dbEngine.h"
 using namespace std;
 
 class Parser {
@@ -16,6 +17,7 @@ class Parser {
   private:
     Tokenizer tokenizer;
     string command;
+    DbEngine db;
 
   	// parsing helper functions, called by parse()
   	// query parsing functions

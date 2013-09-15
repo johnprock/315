@@ -1,6 +1,7 @@
 // Patrick Rock
 // 9/5/2013
 // Database Engine Header
+#pragma once
 
 #include "table.h"
 #include <vector>
