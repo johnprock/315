@@ -76,6 +76,8 @@ class Parser {
 
     bool parse_typed_attribute_list();
 
+    bool isid(string id); //helper function tests for valid identifier names, needs implementation currently returns true
+
 };
 
 //constructor
@@ -104,7 +106,7 @@ bool Parser::parse_query() {
 }
 
 bool Parser::parse_relation() {
-	return true;
+	return isid(tokenizer.consume_token());
 }
 
 bool Parser::parse_expr() {
@@ -213,5 +215,12 @@ bool Parser::parse_attribute_list() {
 }
 
 bool Parser::parse_typed_attribute_list() {
+	return true;
+}
+
+//--------------------//
+//--HELPER FUNCTIONS--//
+//--------------------//
+bool Parser::isid(string id){
 	return true;
 }
