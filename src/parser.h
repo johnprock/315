@@ -210,12 +210,18 @@ bool Parser::parse_delete() {
 	return true;
 }
 
+bool Parser::parse_attribute_name() {
+	return isid(tokenizer.consume_token());
+}
+
+
 bool Parser::parse_attribute_list() {
 	return true;
 }
 
 bool Parser::parse_typed_attribute_list() {
-	return true;
+	bool ret = true;
+	return ret;
 }
 
 //--------------------//
