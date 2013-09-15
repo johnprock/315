@@ -76,6 +76,8 @@ class Parser {
 
     bool parse_typed_attribute_list();
 
+    bool parse_type();
+
     bool isid(string id); //helper function tests for valid identifier names, needs implementation currently returns true
 
 };
@@ -224,14 +226,27 @@ bool Parser::parse_attribute_name() {
 
 
 bool Parser::parse_attribute_list() {
-	return true;
-}
-
-bool Parser::parse_typed_attribute_list() {
-	bool ret = true;
+	tokenizer.checkpoint();
+	bool ret = parse_attribute_name();
+	while(tokenizer.consume_token(",") && parse_attribute_name()) // consume list
+		;
+	if(!ret) tokenizer.backup();
 	return ret;
 }
 
+// may return data representing the contents of the list 
+bool Parser::parse_typed_attribute_list() {
+	tokenizer.checkpoint();
+	bool ret = parse_attribute_name() && parse_type();
+	while(tokenizer.consume_token(",") && parse_attribute_name() && parse_type()) // arbitrary number of name type pairs
+		;
+	if(!ret) tokenizer.backup();
+ 	return ret;
+}
+
+bool Parser::parse_type() {
+	return true;
+}
 //--------------------//
 //--HELPER FUNCTIONS--//
 //--------------------//
