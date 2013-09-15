@@ -95,9 +95,9 @@ bool Parser::parse() {
 //-----------------//
 bool Parser::parse_query() {
 	bool ret = parse_relation()                  && 
-	           tokenizer.consume_token() == "<-" && 
+	           tokenizer.consume_token("<-")     && 
 	           parse_expr()                      &&
-	           tokenizer.consume_token() == ";"  ;
+	           tokenizer.consume_token(";")      ;
 	// execute query code
 	if(ret) {
 		;
@@ -106,7 +106,7 @@ bool Parser::parse_query() {
 }
 
 bool Parser::parse_relation() {
-	return isid(tokenizer.consume_token());
+	return isid(tokenizer.get_token());
 }
 
 bool Parser::parse_expr() {
@@ -183,15 +183,15 @@ bool Parser::parse_show() {
 }
 
 bool Parser::parse_create() {
-	bool ret =  tokenizer.consume_token() == "CREATE TABLE" &&
-	            parse_relation()                            &&
-	            tokenizer.consume_token() == "("            &&
-	            parse_typed_attribute_list()                &&
-	            tokenizer.consume_token() == ")"            &&
-                tokenizer.consume_token() == "PRIMARY KEY"  &&
-                tokenizer.consume_token() == "("            &&
-                parse_attribute_list()                      &&
-                tokenizer.consume_token() == ")"            ;
+	bool ret =  tokenizer.consume_token("CREATE TABLE") &&
+	            parse_relation()                        &&
+	            tokenizer.consume_token("(")            &&
+	            parse_typed_attribute_list()            &&
+	            tokenizer.consume_token(")")            &&
+                tokenizer.consume_token("PRIMATY_KEY")  &&
+                tokenizer.consume_token("(")            &&
+                parse_attribute_list()                  &&
+                tokenizer.consume_token(")")            ;
 	if(ret){
 	  ;	
 	}
@@ -211,7 +211,7 @@ bool Parser::parse_delete() {
 }
 
 bool Parser::parse_attribute_name() {
-	return isid(tokenizer.consume_token());
+	return isid(tokenizer.get_token());
 }
 
 

@@ -12,7 +12,8 @@ class Tokenizer{
     Tokenizer(string * text);
     Tokenizer();
     vector<string> tokens;
-    string consume_token(); //returns the token at the current index and increments the index
+    bool consume_token(string in); //consumes a token if in matches the token
+    string get_token();  //returns current token in stream
     int index;
   private:
     int position;
@@ -23,14 +24,22 @@ class Tokenizer{
 
 Tokenizer::Tokenizer(){}
 
-string Tokenizer::consume_token() {
-  if(index = tokens.size()) {
-    return "END OF STREAM";
+bool Tokenizer::consume_token(string in) {
+  if(index == tokens.size()) {
+    return false;
   }
-  else {
+  if(in == tokens[index]) {
     index++;
-    return tokens[index];
+    return true;
   }
+  return false;
+}
+
+string Tokenizer::get_token() {
+  if(index == tokens.size()) {
+    return "";
+  }
+  return tokens[index];
 }
 
 Tokenizer::Tokenizer(string * text){
