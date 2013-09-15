@@ -119,6 +119,7 @@ int main() {
   table3 = table*table2;
   table3.show(); 
 
+  //testing tokenizer
   cout<<"\n\n\nTokenizer test\n========================\n";
   string test_string1 = "INSERT INTO animals VALUES FROM (\"Joe\", \"cat\", 4);";
   string test_string2 = "CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);";
@@ -127,6 +128,9 @@ int main() {
   Tokenizer T = Tokenizer(&test_string3);
   for(int i = 0; i < T.tokens.size(); i++) cout<<T.tokens[i]<<'\n';
   return 0;
+
+  //testing parser
+  Parser parser = Parser("INSERT INTO animals VALUES FROM (\"Joe\", \"cat\", 4);");
 }
 
 

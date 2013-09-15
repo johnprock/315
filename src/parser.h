@@ -82,3 +82,7 @@ Parser::Parser(string _command) {
 	command = _command;
 	tokenizer = Tokenizer(&command); 
 }
+
+bool Parser::parse() {
+	return parse_command() || parse_query();
+}
