@@ -12,6 +12,8 @@ class Tokenizer{
     Tokenizer(string * text);
     Tokenizer();
     vector<string> tokens;
+    string consume_token(); //returns the token at the current index and increments the index
+    int index;
   private:
     int position;
     bool match(string * text, int position , string exp);
@@ -20,6 +22,16 @@ class Tokenizer{
 };
 
 Tokenizer::Tokenizer(){}
+
+string Tokenizer::consume_token() {
+  if(index = tokens.size()) {
+    return "END OF STREAM";
+  }
+  else {
+    index++;
+    return tokens[index];
+  }
+}
 
 Tokenizer::Tokenizer(string * text){
     //all possible tokens
@@ -43,6 +55,7 @@ Tokenizer::Tokenizer(string * text){
       //operators: == <- != < > <= >= + - *  ( ) 
       //literals: VARCHAR INTEGER
       position = 0;
+      index = 0;
   while(position < text->size()){
   char c = (*text)[position];
   switch (c){

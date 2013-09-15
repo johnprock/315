@@ -16,7 +16,6 @@ class Parser {
   private:
     Tokenizer tokenizer;
     string command;
-    int i; //stores position in token stream
 
   	// parsing helper functions, called by parse()
   	// query parsing functions
@@ -79,6 +78,7 @@ class Parser {
 
 };
 
+//constructor
 Parser::Parser(string _command) {
 	command = _command;
 	tokenizer = Tokenizer(&command); 
@@ -88,9 +88,14 @@ bool Parser::parse() {
 	return parse_command() || parse_query();
 }
 
-//query parsing functions
+//-----------------//
+//--QUERY PARSING--//
+//-----------------//
 bool Parser::parse_query() {
-	bool ret = parse_relation() && tokenizer.tokens[i] == "<-" && parse_expr();
+	bool ret = parse_relation()                  && 
+	           tokenizer.consume_token() == "<-" && 
+	           parse_expr()                      &&
+	           tokenizer.consume_token() == ";"  ;
 	// execute query code
 	if(ret) {
 		;
@@ -140,7 +145,9 @@ bool Parser::parse_product() {
 	return true;
 }
 
-//command parsing funtions
+//-------------------//
+//--COMMAND PARSING--//
+//-------------------//
 bool Parser::parse_command() {
 	return parse_open()   || 
 	       parse_close()  || 
@@ -174,7 +181,19 @@ bool Parser::parse_show() {
 }
 
 bool Parser::parse_create() {
-	return true;
+	bool ret =  tokenizer.consume_token() == "CREATE TABLE" &&
+	            parse_relation()                            &&
+	            tokenizer.consume_token() == "("            &&
+	            parse_typed_attribute_list()                &&
+	            tokenizer.consume_token() == ")"            &&
+                tokenizer.consume_token() == "PRIMARY KEY"  &&
+                tokenizer.consume_token() == "("            &&
+                parse_attribute_list()                      &&
+                tokenizer.consume_token() == ")"            ;
+	if(ret){
+	  ;	
+	}
+	return ret;
 }
 
 bool Parser::parse_update() {
@@ -182,10 +201,17 @@ bool Parser::parse_update() {
 }
 
 bool Parser::parse_insert() {
-	return true;
+    return true;
 }
 
 bool Parser::parse_delete() {
 	return true;
 }
 
+bool Parser::parse_attribute_list() {
+	return true;
+}
+
+bool Parser::parse_typed_attribute_list() {
+	return true;
+}
