@@ -86,3 +86,11 @@ Parser::Parser(string _command) {
 bool Parser::parse() {
 	return parse_command() || parse_query();
 }
+
+bool Parser::parse_command() {
+	return true;
+}
+
+bool Parser::parse_query() {
+	return true;
+}
