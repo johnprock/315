@@ -192,6 +192,8 @@ bool Parser::parse_show() {
 
 bool Parser::parse_create() {
 	tokenizer.checkpoint();
+	string name = "";
+	vector<Type> types;
 	bool ret =  tokenizer.consume_token("CREATE TABLE") &&
 	            parse_relation()                        &&
 	            tokenizer.consume_token("(")            &&
@@ -202,7 +204,7 @@ bool Parser::parse_create() {
                 parse_attribute_list()                  &&
                 tokenizer.consume_token(")")            ;
 	if(ret){
-	  ;	
+	  db.createTable(name, types);	
 	}
 	else {
 		tokenizer.backup();
