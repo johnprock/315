@@ -130,6 +130,7 @@ int main() {
   return 0;
 
   //testing parser
+  cout<<"\n\n\nParser test\n========================\n";
   Parser parser = Parser("INSERT INTO animals VALUES FROM (\"Joe\", \"cat\", 4);");
 }
 

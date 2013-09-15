@@ -92,5 +92,50 @@ bool Parser::parse_command() {
 }
 
 bool Parser::parse_query() {
+	return parse_open()   || 
+	       parse_close()  || 
+	       parse_write()  ||
+	       parse_exit()   || 
+	       parse_show()   || 
+	       parse_create() || 
+	       parse_update() ||
+	       parse_insert() || 
+	       parse_delete() ;
+}
+
+bool Parser::parse_open() {
 	return true;
 }
+
+bool Parser::parse_close() {
+	return true;
+}
+
+bool Parser::parse_write() {
+	return true;
+}
+
+bool Parser::parse_exit() {
+	return true;
+}
+
+bool Parser::parse_show() {
+	return true;
+}
+
+bool Parser::parse_create() {
+	return true;
+}
+
+bool Parser::parse_update() {
+	return true;
+}
+
+bool Parser::parse_insert() {
+	return true;
+}
+
+bool Parser::parse_delete() {
+	return true;
+}
+
