@@ -94,6 +94,7 @@ bool Parser::parse() {
 //--QUERY PARSING--//
 //-----------------//
 bool Parser::parse_query() {
+	tokenizer.checkpoint();
 	bool ret = parse_relation()                  && 
 	           tokenizer.consume_token("<-")     && 
 	           parse_expr()                      &&
@@ -101,6 +102,9 @@ bool Parser::parse_query() {
 	// execute query code
 	if(ret) {
 		;
+	}
+	else {
+		tokenizer.backup();
 	}
     return ret;
 }
@@ -195,6 +199,9 @@ bool Parser::parse_create() {
                 tokenizer.consume_token(")")            ;
 	if(ret){
 	  ;	
+	}
+	else {
+		tokenizer.backup();
 	}
 	return ret;
 }
