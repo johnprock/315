@@ -92,6 +92,9 @@ bool Parser::parse() {
 bool Parser::parse_query() {
 	bool ret = parse_relation() && tokenizer.tokens[i] == "<-" && parse_expr();
 	// execute query code
+	if(ret) {
+		;
+	}
     return ret;
 }
 
