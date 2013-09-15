@@ -16,6 +16,7 @@ class Parser {
   private:
     Tokenizer tokenizer;
     string command;
+    int i; //stores position in token stream
 
   	// parsing helper functions, called by parse()
   	// query parsing functions
@@ -27,7 +28,7 @@ class Parser {
 
     bool parse_expr();
 
-    bool parse_atomic_expr();
+    bool parse_atomic();
 
     bool parse_selection();
 
@@ -87,11 +88,57 @@ bool Parser::parse() {
 	return parse_command() || parse_query();
 }
 
-bool Parser::parse_command() {
+//query parsing functions
+bool Parser::parse_query() {
+	bool ret = parse_relation() && tokenizer.tokens[i] == "<-" && parse_expr();
+	// execute query code
+    return ret;
+}
+
+bool Parser::parse_relation() {
 	return true;
 }
 
-bool Parser::parse_query() {
+bool Parser::parse_expr() {
+	return parse_atomic()      ||
+           parse_selection()   ||
+           parse_projection()  ||
+           parse_renaming()    ||
+           parse_union()       ||
+           parse_difference()  ||
+           parse_product()     ;
+}
+
+bool Parser::parse_atomic() {
+	return true;
+}
+
+bool Parser::parse_selection() {
+	return true;
+}
+
+bool Parser::parse_projection() {
+	return true;
+}
+
+bool Parser::parse_renaming() {
+	return true;
+}
+
+bool Parser::parse_union() {
+	return true;
+}
+
+bool Parser::parse_difference() {
+	return true;
+}
+
+bool Parser::parse_product() {
+	return true;
+}
+
+//command parsing funtions
+bool Parser::parse_command() {
 	return parse_open()   || 
 	       parse_close()  || 
 	       parse_write()  ||
