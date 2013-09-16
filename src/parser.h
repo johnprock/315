@@ -257,6 +257,7 @@ bool Parser::parse_condition() {
 	while (tokenizer.consume_token( "||")) ret = ret && parse_conjunction();
 	if(ret){
 	    //db engine calls and/or other stuff
+	}
 	else{
 	    tokenizer.backup();
 	}
@@ -280,23 +281,62 @@ bool Parser::parse_command() {
 }
 
 bool Parser::parse_open() {
-	return true;
+	tokenizer.checkpoint();
+	string name = "";
+	bool ret = tokenizer.consume_token("OPEN")		&&
+		((name = parse_relation()) != "");
+	if(ret){
+		//do some stuff
+	}
+	else tokenizer.backup();
+	return ret;
 }
 
 bool Parser::parse_close() {
-	return true;
+	tokenizer.checkpoint();
+	string name = "";
+	bool ret = tokenizer.consume_token("CLOSE")		&&
+		((name = parse_relation()) != "");
+	if(ret){
+		//do some stuff
+	}
+	else tokenizer.backup();
+	return ret;
 }
 
 bool Parser::parse_write() {
-	return true;
+	tokenizer.checkpoint();
+	string name = "";
+	bool ret = tokenizer.consume_token("WRITE")		&&
+		((name = parse_relation()) != "");
+	if(ret){
+		//do some stuff
+	}
+	else tokenizer.backup();
+	return ret;
 }
 
 bool Parser::parse_exit() {
-	return true;
+	tokenizer.checkpoint();
+	string name = "";
+	bool ret = tokenizer.consume_token("EXIT");
+	if(ret){
+		//do some stuff
+	}
+	else tokenizer.backup();
+	return ret;
 }
 
 bool Parser::parse_show() {
-	return true;
+	tokenizer.checkpoint();
+	string name = "";
+	bool ret = tokenizer.consume_token("SHOW")		&&
+		parse_atomic();
+	if(ret){
+		//do some stuff
+	}
+	else tokenizer.backup();
+	return ret;
 }
 
 bool Parser::parse_create() {
@@ -325,7 +365,28 @@ bool Parser::parse_create() {
 }
 
 bool Parser::parse_update() {
-	return true;
+	tokenizer.checkpoint();
+	string name = "";		//i used this variable for the attribute names too.
+	//this will be changed when we have decied upon a good way of handling 
+	//return values.
+	bool ret = tokenizer.consume_token("UPDATE")		&&
+		((name = parse_relation()) != "")				&&
+		tokenizer.consume_token("SET")					&&
+		//there must be at least one attribute to set
+		(name = parse_attribute_name() != "")			&&
+		tokenizer.consume_token("==")					&&
+		parse_literal();
+		
+		//only parse further if there are more comma sparated attributes to parse
+		while(tokenizer.consume_token(",")) ret = ret	&&
+			(name = parse_attribute_name() != "")		&&
+			tokenizer.consume_token("==")				&&
+			parse_literal();
+	if(ret){
+		//do some stuff
+	}
+	else tokenizer.backup();
+	return ret;
 }
 
 bool Parser::parse_insert() {
