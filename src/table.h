@@ -66,11 +66,13 @@ bool Type::isPrimary() {
 //--ATTRIBUTE CLASS--//
 //-------------------//
 
+// this class may have too many constructors
 class Attribute {
   public:
     inline Attribute(int, bool, string);
     inline Attribute(string, bool, string);
     Attribute(string _name);
+    Attribute(string _name, Type type);
     bool operator==(Attribute);
     void show(); // used to display contents of database and debugging
     Type get_type();
@@ -94,6 +96,10 @@ Type Attribute::get_type() {
 // used in parser to make attribute lists 
 Attribute::Attribute(string _name) {
   name = _name;
+}
+
+Attribute::Attribute(string _name, Type _type) {
+
 }
 
 Attribute::Attribute(int _val, bool prime, string _name) {
