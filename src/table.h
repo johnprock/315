@@ -12,7 +12,7 @@ using namespace std;
 
 
 //--------------//
-//--TYPE CLASS--//
+//--  CLASS--//
 //--------------//
 
 class Type{
@@ -70,6 +70,7 @@ class Attribute {
   public:
     inline Attribute(int, bool, string);
     inline Attribute(string, bool, string);
+    Attribute(string _name);
     bool operator==(Attribute);
     void show(); // used to display contents of database and debugging
     Type get_type();
@@ -88,6 +89,11 @@ string Attribute::get_name() {
 
 Type Attribute::get_type() {
   return type;
+}
+
+// used in parser to make attribute lists 
+Attribute::Attribute(string _name) {
+  name = _name;
 }
 
 Attribute::Attribute(int _val, bool prime, string _name) {

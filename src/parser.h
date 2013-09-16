@@ -253,10 +253,8 @@ bool Parser::parse_attribute_list() {
   return true;
 }
 
-// may return data representing the contents of the list 
+// sets attrs to the value of the attribute list
 bool Parser::parse_typed_attribute_list() {
-	tokenizer.checkpoint();
-
  	return true;
 }
 
