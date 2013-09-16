@@ -85,7 +85,7 @@ class Parser {
 
     bool parse_typed_attribute_list();
 
-    string parse_type();
+    Type parse_type();
 
     bool isid(string id); //helper function tests for valid identifier names, needs implementation currently returns true
 
@@ -268,7 +268,7 @@ bool Parser::parse_typed_attribute_list() {
  	tokenizer.checkpoint();
   bool ret;
   string name;
-  string type;
+  Type type;
   typed_attrs = vector<Attribute>();
 
   name = parse_attribute_name();
@@ -276,8 +276,9 @@ bool Parser::parse_typed_attribute_list() {
 
 }
 
-string Parser::parse_type() {
-	return "";
+Type Parser::parse_type() {
+  Type t = Type();
+  return t;
 }
 //--------------------//
 //--HELPER FUNCTIONS--//
