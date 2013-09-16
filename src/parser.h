@@ -22,6 +22,7 @@ class Parser {
     DbEngine db;
 
     vector<Attribute> attrs;  // holds attribute lists 
+    vector<Attribute> typed_attrs;  // holds typed attribute lists
     vector<Attribute> primes;
     vector<Type> types;
 
@@ -84,7 +85,7 @@ class Parser {
 
     bool parse_typed_attribute_list();
 
-    bool parse_type();
+    string parse_type();
 
     bool isid(string id); //helper function tests for valid identifier names, needs implementation currently returns true
 
@@ -251,7 +252,6 @@ bool Parser::parse_attribute_list() {
   string s;
   attrs = vector<Attribute>(); // initialize empty list
  
-
   s = parse_attribute_name();
   if(s != "") { // attribute name parse succeeded
     ret = true;
@@ -265,11 +265,19 @@ bool Parser::parse_attribute_list() {
 
 // sets attrs to the value of the attribute list
 bool Parser::parse_typed_attribute_list() {
- 	return true;
+ 	tokenizer.checkpoint();
+  bool ret;
+  string name;
+  string type;
+  typed_attrs = vector<Attribute>();
+
+  name = parse_attribute_name();
+  type = parse_type();
+
 }
 
-bool Parser::parse_type() {
-	return true;
+string Parser::parse_type() {
+	return "";
 }
 //--------------------//
 //--HELPER FUNCTIONS--//
