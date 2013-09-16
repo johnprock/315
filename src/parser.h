@@ -252,7 +252,15 @@ bool Parser::parse_product() {
 }
 
 bool Parser::parse_condition() {
-	return true;
+	tokenizer.checkpoint();
+	bool ret = parse_conjunction();
+	while (tokenizer.consume_token( "||")) ret = ret && parse_conjunction();
+	if(ret){
+	    //db engine calls and/or other stuff
+	else{
+	    tokenizer.backup();
+	}
+	return ret;
 }
 
 

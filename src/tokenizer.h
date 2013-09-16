@@ -72,7 +72,7 @@ Tokenizer::Tokenizer(string * text){
       //PROJECT
       //RENAME
       //DELETE FROM
-      //operators: == <- != < > <= >= + - *  ( ) 
+      //operators: == <- != < > <= >= + - *  ( ) && || 
       //literals: VARCHAR INTEGER
       position = 0;
       index = 0;
@@ -248,6 +248,18 @@ Tokenizer::Tokenizer(string * text){
       tokens.push_back(";");
       position++;
       break;
+    case '|':
+      if(match(text, position, "||")){
+        tokens.push_back("||");
+        position += 2;
+        break;
+      }
+    case '&':
+      if(match(text, position, "&&")){
+        tokens.push_back("&&");
+        position += 2;
+        break;
+      }
     case ' ':
     case '\t':
     case '\n':
