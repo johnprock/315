@@ -149,7 +149,7 @@ bool Parser::parse_expr() {
 
 bool Parser::parse_atomic() {
 	tokenizer.checkpoint();
-
+	string name;
 	bool ret =  (name = parse_relation()) != "" ||
 		          parse_expr();
 	if(ret){
@@ -215,7 +215,7 @@ bool Parser::parse_union() {
 	tokenizer.checkpoint();
 	bool ret =  parse_atomic()                                    &&
 	            tokenizer.consume_token("+")                      &&
-	            parse_atomic()                                    &&
+	            parse_atomic();
 	if(ret){
 	  //execute db engine calls	
 	}
@@ -229,8 +229,8 @@ bool Parser::parse_difference() {
 	tokenizer.checkpoint();
 	bool ret =  parse_atomic()                                    &&
 	            tokenizer.consume_token("-")                      &&
-	            parse_atomic()                                    &&
-	if(ret){
+	            parse_atomic();
+				if(ret){
 	  //execute db engine calls	
 	}
 	else {
@@ -243,7 +243,7 @@ bool Parser::parse_product() {
 	tokenizer.checkpoint();
 	bool ret =  parse_atomic()                                    &&
 	            tokenizer.consume_token("*")                      &&
-	            parse_atomic()                                    &&
+	            parse_atomic();
 	if(ret){
 	  //execute db engine calls	
 	}
@@ -266,6 +266,18 @@ bool Parser::parse_condition() {
 	return ret;
 }
 
+bool Parser::parse_conjunction(){
+	tokenizer.checkpoint();
+	bool ret = parse_condition();
+
+	while(tokenizer.consume_token("&&")) ret = ret && parse_condition();
+
+	if(ret){
+		//
+	}
+	else tokenizer.backup();
+	return ret;
+}
 
 //-------------------//
 //--COMMAND PARSING--//
@@ -375,15 +387,15 @@ bool Parser::parse_update() {
 		((name = parse_relation()) != "")				&&
 		tokenizer.consume_token("SET")					&&
 		//there must be at least one attribute to set
-		(name = parse_attribute_name() != "")			&&
+		((name = parse_attribute_name()) != "")			&&
 		tokenizer.consume_token("==")					&&
-		parse_literal();
+		((name = parse_literal()) != "");
 		
 		//only parse further if there are more comma sparated attributes to parse
 		while(tokenizer.consume_token(",")) ret = ret		&&
-				(name = parse_attribute_name() != "")		&&
+				((name = parse_attribute_name()) != "")		&&
 				tokenizer.consume_token("==")				&&
-				parse_literal();
+				((name = parse_literal()) != "");
 	if(ret){
 		//do some stuff
 	}
@@ -398,16 +410,16 @@ bool Parser::parse_insert() {
 		 ((name = parse_relation()) != "")					&&
 		 tokenizer.consume_token("VALUES FROM")				&&
 		 tokenizer.consume_token("(")						&&
-		 parse_literal();
+		 ((name = parse_literal()) != "");
 	
 	while(tokenizer.consume_token(",")) ret = ret			&&
-		parse_literal();
+		((name = parse_literal()) != "");
 
 	ret = ret || 
 		tokenizer.consume_token("INSERT INTO")				&&
-		 parse_relation()									&&
-		 tokenizer.consume_token("VALUES FROM RELATION")	&&
-		 parse_expr();
+		((name = parse_relation()) != "")					&&
+		tokenizer.consume_token("VALUES FROM RELATION")		&&
+		parse_expr();
 
 	if(ret){
 		//akbkjhadlkrghaiwusef
@@ -462,15 +474,17 @@ bool Parser::parse_attribute_list() {
 
 // sets attrs to the value of the attribute list
 bool Parser::parse_typed_attribute_list() {
+	string name;
  	tokenizer.checkpoint();
-  bool ret;
-  string name;
-  Type type;
-  typed_attrs = vector<Attribute>();
-
-  name = parse_attribute_name();
-  type = parse_type();
+  bool ret = ((name = parse_attribute_name()) != "");
   
+  while(tokenizer.consume_token(",")) parse_attribute_name();
+  
+  if(ret){
+
+  }
+  else tokenizer.backup();
+  return ret;  
 }
 
 Type Parser::parse_type() {
@@ -505,7 +519,8 @@ bool Parser::parse_int_type() {
 	tokenizer.checkpoint();
 	string s;
 	bool ret = tokenizer.consume_token("INTEGER")	&&
-		(parse_int(s = parse_literal()));
+		((s = parse_literal()) != "")			&&
+		s.find_first_not_of("0123456789") == std::string::npos; // this fragment lifted from Stack Overflow checks if is integer
 	if (ret){
 		//asdfasdf
 	}

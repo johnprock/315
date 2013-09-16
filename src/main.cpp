@@ -127,7 +127,6 @@ int main() {
 
   Tokenizer T = Tokenizer(&test_string2);
   for(int i = 0; i < T.tokens.size(); i++) cout<<T.tokens[i]<<'\n';
-  return 0;
 
   //testing parser
   cout<<"\n\n\nParser;g test\n========================\n";
@@ -135,7 +134,7 @@ int main() {
 
  
   //SQL test code
-  CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);
+ /* string s = CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);
 
   INSERT INTO animals VALUES FROM ("Joe", "cat", 4);
   INSERT INTO animals VALUES FROM ("Spot", "dog", 10);
@@ -164,7 +163,9 @@ int main() {
   CLOSE animals;
 
  EXIT;
-
+ */
+  char c = cin.get();
+  return 0;
 }
 
 
