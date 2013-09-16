@@ -85,7 +85,13 @@ class Parser {
 
     bool parse_typed_attribute_list();
 
-    string parse_type();
+    Type parse_type();
+
+    bool parse_int();
+
+    bool parse_var_type();
+
+    bool parse_int_type();
 
     bool isid(string id); //helper function tests for valid identifier names, needs implementation currently returns true
 
@@ -130,7 +136,7 @@ string Parser::parse_relation() {
 }
 
 bool Parser::parse_expr() {
-	return parse_atomic()  ||
+	return parse_atomic()      ||
            parse_selection()   ||
            parse_projection()  ||
            parse_renaming()    ||
@@ -142,8 +148,11 @@ bool Parser::parse_expr() {
 bool Parser::parse_atomic() {
 	tokenizer.checkpoint();
 
-	bool ret =  parse_relation() ||
-		    parse_expr() ;
+	string name = "";
+
+
+	bool ret =  (name = parse_relation()) != "" ||
+		          parse_expr();
 	if(ret){
 	    //????
 	  ;	
@@ -245,6 +254,11 @@ bool Parser::parse_product() {
 	return ret;
 }
 
+bool Parser::parse_condition() {
+  return true;
+}
+
+
 //-------------------//
 //--COMMAND PARSING--//
 //-------------------//
@@ -318,8 +332,10 @@ bool Parser::parse_delete() {
 }
 
 string Parser::parse_attribute_name() {
-  if(isid(tokenizer.get_token()))
+  if(isid(tokenizer.get_token())) {
+    tokenizer.index++;
     return tokenizer.get_token();
+  }
   return "";
 }
 
@@ -334,6 +350,9 @@ bool Parser::parse_attribute_list() {
   if(s != "") { // attribute name parse succeeded
     ret = true;
   }
+  else {
+    tokenizer.backup();
+  }
   while(s != "") { // consume list and store in attrs
     attrs.push_back(s);
     s = parse_attribute_name();
@@ -346,17 +365,47 @@ bool Parser::parse_typed_attribute_list() {
  	tokenizer.checkpoint();
   bool ret;
   string name;
-  string type;
+  Type type;
   typed_attrs = vector<Attribute>();
 
   name = parse_attribute_name();
   type = parse_type();
+  
+}
+
+Type Parser::parse_type() {
+
+
+
+  Type t = Type();
+  return t;
+}
+
+bool Parser::parse_var_type() {
+  tokenizer.checkpoint();
+  bool ret;
+  ret = tokenizer.consume_token("VARCHAR") &&
+        tokenizer.consume_token("(")       &&
+        parse_int()                        &&
+        tokenizer.consume_token(")")       ;
+  if(!ret) {
+    tokenizer.backup();
+  }
+  return ret;
+}
+
+bool Parser::parse_int_type() {
 
 }
 
-string Parser::parse_type() {
-	return "";
+bool Parser::parse_int() {
+  string s = tokenizer.get_token();
+  bool ret = s.find_first_not_of("0123456789") == std::string::npos; // this fragment lifted from Stack Overflow
+  if(ret)
+    tokenizer.index++;
+  return ret;
 }
+
 //--------------------//
 //--HELPER FUNCTIONS--//
 //--------------------//
