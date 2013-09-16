@@ -87,6 +87,12 @@ class Parser {
 
     Type parse_type();
 
+    bool parse_int();
+
+    bool parse_var_type();
+
+    bool parse_int_type();
+
     bool isid(string id); //helper function tests for valid identifier names, needs implementation currently returns true
 
 };
@@ -240,8 +246,10 @@ bool Parser::parse_delete() {
 }
 
 string Parser::parse_attribute_name() {
-  if(isid(tokenizer.get_token()))
+  if(isid(tokenizer.get_token())) {
+    tokenizer.index++;
     return tokenizer.get_token();
+  }
   return "";
 }
 
@@ -255,6 +263,9 @@ bool Parser::parse_attribute_list() {
   s = parse_attribute_name();
   if(s != "") { // attribute name parse succeeded
     ret = true;
+  }
+  else {
+    tokenizer.backup();
   }
   while(s != "") { // consume list and store in attrs
     attrs.push_back(s);
@@ -273,12 +284,40 @@ bool Parser::parse_typed_attribute_list() {
 
   name = parse_attribute_name();
   type = parse_type();
-
+  
 }
 
 Type Parser::parse_type() {
+
+
+
   Type t = Type();
   return t;
+}
+
+bool Parser::parse_var_type() {
+  tokenizer.checkpoint();
+  bool ret;
+  ret = tokenizer.consume_token("VARCHAR") &&
+        tokenizer.consume_token("(")       &&
+        parse_int()                        &&
+        tokenizer.consume_token(")")       ;
+  if(!ret) {
+    tokenizer.backup();
+  }
+  return ret;
+}
+
+bool Parser::parse_int_type() {
+
+}
+
+bool Parser::parse_int() {
+  string s = tokenizer.get_token();
+  bool ret = s.find_first_not_of("0123456789") == std::string::npos; // this fragment lifted from Stack Overflow
+  if(ret)
+    tokenizer.index++;
+  return ret;
 }
 //--------------------//
 //--HELPER FUNCTIONS--//
