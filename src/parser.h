@@ -139,11 +139,38 @@ bool Parser::parse_expr() {
 }
 
 bool Parser::parse_atomic() {
-	return true;
+	tokenizer.checkpoint();
+
+	string name = "";
+
+
+	bool ret =  parse_relation() ||
+		    parse_expr() ;
+	if(ret){
+	    //????
+	  ;	
+	}
+	else {
+		tokenizer.backup();
+	}
+	return ret;
 }
 
 bool Parser::parse_selection() {
-	return true;
+	tokenizer.checkpoint();
+	bool ret =  tokenizer.consume_token("SELECT")                 &&
+	            tokenizer.consume_token("(")                      &&
+	            parse_condition()                                 &&
+	            tokenizer.consume_token(")")                      &&
+                    parse_atomic();
+	if(ret){
+	  //execute db engine calls
+	  //going to need stuff from condition and parse atomic, i assume	
+	}
+	else {
+		tokenizer.backup();
+	}
+	return ret;
 }
 
 bool Parser::parse_projection() {
