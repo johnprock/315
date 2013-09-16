@@ -42,7 +42,7 @@ class Parser {
 
     bool parse_condition();
 
-    bool parse_conjuction();
+    bool parse_conjunction();
 
     bool parse_comparison();
 
@@ -92,6 +92,8 @@ class Parser {
     bool parse_var_type();
 
     bool parse_int_type();
+
+	string parse_literal();
 
     bool isid(string id); //helper function tests for valid identifier names, needs implementation currently returns true
 
@@ -378,10 +380,10 @@ bool Parser::parse_update() {
 		parse_literal();
 		
 		//only parse further if there are more comma sparated attributes to parse
-		while(tokenizer.consume_token(",")) ret = ret	&&
-			(name = parse_attribute_name() != "")		&&
-			tokenizer.consume_token("==")				&&
-			parse_literal();
+		while(tokenizer.consume_token(",")) ret = ret		&&
+				(name = parse_attribute_name() != "")		&&
+				tokenizer.consume_token("==")				&&
+				parse_literal();
 	if(ret){
 		//do some stuff
 	}
@@ -390,11 +392,43 @@ bool Parser::parse_update() {
 }
 
 bool Parser::parse_insert() {
-    return true;
+	tokenizer.checkpoint();
+	string name = "";
+	bool ret = tokenizer.consume_token("INSERT INTO")		&&
+		 ((name = parse_relation()) != "")					&&
+		 tokenizer.consume_token("VALUES FROM")				&&
+		 tokenizer.consume_token("(")						&&
+		 parse_literal();
+	
+	while(tokenizer.consume_token(",")) ret = ret			&&
+		parse_literal();
+
+	ret = ret || 
+		tokenizer.consume_token("INSERT INTO")				&&
+		 parse_relation()									&&
+		 tokenizer.consume_token("VALUES FROM RELATION")	&&
+		 parse_expr();
+
+	if(ret){
+		//akbkjhadlkrghaiwusef
+	}
+	else tokenizer.backup();
+	return ret;
 }
 
 bool Parser::parse_delete() {
-	return true;
+	tokenizer.checkpoint();
+	string name = "";
+	bool ret = tokenizer.consume_token("DELETE FROM")		&&
+		((name = parse_relation()) != "")					&&
+		tokenizer.consume_token("WHERE")					&&
+		parse_condition();
+
+	if(ret){
+		//asdf
+	}
+	else tokenizer.backup();
+	return ret;
 }
 
 string Parser::parse_attribute_name() {
@@ -440,11 +474,18 @@ bool Parser::parse_typed_attribute_list() {
 }
 
 Type Parser::parse_type() {
+	tokenizer.backup();
+	bool ret = tokenizer.consume_token("INTEGER")		||
+		tokenizer.consume_token("VARCHAR")				&&
+		tokenizer.consume_token("(")					&&
+		parse_int()										&&
+		tokenizer.consume_token(")");
 
-
-
-  Type t = Type();
-  return t;
+	if(ret){
+		//do some stuff like  Type t = Type();
+	}
+	else tokenizer.backup();
+	return ret;
 }
 
 bool Parser::parse_var_type() {
@@ -461,15 +502,30 @@ bool Parser::parse_var_type() {
 }
 
 bool Parser::parse_int_type() {
-
+	tokenizer.checkpoint();
+	string s;
+	bool ret = tokenizer.consume_token("INTEGER")	&&
+		(parse_int(s = parse_literal()));
+	if (ret){
+		//asdfasdf
+	}
+	else tokenizer.backup();
+	return ret;
 }
 
 bool Parser::parse_int() {
   string s = tokenizer.get_token();
-  bool ret = s.find_first_not_of("0123456789") == std::string::npos; // this fragment lifted from Stack Overflow
+  bool ret = s.find_first_not_of("0123456789") == std::string::npos; // this fragment lifted from Stack Overflow checks if is integer
   if(ret)
     tokenizer.index++;
   return ret;
+}
+
+string Parser::parse_literal(){
+	bool ret = false;
+	string s = tokenizer.get_token();
+	tokenizer.index++;
+	return s;
 }
 
 //--------------------//
