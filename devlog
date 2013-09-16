@@ -14,6 +14,9 @@ Patrick is working on Select, Rename, and Update
 Ben is working on Projection, Difference, and Cross Product
 JuAnne: Delete(table), Delete(tuple), Insert(tuple)
 
+9/15/2013
+Patrick is working on create table in the parser.
+
 The following functions are completed:
 show
 create Table
