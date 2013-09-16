@@ -130,7 +130,7 @@ string Parser::parse_relation() {
 }
 
 bool Parser::parse_expr() {
-	return parse_atomic()      ||
+	return parse_atomic()  ||
            parse_selection()   ||
            parse_projection()  ||
            parse_renaming()    ||
@@ -141,9 +141,6 @@ bool Parser::parse_expr() {
 
 bool Parser::parse_atomic() {
 	tokenizer.checkpoint();
-
-	string name = "";
-
 
 	bool ret =  parse_relation() ||
 		    parse_expr() ;
@@ -175,23 +172,77 @@ bool Parser::parse_selection() {
 }
 
 bool Parser::parse_projection() {
-	return true;
+	tokenizer.checkpoint();
+	bool ret =  tokenizer.consume_token("PROJECT")                &&
+	            tokenizer.consume_token("(")                      &&
+	            parse_attribute_list()                            &&
+	            tokenizer.consume_token(")")                      &&
+                    parse_atomic();
+	if(ret){
+	  //execute db engine calls
+	}
+	else {
+		tokenizer.backup();
+	}
+	return ret;
 }
 
 bool Parser::parse_renaming() {
-	return true;
+	tokenizer.checkpoint();
+	bool ret =  tokenizer.consume_token("RENAME")                 &&
+	            tokenizer.consume_token("(")                      &&
+	            parse_attribute_list()                            &&
+	            tokenizer.consume_token(")")                      &&
+                    parse_atomic();
+	if(ret){
+	  //execute db engine calls
+	}
+	else {
+		tokenizer.backup();
+	}
+	return ret;
 }
 
 bool Parser::parse_union() {
-	return true;
+	tokenizer.checkpoint();
+	bool ret =  parse_atomic()                                    &&
+	            tokenizer.consume_token("+")                      &&
+	            parse_atomic()                                    &&
+	if(ret){
+	  //execute db engine calls	
+	}
+	else {
+		tokenizer.backup();
+	}
+	return ret;
 }
 
 bool Parser::parse_difference() {
-	return true;
+	tokenizer.checkpoint();
+	bool ret =  parse_atomic()                                    &&
+	            tokenizer.consume_token("-")                      &&
+	            parse_atomic()                                    &&
+	if(ret){
+	  //execute db engine calls	
+	}
+	else {
+		tokenizer.backup();
+	}
+	return ret;
 }
 
 bool Parser::parse_product() {
-	return true;
+	tokenizer.checkpoint();
+	bool ret =  parse_atomic()                                    &&
+	            tokenizer.consume_token("*")                      &&
+	            parse_atomic()                                    &&
+	if(ret){
+	  //execute db engine calls	
+	}
+	else {
+		tokenizer.backup();
+	}
+	return ret;
 }
 
 //-------------------//
