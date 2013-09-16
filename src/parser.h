@@ -151,8 +151,8 @@ bool Parser::parse_atomic() {
 	string name = "";
 
 
-	bool ret =  parse_relation() ||
-		    parse_expr() ;
+	bool ret =  (name = parse_relation()) != "" ||
+		          parse_expr();
 	if(ret){
 	    //????
 	  ;	
@@ -199,6 +199,11 @@ bool Parser::parse_difference() {
 bool Parser::parse_product() {
 	return true;
 }
+
+bool Parser::parse_condition() {
+  return true;
+}
+
 
 //-------------------//
 //--COMMAND PARSING--//
@@ -346,6 +351,7 @@ bool Parser::parse_int() {
     tokenizer.index++;
   return ret;
 }
+
 //--------------------//
 //--HELPER FUNCTIONS--//
 //--------------------//
