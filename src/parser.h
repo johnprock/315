@@ -47,7 +47,7 @@ class Parser {
 
     bool parse_operand();
 
-    bool parse_attribute_name();
+    string parse_attribute_name();
 
     bool parse_projection();
 
@@ -238,39 +238,26 @@ bool Parser::parse_delete() {
 	return true;
 }
 
-bool Parser::parse_attribute_name() {
-	return isid(tokenizer.get_token());
+string Parser::parse_attribute_name() {
+  if(isid(tokenizer.get_token()))
+    return tokenizer.get_token();
+  return "";
 }
 
 
 bool Parser::parse_attribute_list() {
 	tokenizer.checkpoint();
-	bool ret = parse_attribute_name();
-	while(tokenizer.consume_token(",") && parse_attribute_name()) // consume list
-		;
-	if(!ret){
-      tokenizer.backup();
-      return true;
-    }
-    else {
-	    return false;
-    }
+	vector<string> list_names;
+  string ret;
+  ret = parse_attribute_name();
+  return true;
 }
 
 // may return data representing the contents of the list 
 bool Parser::parse_typed_attribute_list() {
 	tokenizer.checkpoint();
-	bool ret = parse_attribute_name() && parse_type();
-	while(tokenizer.consume_token(",") && parse_attribute_name() && parse_type()) // arbitrary number of name type pairs
-		;
-	if(!ret) {
-	  tokenizer.backup();
-	  return true;
-	}
-	else {
-	  return false;
-	}
- 	
+
+ 	return true;
 }
 
 bool Parser::parse_type() {
