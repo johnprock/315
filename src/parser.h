@@ -148,9 +148,6 @@ bool Parser::parse_expr() {
 bool Parser::parse_atomic() {
 	tokenizer.checkpoint();
 
-	string name = "";
-
-
 	bool ret =  (name = parse_relation()) != "" ||
 		          parse_expr();
 	if(ret){
@@ -255,7 +252,7 @@ bool Parser::parse_product() {
 }
 
 bool Parser::parse_condition() {
-  return true;
+	return true;
 }
 
 
