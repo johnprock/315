@@ -5,6 +5,8 @@
 
 #include "tokenizer.h"
 #include "dbEngine.h"
+#include <iostream>
+
 using namespace std;
 
 class Parser {
@@ -138,7 +140,7 @@ string Parser::parse_relation() {
 }
 
 bool Parser::parse_expr() {
-	return parse_atomic()      ||
+	return   parse_atomic()      ||
            parse_selection()   ||
            parse_projection()  ||
            parse_renaming()    ||
@@ -307,6 +309,7 @@ bool Parser::parse_open() {
 }
 
 bool Parser::parse_close() {
+  cout << "Parsing close...";
 	tokenizer.checkpoint();
 	string name = "";
 	bool ret = tokenizer.consume_token("CLOSE")		&&

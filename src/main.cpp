@@ -124,13 +124,15 @@ int main() {
   string test_string1 = "INSERT INTO animals VALUES FROM (\"Joe\", \"cat\", 4);";
   string test_string2 = "CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);";
   string test_string3 = "common_names <- project (name) (select (aname == name && akind != kind) (a * animals));";
+  string test_string4 = "WRITE test;";
 
   Tokenizer T = Tokenizer(&test_string2);
   for(int i = 0; i < T.tokens.size(); i++) cout<<T.tokens[i]<<'\n';
 
   //testing parser
   cout<<"\n\n\nParser test\n========================\n";
-  Parser parser = Parser("CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);");
+  Parser parser = Parser("CLOSE test;"); // this test passes
+  parser.parse();
 
  
   //SQL test code
