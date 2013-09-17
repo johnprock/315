@@ -384,17 +384,17 @@ bool Parser::parse_update() {
 	//this will be changed when we have decied upon a good way of handling 
 	//return values.
 	bool ret = tokenizer.consume_token("UPDATE")		&&
-		((name = parse_relation()) != "")				&&
-		tokenizer.consume_token("SET")					&&
+		((name = parse_relation()) != "")			      	&&
+		tokenizer.consume_token("SET")			      		&&
 		//there must be at least one attribute to set
-		((name = parse_attribute_name()) != "")			&&
-		tokenizer.consume_token("==")					&&
+		((name = parse_attribute_name()) != "")	   		&&
+		tokenizer.consume_token("==")				        	&&
 		((name = parse_literal()) != "");
 		
 		//only parse further if there are more comma sparated attributes to parse
 		while(tokenizer.consume_token(",")) ret = ret		&&
-				((name = parse_attribute_name()) != "")		&&
-				tokenizer.consume_token("==")				&&
+				((name = parse_attribute_name()) != "")	  	&&
+				tokenizer.consume_token("==")			        	&&
 				((name = parse_literal()) != "");
 	if(ret){
 		//do some stuff
@@ -407,17 +407,17 @@ bool Parser::parse_insert() {
 	tokenizer.checkpoint();
 	string name = "";
 	bool ret = tokenizer.consume_token("INSERT INTO")		&&
-		 ((name = parse_relation()) != "")					&&
-		 tokenizer.consume_token("VALUES FROM")				&&
-		 tokenizer.consume_token("(")						&&
+		 ((name = parse_relation()) != "")					      &&
+		 tokenizer.consume_token("VALUES FROM")			     	&&
+		 tokenizer.consume_token("(")					          	&&
 		 ((name = parse_literal()) != "");
 	
-	while(tokenizer.consume_token(",")) ret = ret			&&
+	while(tokenizer.consume_token(",")) ret = ret		  	&&
 		((name = parse_literal()) != "");
 
 	ret = ret || 
-		tokenizer.consume_token("INSERT INTO")				&&
-		((name = parse_relation()) != "")					&&
+		tokenizer.consume_token("INSERT INTO")			    	&&
+		((name = parse_relation()) != "")				         	&&
 		tokenizer.consume_token("VALUES FROM RELATION")		&&
 		parse_expr();
 
@@ -432,8 +432,8 @@ bool Parser::parse_delete() {
 	tokenizer.checkpoint();
 	string name = "";
 	bool ret = tokenizer.consume_token("DELETE FROM")		&&
-		((name = parse_relation()) != "")					&&
-		tokenizer.consume_token("WHERE")					&&
+		((name = parse_relation()) != "")			        		&&
+		tokenizer.consume_token("WHERE")		         			&&
 		parse_condition();
 
 	if(ret){
@@ -489,11 +489,7 @@ bool Parser::parse_typed_attribute_list() {
 
 Type Parser::parse_type() {
 	tokenizer.backup();
-	bool ret = tokenizer.consume_token("INTEGER")		||
-		tokenizer.consume_token("VARCHAR")				&&
-		tokenizer.consume_token("(")					&&
-		parse_int()										&&
-		tokenizer.consume_token(")");
+	bool ret = parse_int_type() || parse_var_type();
 
 	if(ret){
 		//do some stuff like  Type t = Type();
@@ -519,7 +515,7 @@ bool Parser::parse_int_type() {
 	tokenizer.checkpoint();
 	string s;
 	bool ret = tokenizer.consume_token("INTEGER")	&&
-		((s = parse_literal()) != "")			&&
+		((s = parse_literal()) != "")		          	&&
 		s.find_first_not_of("0123456789") == std::string::npos; // this fragment lifted from Stack Overflow checks if is integer
 	if (ret){
 		//asdfasdf
