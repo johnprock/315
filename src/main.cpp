@@ -134,6 +134,27 @@ int main() {
   Parser parser = Parser("CLOSE test;"); // this test passes
   parser.parse();
 
+<<<<<<< HEAD
+
+  //read in from file
+  string filename = "sql.txt";
+  ifstream istr;
+  string s;
+
+  istr.open(filename.c_str());
+
+  if(!istr)
+  {
+  	std::cerr << "Cannot open file\n";
+        return 1;
+  }
+  while(!istr.eof)
+  {
+	getline(istr, s);
+  }
+  Parser test = Parser(s);
+
+=======
  
   //SQL test code
  /* string s = CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);
@@ -168,6 +189,7 @@ int main() {
  */
   char c = cin.get();
   return 0;
+>>>>>>> d7b7bbca0cf21dcba075de4bf99d07e4e662fe0d
 }
 
 
