@@ -129,7 +129,7 @@ int main() {
   for(int i = 0; i < T.tokens.size(); i++) cout<<T.tokens[i]<<'\n';
 
   //testing parser
-  cout<<"\n\n\nParser;g test\n========================\n";
+  cout<<"\n\n\nParser test\n========================\n";
   Parser parser = Parser("CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);");
 
  
