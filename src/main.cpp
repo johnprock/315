@@ -127,12 +127,12 @@ int main() {
 
   Tokenizer T = Tokenizer(&test_string2);
   for(int i = 0; i < T.tokens.size(); i++) cout<<T.tokens[i]<<'\n';
-  return 0;
 
   //testing parser
-  cout<<"\n\n\nParser;g test\n========================\n";
+  cout<<"\n\n\nParser test\n========================\n";
   Parser parser = Parser("CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);");
 
+<<<<<<< HEAD
 
   //read in from file
   string filename = "sql.txt";
@@ -152,6 +152,42 @@ int main() {
   }
   Parser test = Parser(s);
 
+=======
+ 
+  //SQL test code
+ /* string s = CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);
+
+  INSERT INTO animals VALUES FROM ("Joe", "cat", 4);
+  INSERT INTO animals VALUES FROM ("Spot", "dog", 10);
+  INSERT INTO animals VALUES FROM ("Snoopy", "dog", 3);
+  INSERT INTO animals VALUES FROM ("Tweety", "bird", 1);
+  INSERT INTO animals VALUES FROM ("Joe", "bird", 2);
+
+  SHOW animals;
+
+  dogs <- select (kind == "dog") animals;
+  old_dogs <- select (age > 10) dogs;
+
+  cats_or_dogs <- dogs + (select (kind == "cat") animals);
+
+  CREATE TABLE species (kind VARCHAR(10)) PRIMARY KEY (kind);
+
+  INSERT INTO species VALUES FROM RELATION project (kind) animals;
+
+  a <- rename (aname, akind) (project (name, kind) animals);
+  common_names <- project (name) (select (aname == name && akind != kind) (a * animals));
+  answer <- common_names;
+
+  SHOW answer;
+
+  WRITE animals;
+  CLOSE animals;
+
+ EXIT;
+ */
+  char c = cin.get();
+  return 0;
+>>>>>>> d7b7bbca0cf21dcba075de4bf99d07e4e662fe0d
 }
 
 
