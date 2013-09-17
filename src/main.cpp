@@ -2,6 +2,7 @@
 // 9/3/2013
 // Testing file for database engine
 
+#include <fstream>
 #include <iostream>
 #include "table.h"
 #include "dbEngine.h"
@@ -132,62 +133,25 @@ int main() {
   cout<<"\n\n\nParser test\n========================\n";
   Parser parser = Parser("CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);");
 
-<<<<<<< HEAD
+  //char c = cin.get();
+  //return 0;
 
   //read in from file
-  string filename = "sql.txt";
-  ifstream istr;
-  string s;
+  cout<<"\n\n\nSQL from file test\n========================\n";
 
-  istr.open(filename.c_str());
-
-  if(!istr)
-  {
-  	std::cerr << "Cannot open file\n";
-        return 1;
+  ifstream myReadFile;
+  myReadFile.open("sql.txt");
+  char output[1000];
+  if (myReadFile.is_open()) {
+        while (!myReadFile.eof()) {
+                myReadFile >> output;
+                //cout<<output;
+         }
   }
-  while(!istr.eof)
-  {
-	getline(istr, s);
-  }
-  Parser test = Parser(s);
-
-=======
- 
-  //SQL test code
- /* string s = CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);
-
-  INSERT INTO animals VALUES FROM ("Joe", "cat", 4);
-  INSERT INTO animals VALUES FROM ("Spot", "dog", 10);
-  INSERT INTO animals VALUES FROM ("Snoopy", "dog", 3);
-  INSERT INTO animals VALUES FROM ("Tweety", "bird", 1);
-  INSERT INTO animals VALUES FROM ("Joe", "bird", 2);
-
-  SHOW animals;
-
-  dogs <- select (kind == "dog") animals;
-  old_dogs <- select (age > 10) dogs;
-
-  cats_or_dogs <- dogs + (select (kind == "cat") animals);
-
-  CREATE TABLE species (kind VARCHAR(10)) PRIMARY KEY (kind);
-
-  INSERT INTO species VALUES FROM RELATION project (kind) animals;
-
-  a <- rename (aname, akind) (project (name, kind) animals);
-  common_names <- project (name) (select (aname == name && akind != kind) (a * animals));
-  answer <- common_names;
-
-  SHOW answer;
-
-  WRITE animals;
-  CLOSE animals;
-
- EXIT;
- */
-  char c = cin.get();
+  myReadFile.close();
   return 0;
->>>>>>> d7b7bbca0cf21dcba075de4bf99d07e4e662fe0d
+
+  Parser read_in = Parser(output);
 }
 
 
