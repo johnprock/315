@@ -134,8 +134,7 @@ int main() {
   Parser parser = Parser("CLOSE test;"); // this test passes
   parser.parse();
 
-<<<<<<< HEAD
-
+/*
   //read in from file
   string filename = "sql.txt";
   ifstream istr;
@@ -189,7 +188,7 @@ int main() {
  */
   char c = cin.get();
   return 0;
->>>>>>> d7b7bbca0cf21dcba075de4bf99d07e4e662fe0d
+
 }
 
 
