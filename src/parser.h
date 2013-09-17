@@ -153,7 +153,7 @@ bool Parser::parse_atomic() {
 	bool ret =  (name = parse_relation()) != "" ||
 		          parse_expr();
 	if(ret){
-	    //????
+    cout << "Atomic parsed.";
 	  ;	
 	}
 	else {
@@ -170,7 +170,7 @@ bool Parser::parse_selection() {
 	            tokenizer.consume_token(")")                      &&
                     parse_atomic();
 	if(ret){
-	  //execute db engine calls
+    cout << "Selection parsed.";
 	  //going to need stuff from condition and parse atomic, i assume	
 	}
 	else {
@@ -187,7 +187,7 @@ bool Parser::parse_projection() {
 	            tokenizer.consume_token(")")                      &&
                     parse_atomic();
 	if(ret){
-	  //execute db engine calls
+    cout << "Projection parsed.";
 	}
 	else {
 		tokenizer.backup();
@@ -203,7 +203,7 @@ bool Parser::parse_renaming() {
 	            tokenizer.consume_token(")")                      &&
                     parse_atomic();
 	if(ret){
-	  //execute db engine calls
+    cout << "Renaming parsed.";
 	}
 	else {
 		tokenizer.backup();
@@ -217,7 +217,7 @@ bool Parser::parse_union() {
 	            tokenizer.consume_token("+")                      &&
 	            parse_atomic();
 	if(ret){
-	  //execute db engine calls	
+	  cout << "Union parsed.";
 	}
 	else {
 		tokenizer.backup();
@@ -230,8 +230,8 @@ bool Parser::parse_difference() {
 	bool ret =  parse_atomic()                                    &&
 	            tokenizer.consume_token("-")                      &&
 	            parse_atomic();
-				if(ret){
-	  //execute db engine calls	
+	if(ret){
+    cout << "Difference parsed.";
 	}
 	else {
 		tokenizer.backup();
@@ -245,7 +245,7 @@ bool Parser::parse_product() {
 	            tokenizer.consume_token("*")                      &&
 	            parse_atomic();
 	if(ret){
-	  //execute db engine calls	
+    cout << "Product parsed.";
 	}
 	else {
 		tokenizer.backup();
@@ -258,7 +258,7 @@ bool Parser::parse_condition() {
 	bool ret = parse_conjunction();
 	while (tokenizer.consume_token( "||")) ret = ret && parse_conjunction();
 	if(ret){
-	    //db engine calls and/or other stuff
+    cout << "Condition parsed.";
 	}
 	else{
 	    tokenizer.backup();
@@ -273,7 +273,7 @@ bool Parser::parse_conjunction(){
 	while(tokenizer.consume_token("&&")) ret = ret && parse_condition();
 
 	if(ret){
-		//
+    cout << "Conjunction parsed.";
 	}
 	else tokenizer.backup();
 	return ret;
@@ -312,7 +312,7 @@ bool Parser::parse_close() {
 	bool ret = tokenizer.consume_token("CLOSE")		&&
 		((name = parse_relation()) != "");
 	if(ret){
-		//do some stuff
+    cout << "Close parsed.";
 	}
 	else tokenizer.backup();
 	return ret;
@@ -324,7 +324,7 @@ bool Parser::parse_write() {
 	bool ret = tokenizer.consume_token("WRITE")		&&
 		((name = parse_relation()) != "");
 	if(ret){
-		//do some stuff
+    cout << "Write parsed.";
 	}
 	else tokenizer.backup();
 	return ret;
@@ -335,7 +335,7 @@ bool Parser::parse_exit() {
 	string name = "";
 	bool ret = tokenizer.consume_token("EXIT");
 	if(ret){
-		//do some stuff
+    cout << "Exit parsed.";
 	}
 	else tokenizer.backup();
 	return ret;
@@ -347,7 +347,7 @@ bool Parser::parse_show() {
 	bool ret = tokenizer.consume_token("SHOW")		&&
 		parse_atomic();
 	if(ret){
-		//do some stuff
+    cout << "Show parsed.";
 	}
 	else tokenizer.backup();
 	return ret;
@@ -422,7 +422,7 @@ bool Parser::parse_insert() {
 		parse_expr();
 
 	if(ret){
-		//akbkjhadlkrghaiwusef
+    cout << "Insert parsed.";
 	}
 	else tokenizer.backup();
 	return ret;
@@ -437,7 +437,7 @@ bool Parser::parse_delete() {
 		parse_condition();
 
 	if(ret){
-		//asdf
+    cout << "Delete parsed.";
 	}
 	else tokenizer.backup();
 	return ret;
