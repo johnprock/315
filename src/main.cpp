@@ -145,7 +145,10 @@ int main() {
     while ( getline (myfile,line) )
     {
       Parser test = Parser(line);
-	  test.parse();
+	  if(!test.parse()){
+		  cout<<"Parsing Failure!\n";
+		  break;
+	  }
     }
     myfile.close();
   }
