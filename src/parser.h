@@ -453,10 +453,12 @@ bool Parser::parse_delete() {
 }
 
 string Parser::parse_attribute_name() {
+  string s;
   if(isid(tokenizer.get_token())) {
-    tokenizer.index++;
-    return tokenizer.get_token();
+    s = tokenizer.get_token();
+	tokenizer.index++;
 	cout<<"Attribute name parsed.\n";
+	return s;
   }
   return "";
 }
