@@ -309,7 +309,7 @@ bool Parser::parse_open() {
 }
 
 bool Parser::parse_close() {
-  cout << "Parsing close...";
+  //cout << "Parsing close...";
 	tokenizer.checkpoint();
 	string name = "";
 	bool ret = tokenizer.consume_token("CLOSE")		&&
@@ -546,5 +546,6 @@ string Parser::parse_literal(){
 //--HELPER FUNCTIONS--//
 //--------------------//
 bool Parser::isid(string id){
-	return true;
+	if (id != "") return true;	//i strongly suspect this could be a problem, e.g. "CREATE TABLE +" creates a table called "+"; 
+	else return false;
 }
