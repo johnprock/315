@@ -132,10 +132,12 @@ bool Parser::parse_query() {
 }
 
 string Parser::parse_relation() {
+	string s;
 	if (isid(tokenizer.get_token())) {
-	  tokenizer.index++;
 	  cout<<"relation parsed\n";
-	  return tokenizer.get_token();
+	  s = tokenizer.get_token();
+	  tokenizer.index++;
+	  return s;
 	}
 	else return "";
 }
