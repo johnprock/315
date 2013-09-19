@@ -153,6 +153,12 @@ Tokenizer::Tokenizer(string * text){
         position += 11;
         break;
       }
+      else if(match(text, position, "INTEGER")){
+        tokens.push_back("INTEGER");
+        position += 7;
+        break;
+      }
+
     case 'V':
       //CAUTION: check this case first since it contains the following
       if(match(text, position, "VALUES FROM RELATION")){
