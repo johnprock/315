@@ -126,8 +126,8 @@ int main() {
   string test_string2 = "CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);";
   string test_string3 = "common_names <- project (name) (select (aname == name && akind != kind) (a * animals));";
   string test_string4 = "WRITE test;";
-  string test_string5 = "CREATE TABLE species (kind INTEGER) PRIMARY KEY (kind);";
-  string test_string6 = "kind INTEGER";
+  string test_string5 = "CREATE TABLE species (kind INTEGER) PRIMARY KEY (kind, test);";
+  string test_string6 = "(3)";
 
   Tokenizer T = Tokenizer(&test_string5);
   for(int i = 0; i < T.tokens.size(); i++) cout<<T.tokens[i]<<'\n';
@@ -139,14 +139,16 @@ int main() {
   parser = Parser("EXIT;"); // passes
   parser = Parser("INSERT INTO animals VALUES FROM (\"Joe\", \"cat\", 4);"); // passes
   parser = Parser("CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);"); //fails
+  parser.parse();
   parser = Parser("SHOW animals;"); // passes
   parser = Parser("WRITE animals;"); //passes
   parser = Parser("answer <- common_names;");
   parser = Parser("dogs <- select (kind == \"dog\") animals;"); // fails
-  parser = Parser("a <- rename (aname, akind) (project (name, kind) animals);"); // fails
+  parser = Parser("a <- rename (name, akind) (project (name, kind) animals);"); // fails
   parser = Parser("common_names <- project (name) (select (aname == name && akind != kind) (a * animals));"); // fails
-  parser = Parser("CREATE TABLE species (kind INTEGER) PRIMARY KEY (kind);"); // fails
-  parser.parse();
+  parser = Parser("CREATE TABLE species (kind INTEGER) PRIMARY KEY (kind, test);"); // passes
+
+
 
 
 

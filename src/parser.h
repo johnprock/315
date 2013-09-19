@@ -133,7 +133,6 @@ bool Parser::parse_query() {
 string Parser::parse_relation() {
 	string s;
 	if (isid(tokenizer.get_token())) {
-	  cout<<"relation parsed\n";
 	  s = tokenizer.get_token();
 	  tokenizer.index++;
 	  return s;
@@ -382,7 +381,7 @@ bool Parser::parse_create() {
 	  db.createTable(name, types);	
 	}
 	else {
-    cout << "Create table parse failed";
+    cout << "Create table parse failed\n";
 		tokenizer.backup();
 	}
 	return ret;
@@ -459,7 +458,6 @@ string Parser::parse_attribute_name() {
   if(isid(tokenizer.get_token())) {
     s = tokenizer.get_token();
   	tokenizer.index++;
-  	cout<<"Attribute name parsed.\n";
   	return s;
   }
   return "";
@@ -482,6 +480,7 @@ bool Parser::parse_attribute_list() {
   }
   while(s != "") { // consume list and store in attrs
     attrs.push_back(s);
+    tokenizer.consume_token(",");
     s = parse_attribute_name();
   }
   return ret;
@@ -514,7 +513,6 @@ bool Parser::parse_type() {
 
 	if(ret){
 		//do some stuff like  Type t = Type();
-		cout<<"type parsed.\n";
 	}
 	else tokenizer.backup();
 	return ret;
@@ -530,7 +528,6 @@ bool Parser::parse_var_type() {
   if(!ret) {
     tokenizer.backup();
   }
-  else cout<<"Varchar parsed.\n";
   return ret;
 }
 
@@ -539,7 +536,6 @@ bool Parser::parse_int_type() {
 	string s;
 	bool ret = tokenizer.consume_token("INTEGER");	
 	if (ret){
-		cout<<"Int Type parsed. \n";
 	}
 	else tokenizer.backup();
 	return ret;
@@ -549,7 +545,6 @@ bool Parser::parse_int() {
   string s = tokenizer.get_token();
   bool ret = s.find_first_not_of("0123456789") == std::string::npos; // this fragment lifted from Stack Overflow checks if is integer
   if(ret)
-	  cout<<"Int parsed.\n";
     tokenizer.index++;
   return ret;
 }

@@ -277,15 +277,17 @@ Tokenizer::Tokenizer(string * text){
       position++;
       break;
     default:
-      if(c <= '9' && c >= '0'){
+      if(isdigit(c)){
         string temp = get_integer(text, position);
         tokens.push_back(temp);
         position += temp.size();
+        break;
       }
       if((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c == '_')){
         string temp = get_varchar(text, position);
         tokens.push_back(temp);
         position += temp.size();
+        break;
       }
       //ignore everything else
       else position++;
