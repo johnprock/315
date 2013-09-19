@@ -297,6 +297,7 @@ bool Parser::parse_command() {
 	       parse_update() ||
 	       parse_insert() || 
 	       parse_delete() ;
+         cout << "Command parserd.\n";
 }
 
 bool Parser::parse_open() {
@@ -370,11 +371,11 @@ bool Parser::parse_create() {
 	            tokenizer.consume_token("(")                                  &&
 	            parse_typed_attribute_list()                                  &&
 	            tokenizer.consume_token(")")                                  &&
-                tokenizer.consume_token("PRIMARY KEY")                        &&
-                tokenizer.consume_token("(")                                  &&
+              tokenizer.consume_token("PRIMARY KEY")                        &&
+              tokenizer.consume_token("(")                                  &&
 	            parse_attribute_list()                                        &&
-                tokenizer.consume_token(")")                                  &&
-			    tokenizer.consume_token(";");
+              tokenizer.consume_token(")")                                  &&
+			        tokenizer.consume_token(";");
 	if(ret){
 	  //execute db engine calls
 		cout<<"Create Table parsed.\n";
@@ -486,7 +487,7 @@ bool Parser::parse_attribute_list() {
 }
 
 // sets attrs to the value of the attribute list
-bool Parser::parse_typed_attribute_list() {
+bool Parser::parse_typed_attribute_list() { // this is broken, not parsing types...
 	string name;
  	tokenizer.checkpoint();
   bool ret = ((name = parse_attribute_name()) != "");

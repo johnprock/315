@@ -132,12 +132,24 @@ int main() {
 
   //testing parser
   cout<<"\n\n\nParser test\n========================\n";
-  Parser parser = Parser("CLOSE test;"); // this test passes
+  Parser parser = Parser("CLOSE test;"); // passes
+  parser = Parser("OPEN test;"); // passes
+  parser = Parser("EXIT;"); // passes
+  parser = Parser("INSERT INTO animals VALUES FROM (\"Joe\", \"cat\", 4);"); // passes
+  parser = Parser("CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);"); //fails
+  parser = Parser("SHOW animals;"); // passes
+  parser = Parser("WRITE animals;"); //passes
+  parser = Parser("answer <- common_names;");
+  parser = Parser("dogs <- select (kind == \"dog\") animals;"); // fails
+  parser = Parser("a <- rename (aname, akind) (project (name, kind) animals);"); // fails
+  parser = Parser("common_names <- project (name) (select (aname == name && akind != kind) (a * animals));"); // fails
   parser.parse();
 
 
+
+
   //read in from file
-  string line;
+/*  string line;
   ifstream myfile ("sql.txt");
   cout << '\n';
   if (myfile.is_open())
@@ -155,7 +167,7 @@ int main() {
 
   else cout << "Unable to open file"; 
 
-  char c = cin.get();
+  char c = cin.get();*/
   return 0;
 
 }
