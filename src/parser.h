@@ -287,7 +287,7 @@ bool Parser::parse_conjunction(){
 //--COMMAND PARSING--//
 //-------------------//
 bool Parser::parse_command() {
-	return parse_open()   || 
+	return (parse_open()   || 
 	       parse_close()  || 
 	       parse_write()  ||
 	       parse_exit()   || 
@@ -295,7 +295,9 @@ bool Parser::parse_command() {
 	       parse_create() || 
 	       parse_update() ||
 	       parse_insert() || 
-	       parse_delete() ;
+	       parse_delete() ) &&
+         tokenizer.consume_token(";");
+
          cout << "Command parserd.\n";
 }
 
@@ -373,14 +375,14 @@ bool Parser::parse_create() {
               tokenizer.consume_token("PRIMARY KEY")                        &&
               tokenizer.consume_token("(")                                  &&
 	            parse_attribute_list()                                        &&
-              tokenizer.consume_token(")")                                  &&
-			        tokenizer.consume_token(";");
+              tokenizer.consume_token(")")                                  ;
 	if(ret){
 	  //execute db engine calls
 		cout<<"Create Table parsed.\n";
 	  db.createTable(name, types);	
 	}
 	else {
+    cout << "Create table parse failed";
 		tokenizer.backup();
 	}
 	return ret;
@@ -456,9 +458,9 @@ string Parser::parse_attribute_name() {
   string s;
   if(isid(tokenizer.get_token())) {
     s = tokenizer.get_token();
-	tokenizer.index++;
-	cout<<"Attribute name parsed.\n";
-	return s;
+  	tokenizer.index++;
+  	cout<<"Attribute name parsed.\n";
+  	return s;
   }
   return "";
 }
@@ -473,7 +475,7 @@ bool Parser::parse_attribute_list() {
   s = parse_attribute_name();
   if(s != "") { // attribute name parse succeeded
     ret = true;
-	cout<<"Attribute list parsed.\n";
+	  cout<<"Attribute list parsed.\n";
   }
   else {
     tokenizer.backup();
@@ -489,8 +491,8 @@ bool Parser::parse_attribute_list() {
 bool Parser::parse_typed_attribute_list() { // this is broken, not parsing types...
 	string name;
  	tokenizer.checkpoint();
-  bool ret = parse_attribute_name() != "" &&
-             parse_type();
+  parse_attribute_name();
+  bool ret = parse_type();
   bool loop = ret;
   
   if(ret){
@@ -507,7 +509,7 @@ bool Parser::parse_typed_attribute_list() { // this is broken, not parsing types
 }
 
 bool Parser::parse_type() {
-	tokenizer.backup();
+	tokenizer.checkpoint();
 	bool ret = parse_int_type() || parse_var_type();
 
 	if(ret){
@@ -564,6 +566,14 @@ string Parser::parse_literal(){
 //--HELPER FUNCTIONS--//
 //--------------------//
 bool Parser::isid(string id){
-	if (id != "") return true;	//i strongly suspect this could be a problem, e.g. "CREATE TABLE +" creates a table called "+"; 
-	else return false;
+  bool ret = true;
+  if(!isalpha(id[0])) {
+    ret = false;
+  }
+  for(int i=1; i<id.length(); i++) {
+    if(!isalnum(id[i])) {
+      ret = false;
+    }
+  }
+  return ret;
 }
