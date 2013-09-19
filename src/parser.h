@@ -492,14 +492,18 @@ bool Parser::parse_typed_attribute_list() { // this is broken, not parsing types
  	tokenizer.checkpoint();
   bool ret = parse_attribute_name() != "" &&
              parse_type();
-  
-  while(tokenizer.consume_token(",") && parse_attribute_name() != "" && parse_type())
-    ;  
+  bool loop = ret;
   
   if(ret){
-	  cout<<"typed attribute list parsed.\n";
+    cout<<"typed attribute list parsed.\n";
   }
-  else tokenizer.backup();
+  else {
+    tokenizer.backup();
+  } 
+
+  while(loop) {
+    loop = tokenizer.consume_token(",") && (parse_attribute_name() != "") && parse_type();
+  }
   return ret;  
 }
 
