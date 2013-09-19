@@ -127,8 +127,9 @@ int main() {
   string test_string3 = "common_names <- project (name) (select (aname == name && akind != kind) (a * animals));";
   string test_string4 = "WRITE test;";
   string test_string5 = "CREATE TABLE species (kind INTEGER) PRIMARY KEY (kind);";
+  string test_string6 = "VARCHAR(10)";
 
-  Tokenizer T = Tokenizer(&test_string5);
+  Tokenizer T = Tokenizer(&test_string2);
   for(int i = 0; i < T.tokens.size(); i++) cout<<T.tokens[i]<<'\n';
 
   //testing parser
@@ -145,7 +146,8 @@ int main() {
   parser = Parser("a <- rename (aname, akind) (project (name, kind) animals);"); // fails
   parser = Parser("common_names <- project (name) (select (aname == name && akind != kind) (a * animals));"); // fails
   parser = Parser("CREATE TABLE species (kind INTEGER) PRIMARY KEY (kind);"); // fails
-  parser.parse();
+  parser = Parser("VARCHAR(10)");
+  parser.parse_var_type();
 
 
 

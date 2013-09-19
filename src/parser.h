@@ -18,7 +18,6 @@ class Parser {
   	// others return data that is the result of the parse
     bool parse();
   
-  private:
     Tokenizer tokenizer;
     string command;
     DbEngine db;

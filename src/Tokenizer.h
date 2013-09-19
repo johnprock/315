@@ -166,10 +166,14 @@ Tokenizer::Tokenizer(string * text){
         position += 20;
         break;
       }
-      if(match(text, position, "VALUES FROM")){
+      else if(match(text, position, "VALUES FROM")){
         tokens.push_back("VALUES FROM");
         position += 11;
         break;
+      }
+      else if(match(text, position, "VARCHAR")){
+        tokens.push_back("VARCHAR");
+        position += 7;
       }
     case 'R':
       if(match(text, position, "RENAME")){
