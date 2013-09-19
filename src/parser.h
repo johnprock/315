@@ -565,6 +565,8 @@ string Parser::parse_literal(){
 //--------------------//
 //--HELPER FUNCTIONS--//
 //--------------------//
+
+// returns true if the string is an alpha followed by 0 or more alphanumerics
 bool Parser::isid(string id){
   bool ret = true;
   if(!isalpha(id[0])) {
