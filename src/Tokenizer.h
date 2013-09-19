@@ -174,6 +174,7 @@ Tokenizer::Tokenizer(string * text){
       else if(match(text, position, "VARCHAR")){
         tokens.push_back("VARCHAR");
         position += 7;
+        break;
       }
     case 'R':
       if(match(text, position, "RENAME")){
