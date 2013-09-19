@@ -87,7 +87,7 @@ class Parser {
 
     bool parse_typed_attribute_list();
 
-    Type parse_type();
+    bool parse_type();
 
     bool parse_int();
 
@@ -490,9 +490,11 @@ bool Parser::parse_attribute_list() {
 bool Parser::parse_typed_attribute_list() { // this is broken, not parsing types...
 	string name;
  	tokenizer.checkpoint();
-  bool ret = ((name = parse_attribute_name()) != "");
+  bool ret = parse_attribute_name() != "" &&
+             parse_type();
   
-  while(tokenizer.consume_token(",")) parse_attribute_name();
+  while(tokenizer.consume_token(",") && parse_attribute_name() != "" && parse_type())
+    ;  
   
   if(ret){
 	  cout<<"typed attribute list parsed.\n";
@@ -501,7 +503,7 @@ bool Parser::parse_typed_attribute_list() { // this is broken, not parsing types
   return ret;  
 }
 
-Type Parser::parse_type() {
+bool Parser::parse_type() {
 	tokenizer.backup();
 	bool ret = parse_int_type() || parse_var_type();
 
@@ -530,9 +532,7 @@ bool Parser::parse_var_type() {
 bool Parser::parse_int_type() {
 	tokenizer.checkpoint();
 	string s;
-	bool ret = tokenizer.consume_token("INTEGER")	&&
-		((s = parse_literal()) != "")		          	&&
-		s.find_first_not_of("0123456789") == std::string::npos; // this fragment lifted from Stack Overflow checks if is integer
+	bool ret = tokenizer.consume_token("INTEGER");	
 	if (ret){
 		cout<<"Int Type parsed. \n";
 	}
