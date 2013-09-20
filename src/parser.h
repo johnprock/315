@@ -141,13 +141,13 @@ string Parser::parse_relation() {
 }
 
 bool Parser::parse_expr() {
-	return   parse_atomic()      ||
-           parse_selection()   ||
+	return   parse_selection()   ||
            parse_projection()  ||
            parse_renaming()    ||
            parse_union()       ||
            parse_difference()  ||
-           parse_product()     ;
+           parse_product()     ||
+	   parse_atomic();
 }
 
 bool Parser::parse_atomic() {
