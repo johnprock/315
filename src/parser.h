@@ -46,8 +46,6 @@ class Parser {
     bool parse_conjunction();
 
     bool parse_comparison();
-
-    bool parse_operand();
     
     string parse_op();
 
@@ -286,22 +284,25 @@ bool Parser::parse_conjunction(){
 
 bool Parser::parse_comparison(){
     tokenizer.checkpoint();
-    bool ret =	parse_operand()			&&
-		parse_op()			&&
-		parse_operand()			||
+    string op = "";
+    string operand1 = "", operand2 = "";
+    bool ret =	((operand1 = parse_literal()) != "")                  &&
+		((op = parse_op()) != "")                             &&
+		((operand2 = parse_literal()) != "")                  &&
 		parse_condition();
 		
     if(ret){
       cout<<"Comparison parsed.\n";
+    }
     else tokenizer.backup();
     return ret;
 }
 
-bool Parser::parse_operand(){
+string Parser::parse_op(){
     tokenizer.checkpoint();
     string op = "";
     bool ret = false;
-    op = parse_literal());
+    op = parse_literal();
     if (op !=  "=="		||
 	op != "!="		||
 	op != "<"		||
@@ -312,13 +313,11 @@ bool Parser::parse_operand(){
 	ret = true;
     if (ret){
       cout<<"Comparison parsed.\n";
+    }
     else tokenizer.backup();
-    return ret;
+    return op;
 }
 
-string parse_op(){
-  
-}
 //-------------------//
 //--COMMAND PARSING--//
 //-------------------//
