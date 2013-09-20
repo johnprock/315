@@ -261,7 +261,7 @@ bool Parser::parse_condition() {
 	bool ret = parse_conjunction();
 	while (tokenizer.consume_token( "||")) ret = ret && parse_conjunction();
 	if(ret){
-    cout << "Condition parsed.\n";
+	    cout << "Condition parsed.\n";
 	}
 	else{
 	    tokenizer.backup();
@@ -271,15 +271,32 @@ bool Parser::parse_condition() {
 
 bool Parser::parse_conjunction(){
 	tokenizer.checkpoint();
-	bool ret = parse_condition();
+	bool ret = parse_comparison();
 
-	while(tokenizer.consume_token("&&")) ret = ret && parse_condition();
+	while(tokenizer.consume_token("&&")) ret = ret && parse_comparison();
 
 	if(ret){
     cout << "Conjunction parsed.\n";
 	}
 	else tokenizer.backup();
 	return ret;
+}
+
+bool Parser::parse_comparison(){
+    tokenizer.checkpoint();
+    bool ret =	parse_operand()			&&
+		parse_op()			&&
+		parse_operand()			||
+		parse_condition();
+		
+    if(ret){
+      cout<<"Comparison parsed.\n";
+    else tokenizer.backup();
+    return ret;
+}
+
+bool Parser::parse_operand(){
+  
 }
 
 //-------------------//
