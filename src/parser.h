@@ -48,6 +48,8 @@ class Parser {
     bool parse_comparison();
 
     bool parse_operand();
+    
+    string parse_op();
 
     string parse_attribute_name();
 
@@ -296,9 +298,27 @@ bool Parser::parse_comparison(){
 }
 
 bool Parser::parse_operand(){
-  
+    tokenizer.checkpoint();
+    string op = "";
+    bool ret = false;
+    op = parse_literal());
+    if (op !=  "=="		||
+	op != "!="		||
+	op != "<"		||
+	op != ">"		||
+	op != "<="		||
+	op != ">="		||
+	op != ""		)
+	ret = true;
+    if (ret){
+      cout<<"Comparison parsed.\n";
+    else tokenizer.backup();
+    return ret;
 }
 
+string parse_op(){
+  
+}
 //-------------------//
 //--COMMAND PARSING--//
 //-------------------//
