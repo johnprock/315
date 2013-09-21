@@ -4,6 +4,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <fstream>
 #include "table.h"
 #include "dbEngine.h"
 #include <vector>
@@ -125,14 +126,30 @@ int main() {
   string test_string1 = "INSERT INTO animals VALUES FROM (\"Joe\", \"cat\", 4);";
   string test_string2 = "CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);";
   string test_string3 = "common_names <- project (name) (select (aname == name && akind != kind) (a * animals));";
+  string test_string4 = "WRITE test;";
+  string test_string5 = "CREATE TABLE species (kind INTEGER) PRIMARY KEY (kind, test);";
+  string test_string6 = "(3)";
 
-  Tokenizer T = Tokenizer(&test_string2);
+  Tokenizer T = Tokenizer(&test_string5);
   for(int i = 0; i < T.tokens.size(); i++) cout<<T.tokens[i]<<'\n';
 
   //testing parser
   cout<<"\n\n\nParser test\n========================\n";
-  Parser parser = Parser("CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);");
+  Parser parser = Parser("CLOSE test;"); // passes
+  parser = Parser("OPEN test;"); // passes
+  parser = Parser("EXIT;"); // passes
+  parser = Parser("INSERT INTO animals VALUES FROM (\"Joe\", \"cat\", 4);"); // passes
+  parser = Parser("CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);"); //fails
+  parser = Parser("SHOW animals;"); // passes
+  parser = Parser("WRITE animals;"); //passes
+  parser = Parser("answer <- common_names;");
+  parser = Parser("dogs <- select (kind == \"dog\") animals;"); // fails
+  parser.parse();
+  parser = Parser("a <- rename (name, akind) (project (name, kind) animals);"); // fails
+  parser = Parser("common_names <- project (name) (select (aname == name && akind != kind) (a * animals));"); // fails
+  parser = Parser("CREATE TABLE species (kind INTEGER) PRIMARY KEY (kind, test);"); // passes
 
+<<<<<<< HEAD
   //char c = cin.get();
   //return 0;
 
@@ -152,6 +169,35 @@ int main() {
   return 0;
 
   Parser read_in = Parser(output);
+=======
+
+
+
+
+
+  //read in from file
+/*  string line;
+  ifstream myfile ("sql.txt");
+  cout << '\n';
+  if (myfile.is_open())
+  {
+    while ( getline (myfile,line) )
+    {
+      Parser test = Parser(line);
+	  if(!test.parse()){
+		  cout<<"Parsing Failure!\n";
+		  break;
+	  }
+    }
+    myfile.close();
+  }
+
+  else cout << "Unable to open file"; 
+
+  char c = cin.get();*/
+  return 0;
+
+>>>>>>> 025512ac96b7edcd4f0c0850059c553a720e72a5
 }
 
 

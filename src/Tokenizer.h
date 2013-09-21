@@ -114,6 +114,7 @@ Tokenizer::Tokenizer(string * text){
         position += 4;
         break;
       }
+    case 's':
     case 'S':
       if(match(text, position, "SHOW")){
         tokens.push_back("SHOW");
@@ -125,18 +126,19 @@ Tokenizer::Tokenizer(string * text){
         position += 3;
         break;
       }
-      if(match(text, position, "SELECT")){
+      if(match(text, position, "select")){
         tokens.push_back("SELECT");
         position += 6;
         break;
       }
+    case 'p':
     case 'P':
       if(match(text, position, "PRIMARY KEY")){
         tokens.push_back("PRIMARY KEY");
         position += 11;
         break;
       }
-      if(match(text, position, "PROJECT")){
+      if(match(text, position, "project")){
         tokens.push_back("PROJECT");
         position += 7;
         break;
@@ -153,6 +155,12 @@ Tokenizer::Tokenizer(string * text){
         position += 11;
         break;
       }
+      else if(match(text, position, "INTEGER")){
+        tokens.push_back("INTEGER");
+        position += 7;
+        break;
+      }
+
     case 'V':
       //CAUTION: check this case first since it contains the following
       if(match(text, position, "VALUES FROM RELATION")){
@@ -160,13 +168,19 @@ Tokenizer::Tokenizer(string * text){
         position += 20;
         break;
       }
-      if(match(text, position, "VALUES FROM")){
+      else if(match(text, position, "VALUES FROM")){
         tokens.push_back("VALUES FROM");
         position += 11;
         break;
       }
+      else if(match(text, position, "VARCHAR")){
+        tokens.push_back("VARCHAR");
+        position += 7;
+        break;
+      }
+    case 'r':
     case 'R':
-      if(match(text, position, "RENAME")){
+      if(match(text, position, "rename")){
         tokens.push_back("RENAME");
         position += 6;
         break;
@@ -266,15 +280,17 @@ Tokenizer::Tokenizer(string * text){
       position++;
       break;
     default:
-      if(c <= '9' && c >= '0'){
+      if(isdigit(c)){
         string temp = get_integer(text, position);
         tokens.push_back(temp);
         position += temp.size();
+        break;
       }
       if((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c == '_')){
         string temp = get_varchar(text, position);
         tokens.push_back(temp);
         position += temp.size();
+        break;
       }
       //ignore everything else
       else position++;
