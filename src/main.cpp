@@ -143,13 +143,15 @@ int main() {
   parser = Parser("SHOW animals;"); // passes
   parser = Parser("WRITE animals;"); //passes
   parser = Parser("answer <- common_names;");
-  parser = Parser("dogs <- select (kind == \"dog\") animals;"); // fails
-  parser.parse();
   parser = Parser("a <- rename (name, akind) (project (name, kind) animals);"); // fails
-  parser = Parser("common_names <- project (name) (select (aname == name && akind != kind) (a * animals));"); // fails
+  parser = Parser("common_names <- project g(name) (select (aname == name && akind != kind) (a * animals));"); // fails
   parser = Parser("CREATE TABLE species (kind INTEGER) PRIMARY KEY (kind, test);"); // passes
+  parser = Parser("test");
+  parser = Parser("dogs <- select (kind == \"dog\") animals;"); // fails
+  parser.parse_selection();
 
   //read in from file
+  
   cout<<"\n\n\nSQL from file test\n========================\n";
 
   ifstream myReadFile;
@@ -165,28 +167,6 @@ int main() {
 
   Parser read_in = Parser(output);
 
-
-  //read in from file
-/*  string line;
-  ifstream myfile ("sql.txt");
-  cout << '\n';
-  if (myfile.is_open())
-  {
-    while ( getline (myfile,line) )
-    {
-      Parser test = Parser(line);
-	  if(!test.parse()){
-		  cout<<"Parsing Failure!\n";
-		  break;
-	  }
-    }
-    myfile.close();
   }
-
-  else cout << "Unable to open file"; 
-
-  char c = cin.get();*/
-  return 0;
-}
 
 
