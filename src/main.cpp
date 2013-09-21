@@ -139,11 +139,11 @@ int main() {
   parser = Parser("EXIT;"); // passes
   parser = Parser("INSERT INTO animals VALUES FROM (\"Joe\", \"cat\", 4);"); // passes
   parser = Parser("CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);"); //fails
-  parser.parse();
   parser = Parser("SHOW animals;"); // passes
   parser = Parser("WRITE animals;"); //passes
   parser = Parser("answer <- common_names;");
   parser = Parser("dogs <- select (kind == \"dog\") animals;"); // fails
+  parser.parse();
   parser = Parser("a <- rename (name, akind) (project (name, kind) animals);"); // fails
   parser = Parser("common_names <- project (name) (select (aname == name && akind != kind) (a * animals));"); // fails
   parser = Parser("CREATE TABLE species (kind INTEGER) PRIMARY KEY (kind, test);"); // passes

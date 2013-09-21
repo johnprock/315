@@ -114,6 +114,7 @@ Tokenizer::Tokenizer(string * text){
         position += 4;
         break;
       }
+    case 's':
     case 'S':
       if(match(text, position, "SHOW")){
         tokens.push_back("SHOW");
@@ -125,18 +126,19 @@ Tokenizer::Tokenizer(string * text){
         position += 3;
         break;
       }
-      if(match(text, position, "SELECT")){
+      if(match(text, position, "select")){
         tokens.push_back("SELECT");
         position += 6;
         break;
       }
+    case 'p':
     case 'P':
       if(match(text, position, "PRIMARY KEY")){
         tokens.push_back("PRIMARY KEY");
         position += 11;
         break;
       }
-      if(match(text, position, "PROJECT")){
+      if(match(text, position, "project")){
         tokens.push_back("PROJECT");
         position += 7;
         break;
@@ -176,8 +178,9 @@ Tokenizer::Tokenizer(string * text){
         position += 7;
         break;
       }
+    case 'r':
     case 'R':
-      if(match(text, position, "RENAME")){
+      if(match(text, position, "rename")){
         tokens.push_back("RENAME");
         position += 6;
         break;
