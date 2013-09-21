@@ -131,7 +131,7 @@ Tokenizer::Tokenizer(string * text){
         break;
       }
       if(match(text, position, "select")){
-        tokens.push_back("SELECT");
+        tokens.push_back("select");
         position += 6;
         break;
       }

@@ -342,7 +342,8 @@ Table Table::operator+(Table table){
         break;
       }
     }
-    Table temp = Table(table.types);
+    string temp_name = name + "+" + table.name;
+    Table temp = Table(temp_name, table.types);
     for (int i = 0; i < tuples.size(); i++){
       temp.insert(tuples[i]);
     }
@@ -367,7 +368,8 @@ Table Table::operator-(Table table){
         break;
       }
     }
-    Table temp = Table(tuples[0].get_types());    //make a copy of the left-hand-side table using DEFAULT copy constructor.
+    string temp_name = name + "-" + table.name;
+    Table temp = Table(temp_name, tuples[0].get_types());    //make a copy of the left-hand-side table using DEFAULT copy constructor.
     for(int i = 0; i < tuples.size(); i++) temp.insert(tuples[i]);
 
 	for(int j = 0; j < table.tuples.size(); j++){
@@ -393,7 +395,8 @@ Table Table::operator*(Table table){
 	for(int i = 0; i < table.tuples[0].types.size(); i++) new_types.push_back(table.tuples[0].types[i]);
 	
 	//create the new table to be returned
-	Table temp = Table(new_types);
+  string temp_name = name + "*" + table.name;
+	Table temp = Table(temp_name, new_types);
 	for(int i = 0; i < tuples.size(); i++){
 		for(int j = 0; j < table.tuples.size(); j++){
 			//new attribute vector for new tuple

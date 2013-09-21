@@ -147,19 +147,18 @@ bool Parser::parse_expr() {
            parse_union()       ||
            parse_difference()  ||
            parse_product()     ||
-	   parse_atomic();
+	         parse_atomic()      ;
 }
 
 bool Parser::parse_atomic() {
 	tokenizer.checkpoint();
 	string name;
-	bool ret =  (name = parse_relation()) != ""                   ||
-			  tokenizer.consume_token("(")                &&
-		          parse_expr()                                &&
-			  tokenizer.consume_token(")");
+	bool ret =  ((name = parse_relation()) != "")            ||
+			        (tokenizer.consume_token("(")                &&
+		           parse_expr()                                &&
+			         tokenizer.consume_token(")"));
 	if(ret){
     cout << "Atomic parsed.\n";
-	  ;	
 	}
 	else {
 		tokenizer.backup();
@@ -168,18 +167,20 @@ bool Parser::parse_atomic() {
 }
 
 bool Parser::parse_selection() {
+  cout << "Parsing selection...";
 	tokenizer.checkpoint();
-	bool ret =  tokenizer.consume_token("SELECT")                 &&
+	bool ret =  tokenizer.consume_token("select")                 &&
 	            tokenizer.consume_token("(")                      &&
 	            parse_condition()                                 &&
 	            tokenizer.consume_token(")")                      &&
-                    parse_atomic();
+              parse_atomic();
 	if(ret){
     cout << "Selection parsed.\n";
 	  //going to need stuff from condition and parse atomic, i assume	
 	}
 	else {
 		tokenizer.backup();
+    cout << "Selection parse fail.";
 	}
 	return ret;
 }
@@ -271,6 +272,7 @@ bool Parser::parse_condition() {
 	return ret;
 }
 
+// not working
 bool Parser::parse_conjunction(){
 	tokenizer.checkpoint();
 	bool ret = parse_comparison();
@@ -421,7 +423,6 @@ bool Parser::parse_create() {
 	  db.createTable(name, types);	
 	}
 	else {
-    cout << "Create table parse failed\n";
 		tokenizer.backup();
 	}
 	return ret;
