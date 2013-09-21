@@ -149,7 +149,6 @@ int main() {
   parser = Parser("common_names <- project (name) (select (aname == name && akind != kind) (a * animals));"); // fails
   parser = Parser("CREATE TABLE species (kind INTEGER) PRIMARY KEY (kind, test);"); // passes
 
-<<<<<<< HEAD
   //char c = cin.get();
   //return 0;
 
@@ -169,7 +168,6 @@ int main() {
   return 0;
 
   Parser read_in = Parser(output);
-=======
 
 
 
@@ -197,7 +195,6 @@ int main() {
   char c = cin.get();*/
   return 0;
 
->>>>>>> 025512ac96b7edcd4f0c0850059c553a720e72a5
 }
 
 
