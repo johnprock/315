@@ -86,6 +86,7 @@ Tokenizer::Tokenizer(string * text){
         position += 4;
         break;
       }
+      else goto d;
     case 'C':
       if(match(text, position, "CLOSE")){
         tokens.push_back("CLOSE");
@@ -97,6 +98,7 @@ Tokenizer::Tokenizer(string * text){
         position += 12;
         break;
       }
+      else goto d;
     case 'W':
       if(match(text, position, "WRITE")){
         tokens.push_back("WRITE");
@@ -108,12 +110,14 @@ Tokenizer::Tokenizer(string * text){
         position += 5;
         break;
       }
+      else goto d;
     case 'E':
       if(match(text, position, "EXIT")){
         tokens.push_back("EXIT");
         position += 4;
         break;
       }
+      else goto d;
     case 's':
     case 'S':
       if(match(text, position, "SHOW")){
@@ -131,6 +135,7 @@ Tokenizer::Tokenizer(string * text){
         position += 6;
         break;
       }
+      else goto d;
     case 'p':
     case 'P':
       if(match(text, position, "PRIMARY KEY")){
@@ -143,12 +148,14 @@ Tokenizer::Tokenizer(string * text){
         position += 7;
         break;
       }
+      else goto d;
     case 'U':
       if(match(text, position, "UPDATE")){
         tokens.push_back("UPDATE");
         position += 6;
         break;
       }
+      else goto d;
     case 'I':
       if(match(text, position, "INSERT INTO")){
         tokens.push_back("INSERT INTO");
@@ -160,7 +167,7 @@ Tokenizer::Tokenizer(string * text){
         position += 7;
         break;
       }
-
+      else goto d;
     case 'V':
       //CAUTION: check this case first since it contains the following
       if(match(text, position, "VALUES FROM RELATION")){
@@ -178,6 +185,7 @@ Tokenizer::Tokenizer(string * text){
         position += 7;
         break;
       }
+      else goto d;
     case 'r':
     case 'R':
       if(match(text, position, "rename")){
@@ -185,18 +193,21 @@ Tokenizer::Tokenizer(string * text){
         position += 6;
         break;
       }
+      else goto d;
     case 'D':
       if(match(text, position, "DELETE FROM")){
         tokens.push_back("DELETE FROM");
         position += 11;
         break;
       }
+      else goto d;
     case '=':
 	  if(match(text, position, "==")){	
         tokens.push_back("==");
         position += 2;
         break;
 	  }
+    else goto d;
     case '<': 
       if(match(text, position, "<-")){
         tokens.push_back("<-");
@@ -219,6 +230,7 @@ Tokenizer::Tokenizer(string * text){
         position += 2;
         break;
       }
+      else goto d;
     case '>':
       if(match(text, position, ">=")){
         tokens.push_back(">=");
@@ -268,18 +280,21 @@ Tokenizer::Tokenizer(string * text){
         position += 2;
         break;
       }
+      else goto d;
     case '&':
       if(match(text, position, "&&")){
         tokens.push_back("&&");
         position += 2;
         break;
       }
+      else goto d;
     case ' ':
     case '\t':
     case '\n':
       position++;
       break;
     default:
+    d:
       if(isdigit(c)){
         string temp = get_integer(text, position);
         tokens.push_back(temp);
