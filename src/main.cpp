@@ -139,7 +139,7 @@ int main() {
   parser = Parser("OPEN test;"); // passes
   parser = Parser("EXIT;"); // passes
   parser = Parser("INSERT INTO animals VALUES FROM (\"Joe\", \"cat\", 4);"); // passes
-  parser = Parser("CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);"); //fails
+  parser = Parser("CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);"); // passes
   parser = Parser("SHOW animals;"); // passes
   parser = Parser("WRITE animals;"); //passes
   parser = Parser("answer <- common_names;");
@@ -148,10 +148,6 @@ int main() {
   parser = Parser("a <- rename (name, akind) (project (name, kind) animals);"); // fails
   parser = Parser("common_names <- project (name) (select (aname == name && akind != kind) (a * animals));"); // fails
   parser = Parser("CREATE TABLE species (kind INTEGER) PRIMARY KEY (kind, test);"); // passes
-
-<<<<<<< HEAD
-  //char c = cin.get();
-  //return 0;
 
   //read in from file
   cout<<"\n\n\nSQL from file test\n========================\n";
@@ -162,17 +158,12 @@ int main() {
   if (myReadFile.is_open()) {
         while (!myReadFile.eof()) {
                 myReadFile >> output;
-                //cout<<output;
          }
   }
   myReadFile.close();
   return 0;
 
   Parser read_in = Parser(output);
-=======
-
-
-
 
 
   //read in from file
@@ -196,8 +187,6 @@ int main() {
 
   char c = cin.get();*/
   return 0;
-
->>>>>>> 025512ac96b7edcd4f0c0850059c553a720e72a5
 }
 
 
