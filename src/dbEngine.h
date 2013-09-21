@@ -63,6 +63,9 @@ class DbEngine {
     //Returns a table that is the cartesian product of two tables
     Table operator*(Table table);
     
+    //finds a table in the tables vector by its name
+    int find(string name);
+    
 
   //private: //i made this public to get DbEngine.Show() to work. This is gross. 
     vector<Table> tables;
@@ -166,4 +169,11 @@ Table DbEngine::rename(vector<string> names, Table table) {
 
 void DbEngine::Close() {
 
+}
+
+int DbEngine::find(string name){
+	for(int i = 0; i < tables.size(); i++){
+		if (tables[i].name == name) return i;
+	}
+	return -1;
 }
