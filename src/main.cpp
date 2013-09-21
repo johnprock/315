@@ -127,7 +127,7 @@ int main() {
   string test_string2 = "CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);";
   string test_string3 = "common_names <- project (name) (select (aname == name && akind != kind) (a * animals));";
   string test_string4 = "WRITE test;";
-  string test_string5 = "CREATE TABLE species (kind INTEGER) PRIMARY KEY (kind, test);";
+  string test_string5 = "dogs <- select (kind == \"dog\") animals;";
   string test_string6 = "(3)";
 
   Tokenizer T = Tokenizer(&test_string5);
@@ -143,12 +143,12 @@ int main() {
   parser = Parser("SHOW animals;"); // passes
   parser = Parser("WRITE animals;"); //passes
   parser = Parser("answer <- common_names;");
-  parser = Parser("dogs <- select (kind == \"dog\") animals;"); // fails
-  parser.parse();
   parser = Parser("a <- rename (name, akind) (project (name, kind) animals);"); // fails
-  parser = Parser("common_names <- project (name) (select (aname == name && akind != kind) (a * animals));"); // fails
+  parser = Parser("common_names <- project g(name) (select (aname == name && akind != kind) (a * animals));"); // fails
   parser = Parser("CREATE TABLE species (kind INTEGER) PRIMARY KEY (kind, test);"); // passes
-
+  parser = Parser("test");
+  parser = Parser("dogs <- select (kind == \"dog\") animals;"); // fails
+  parser.parse_selection();
 
   //char c = cin.get();
   //return 0;
