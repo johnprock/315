@@ -291,7 +291,7 @@ bool Parser::parse_comparison(){
     bool ret =	((operand1 = parse_literal()) != "")                  &&
 		((op = parse_op()) != "")                             &&
 		((operand2 = parse_literal()) != "")                  ||
-		tokenizer.consume_token("(")                              &&
+		tokenizer.consume_token("(")                          &&
 		parse_condition()                                     &&
 		tokenizer.consume_token(")");
 		
@@ -307,13 +307,13 @@ string Parser::parse_op(){
     string op = "";
     bool ret = false;
     op = parse_literal();
-    if (op !=  "=="		||
-	op != "!="		||
-	op != "<"		||
-	op != ">"		||
-	op != "<="		||
-	op != ">="		||
-	op != ""		)
+    if (op ==  "=="		||
+	op == "!="		||
+	op == "<"		||
+	op == ">"		||
+	op == "<="		||
+	op == ">="		||
+	op == ""		)
 	ret = true;
     if (ret){
       cout<<"Comparison parsed.\n";
