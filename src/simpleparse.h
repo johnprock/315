@@ -17,8 +17,42 @@ public:
   // This simple parser integrates with the dbEngine and provides necessary core functions for building our application
 	bool parse(string input);
 
+
+  // assume that there is only one attribute involved... may fix this later
   vector<Attribute> get_attrs(string input) {
     vector<Attribute> attrs;
+    Type type;
+
+    // start index of attribute name
+    int start = 1;
+    int end = input.find(" ");
+    int length = end - start;
+
+    string name = input.substr(start, length);
+    
+    start = input.find(" ") + 1;
+    end = input.find(")");
+    length = end - start;
+
+    string type_str = input.substr(start, length);
+
+    cout << "Attribute Name: " << name << endl;
+    cout << "Attribute Type: " << type_str << endl;
+    
+    // extract type data from string
+    if(type == "INTEGER") {
+    	type = Type(-1, true); // assume all keys are primary for now
+    }
+    else { // type is a VARCHAR, get size
+        int start = input.find('(');
+	int end = input.find(')');
+        int length = end - start;
+        string size = type_str.substr(start, length);
+        cout << "Size: " << size << endl;
+
+	//type = Type(size, true);
+    }
+
     return attrs;
   }
 
