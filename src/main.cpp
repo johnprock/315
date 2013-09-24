@@ -166,6 +166,17 @@ int main() {
   }
   myReadFile.close();*/
   db.Open("sql.txt");
+
+
+
+
+
+cout << "\n\n\nSimple Parser Test\n===========================\n";
+SimpleParser simp;
+simp.parse("CREATE TABLE species (kind INTEGER) PRIMARY KEY (kind, test);");
+
+
+
   return 0;
 
   //Parser read_in = Parser(output);
