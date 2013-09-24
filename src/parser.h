@@ -14,6 +14,9 @@ class DbEngine;
 class Parser {
   public:
     Parser(string text);
+    
+    // The application will function with a bare minimum of create, insert, and select.
+
 
   	// main parsing function
   	// some parsing functions return a bool to indicate a sucessfull parse

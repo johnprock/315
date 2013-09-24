@@ -11,6 +11,7 @@
 #include "parser.h"
 #include "parser.cpp"
 #include "dbEngine.cpp"
+#include "simpleparse.h"
 
 bool f(Attribute a) {
 	return true;
@@ -137,24 +138,11 @@ int main() {
   //testing parser
   cout<<"\n\n\nParser test\n========================\n";
   Parser parser = Parser("CLOSE test;"); // passes
-  parser = Parser("OPEN test;"); // passes
-  parser = Parser("EXIT;"); // passes
-  parser = Parser("INSERT INTO animals VALUES FROM (\"Joe\", \"cat\", 4);"); // passes
-  parser = Parser("CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);"); // passes
-  parser = Parser("SHOW animals;"); // passes
-  parser = Parser("WRITE animals;"); //passes
-  parser = Parser("answer <- common_names;"); // fails
-  parser = Parser("a <- rename (name, akind) (project (name, kind) animals);"); // fails
-  parser.parse();
-  parser = Parser("common_names <- project g(name) (select (aname == name && akind != kind) (a * animals));"); // fails
-  parser = Parser("CREATE TABLE species (kind INTEGER) PRIMARY KEY (kind, test);"); // passes
-  parser = Parser("test");
-  parser = Parser("dogs <- select (kind == \"dog\") animals;"); // fails
- // parser.parse();
+  // parser.parse();
 
-cout << "\n\n\nIntegration test\n========================\n";
-parser = Parser("OPEN test;");
-parser.parse();
+  cout << "\n\n\nIntegration test\n========================\n";
+  parser = Parser("CREATE test;");
+  parser.parse();
 
 
 
