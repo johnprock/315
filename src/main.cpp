@@ -4,12 +4,13 @@
 
 #include <fstream>
 #include <iostream>
-#include <fstream>
 #include "table.h"
 #include "dbEngine.h"
 #include <vector>
 #include "Tokenizer.h"
 #include "parser.h"
+#include "parser.cpp"
+#include "dbEngine.cpp"
 
 bool f(Attribute a) {
 	return true;
@@ -142,19 +143,20 @@ int main() {
   parser = Parser("CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);"); // passes
   parser = Parser("SHOW animals;"); // passes
   parser = Parser("WRITE animals;"); //passes
-  parser = Parser("answer <- common_names;");
+  parser = Parser("answer <- common_names;"); // fails
   parser = Parser("a <- rename (name, akind) (project (name, kind) animals);"); // fails
+  parser.parse();
   parser = Parser("common_names <- project g(name) (select (aname == name && akind != kind) (a * animals));"); // fails
   parser = Parser("CREATE TABLE species (kind INTEGER) PRIMARY KEY (kind, test);"); // passes
   parser = Parser("test");
   parser = Parser("dogs <- select (kind == \"dog\") animals;"); // fails
-  parser.parse_selection();
+ // parser.parse();
 
   //read in from file
   
   cout<<"\n\n\nSQL from file test\n========================\n";
 
-  ifstream myReadFile;
+  /*ifstream myReadFile;
   myReadFile.open("sql.txt");
   char output[1000];
   if (myReadFile.is_open()) {
@@ -162,10 +164,11 @@ int main() {
                 myReadFile >> output;
          }
   }
-  myReadFile.close();
+  myReadFile.close();*/
+  db.Open("sql.txt");
   return 0;
 
-  Parser read_in = Parser(output);
+  //Parser read_in = Parser(output);
 
   }
 
