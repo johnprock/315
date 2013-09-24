@@ -39,7 +39,6 @@ Type::Type(bool _prime) {
 }
 
 Type::Type(int _length, bool _prime) {
-  assert(_length > 0); //catch impossible sizes for varchars
   length = _length;
   primary = _prime;
 }

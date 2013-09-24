@@ -40,17 +40,17 @@ public:
     cout << "Attribute Type: " << type_str << endl;
     
     // extract type data from string
-    if(type == "INTEGER") {
+    if(type_str == "INTEGER") {
     	type = Type(-1, true); // assume all keys are primary for now
     }
     else { // type is a VARCHAR, get size
         int start = input.find('(');
 	int end = input.find(')');
         int length = end - start;
-        string size = type_str.substr(start, length);
-        cout << "Size: " << size << endl;
+        string size_str = type_str.substr(start, length);
+        cout << "Size: " << size_str << endl;
 
-	//type = Type(size, true);
+        type = Type(atoi(size_str.c_str()), true);
     }
 
     return attrs;
