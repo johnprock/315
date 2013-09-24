@@ -152,6 +152,18 @@ int main() {
   parser = Parser("dogs <- select (kind == \"dog\") animals;"); // fails
  // parser.parse();
 
+cout << "\n\n\nIntegration test\n========================\n";
+parser = Parser("OPEN test;");
+parser.parse();
+
+
+
+
+
+
+
+
+
   //read in from file
   
   cout<<"\n\n\nSQL from file test\n========================\n";
