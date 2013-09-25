@@ -12,6 +12,8 @@
 #include "parser.cpp"
 #include "dbEngine.cpp"
 #include "simpleparse.h"
+#include "app.h"
+
 
 bool f(Attribute a) {
 	return true;
