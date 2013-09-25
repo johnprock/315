@@ -25,14 +25,16 @@ bool Parser::parse_query() {
 	string name;
 	bool ret = (name = parse_relation()) != ""   && 
 	           tokenizer.consume_token("<-")     && 
-	           parse_expr()                      &&
-	           tokenizer.consume_token(";")      ;
+	           parse_expr()                     /* &&
+	           tokenizer.consume_token(";")*/;
+	cout << ret << endl;
 	
 	if(ret) {
 		cout<<"query parsed\n";
 	}
 	else {
 		tokenizer.backup();
+		cout<<"query not parsed.\n";
 	}
     return ret;
 }
@@ -42,30 +44,32 @@ string Parser::parse_relation() {
 	if (isid(tokenizer.get_token())) {
 	  s = tokenizer.get_token();
 	  tokenizer.index++;
+	  cout << s << endl;
 	  return s;
 	}
 	else return "";
 }
 
 bool Parser::parse_expr() {
-	return   parse_selection()   ||
-           parse_projection()  ||
+	return parse_projection()  ||
+           parse_selection()   ||
            parse_renaming()    ||
            parse_union()       ||
            parse_difference()  ||
            parse_product()     ||
-	         parse_atomic()      ;
+	       parse_atomic()      ;
 }
 
 bool Parser::parse_atomic() {
 	tokenizer.checkpoint();
 	string name;
-	bool ret =  ((name = parse_relation()) != "")            ||
-			        (tokenizer.consume_token("(")                &&
-		           parse_expr()                                &&
-			         tokenizer.consume_token(")"));
+	bool ret =  	((name = parse_relation()) != "")            ||
+			        (tokenizer.consume_token("(")               &&
+		            parse_expr()                                &&
+			        tokenizer.consume_token(")"));
 	if(ret){
     cout << "Atomic parsed.\n";
+    cout << name << endl;
 	}
 	else {
 		tokenizer.backup();
@@ -76,11 +80,11 @@ bool Parser::parse_atomic() {
 bool Parser::parse_selection() {
   cout << "Parsing selection...";
 	tokenizer.checkpoint();
-	bool ret =  tokenizer.consume_token("select") /*                &&
+	bool ret =  tokenizer.consume_token("select")                 &&
 	            tokenizer.consume_token("(")                      &&
 	            parse_condition()                                 &&
 	            tokenizer.consume_token(")")                      &&
-              parse_atomic()*/;
+                parse_atomic();
 	if(ret){
     cout << "Selection parsed.\n";
 	  //going to need stuff from condition and parse atomic, i assume	
@@ -93,18 +97,19 @@ bool Parser::parse_selection() {
 }
 
 bool Parser::parse_projection() {
+	cout <<"Parsing projection...";
 	tokenizer.checkpoint();
-	bool ret =  tokenizer.consume_token("PROJECT")                &&
+	bool ret = 	tokenizer.consume_token("project")                &&
 	            tokenizer.consume_token("(")                      &&
 	            parse_attribute_list()                            &&
 	            tokenizer.consume_token(")")                      &&
-                    parse_atomic();
+                parse_atomic();
 	if(ret){
-    cout << "Projection parsed.\n";
+    cout << "Projection parsed.\n\n";
 	}
 	else {
 		tokenizer.backup();
-		cout << "Projection parse failed.\n";
+		cout << "Projection parse failed.\n\n";
 	}
 	return ret;
 }
@@ -259,7 +264,6 @@ bool Parser::parse_open() {
 		((name = parse_relation()) != "");
 	if(ret){
 		cout<<"Open parsed.\n";
-		
 		db->Open(name);
 	}
 	else tokenizer.backup();
@@ -332,8 +336,7 @@ bool Parser::parse_create() {
               tokenizer.consume_token(")")                                  ;
 	if(ret){
 	  //execute db engine calls
-		cout<<"Create Table parsed.\n";
-	  db->createTable(name, types);	
+		cout<<"Create Table parsed.\n";	
 	}
 	else {
 		tokenizer.backup();
@@ -517,13 +520,15 @@ string Parser::parse_literal(){
 
 // returns true if the string is an alpha followed by 0 or more alphanumerics
 bool Parser::isid(string id){
-  bool ret = true;
-  if(!isalpha(id[0])) {
-    ret = false;
+  bool ret = false;
+  if(isalpha(id[0])) {
+    ret = true;
+    //cout << ret << endl;
   }
   for(int i=1; i<id.length(); i++) {
-    if(!isalnum(id[i])) {
-      ret = false;
+    if(isalnum(id[i])) {
+      ret = true;
+      //cout << ret << endl;
     }
   }
   return ret;
