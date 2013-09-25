@@ -112,7 +112,7 @@ bool SimpleParser::parse(string input) {
           //make the call
           
           int table_loc = db.find(name);
-          db.Show(db.tables[table_loc]);
+          if (table_loc > 0) db.Show(db.tables[table_loc]);
 
         }
 

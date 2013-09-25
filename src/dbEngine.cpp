@@ -22,14 +22,17 @@ void DbEngine::Open(string directory) {
   ifstream myReadFile;
   myReadFile.open(directory.c_str());
   char output[1000];
+  cout << "file not open.\n";
   if (myReadFile.is_open()) {
+    cout << "file open.\n";
         while (!myReadFile.eof()) {
                 myReadFile >> output;
+                Parser openfile = Parser(output);
+                bool ret = openfile.parse();
+                cout << ret << endl;
          }
   }
-  Parser openfile = Parser(output);
-  openfile.parse();
-}
+  }
 
 void DbEngine::Write(Table table) {
   // this will wait until we have a working parser

@@ -132,56 +132,53 @@ int main() {
   string test_string5 = "CREATE TABLE species (kind INTEGER) PRIMARY KEY (kind, test);";
   string test_string6 = "(3)";
 
-  Tokenizer T = Tokenizer(&test_string5);
-  for(int i = 0; i < T.tokens.size(); i++) cout<<T.tokens[i]<<'\n';
+  Parser query = Parser(test_string3);
+  query.parse();
+
+  //Tokenizer T = Tokenizer(&test_string5);
+  //for(int i = 0; i < T.tokens.size(); i++) cout<<T.tokens[i]<<'\n';
 
   //testing parser
   cout<<"\n\n\nParser test\n========================\n";
-  Parser parser = Parser("CLOSE test;"); // passes
+  //Parser parser = Parser("CLOSE test;"); // passes
   // parser.parse();
 
   cout << "\n\n\nIntegration test\n========================\n";
-  parser = Parser("CREATE test;");
-  parser.parse();
-
-
-
-
-
-
-
+  //parser = Parser("CREATE test;");
+  //parser.parse();
 
 
   //read in from file
   
   cout<<"\n\n\nSQL from file test\n========================\n";
-
-  /*ifstream myReadFile;
-  myReadFile.open("sql.txt");
-  char output[1000];
-  if (myReadFile.is_open()) {
-        while (!myReadFile.eof()) {
-                myReadFile >> output;
-         }
-  }
-  myReadFile.close();*/
-  db.Open("sql.txt");
+  //db.Open("sql.txt");
 
 
 
 
 
 cout << "\n\n\nSimple Parser Test\n===========================\n";
-SimpleParser simp;
+/*SimpleParser simp;
 simp.parse("CREATE TABLE species (kind INTEGER) PRIMARY KEY (kind, test);");
 simp.parse("INSERT INTO species VALUES FROM (\"Joe\");");
-simp.parse("SHOW species");
-
-
-  return 0;
+simp.parse("SHOW species");*/
 
   //Parser read_in = Parser(output);
 
+cout << "\n\n\nCommand Line Interface Test\n===========================\n";
+  /*string command;
+  while(command != "EXIT"){
+  cout << "Please enter desired command in SQL: ";
+  getline(cin, command);
+  //cin.ignore();
+  parser = Parser(command);
+  parser.parse();
   }
+*/
+  return 0;
+
+}
+
+
 
 

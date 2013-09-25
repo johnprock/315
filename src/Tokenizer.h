@@ -144,7 +144,7 @@ Tokenizer::Tokenizer(string * text){
         break;
       }
       if(match(text, position, "project")){
-        tokens.push_back("PROJECT");
+        tokens.push_back("project");
         position += 7;
         break;
       }
