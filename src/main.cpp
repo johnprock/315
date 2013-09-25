@@ -174,7 +174,7 @@ int main() {
 cout << "\n\n\nSimple Parser Test\n===========================\n";
 SimpleParser simp;
 simp.parse("CREATE TABLE species (kind INTEGER) PRIMARY KEY (kind, test);");
-
+simp.parse("SHOW species");
 
 
   return 0;

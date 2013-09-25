@@ -17,6 +17,8 @@ public:
 
   // This simple parser integrates with the dbEngine and provides necessary core functions for building our application
 	bool parse(string input);
+  
+  DbEngine db;
 
 
   // assume that there is only one attribute involved... may fix this later
@@ -90,7 +92,9 @@ bool SimpleParser::parse(string input) {
           
 
           // Finally we make the dbengine call
-        
+          vector<Type> table_types;
+          for(int i = 0; i < attrs.size(); i++) table_types.push_back(attrs[i].type);
+          db.createTable(name, table_types);
 	}
 
         // SHOW
@@ -98,6 +102,17 @@ bool SimpleParser::parse(string input) {
 
           // extract string name and call db show function
           string name;
+          int start = 5;
+          int end = (int) input.find(';') - 1;
+          int length = end - start;
+          name = input.substr(start, length);
+          
+          cout <<"Name of table: "<< name << '\n';
+          
+          //make the call
+          
+          int table_loc = db.find(name);
+          if (table_loc > 0) db.Show(db.tables[table_loc]);
 
         }
 
