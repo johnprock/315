@@ -25,9 +25,8 @@ bool Parser::parse_query() {
 	string name;
 	bool ret = (name = parse_relation()) != ""   && 
 	           tokenizer.consume_token("<-")     && 
-	           parse_expr()                     /* &&
-	           tokenizer.consume_token(";")*/;
-	cout << ret << endl;
+	           parse_expr()                      &&
+	           tokenizer.consume_token(";");
 	
 	if(ret) {
 		cout<<"query parsed\n";
@@ -44,7 +43,6 @@ string Parser::parse_relation() {
 	if (isid(tokenizer.get_token())) {
 	  s = tokenizer.get_token();
 	  tokenizer.index++;
-	  cout << s << endl;
 	  return s;
 	}
 	else return "";
@@ -68,8 +66,7 @@ bool Parser::parse_atomic() {
 		            parse_expr()                                &&
 			        tokenizer.consume_token(")"));
 	if(ret){
-    cout << "Atomic parsed.\n";
-    cout << name << endl;
+    //cout << "Atomic parsed.\n";
 	}
 	else {
 		tokenizer.backup();
@@ -78,7 +75,7 @@ bool Parser::parse_atomic() {
 }
 
 bool Parser::parse_selection() {
-  cout << "Parsing selection...";
+  //cout << "Parsing selection...";
 	tokenizer.checkpoint();
 	bool ret =  tokenizer.consume_token("select")                 &&
 	            tokenizer.consume_token("(")                      &&
@@ -86,18 +83,18 @@ bool Parser::parse_selection() {
 	            tokenizer.consume_token(")")                      &&
                 parse_atomic();
 	if(ret){
-    cout << "Selection parsed.\n";
+   // cout << "Selection parsed.\n";
 	  //going to need stuff from condition and parse atomic, i assume	
 	}
 	else {
 		tokenizer.backup();
-    cout << "Selection parse fail.\n";
+    //cout << "Selection parse fail.\n";
 	}
 	return ret;
 }
 
 bool Parser::parse_projection() {
-	cout <<"Parsing projection...";
+	//cout <<"Parsing projection...";
 	tokenizer.checkpoint();
 	bool ret = 	tokenizer.consume_token("project")                &&
 	            tokenizer.consume_token("(")                      &&
@@ -105,11 +102,11 @@ bool Parser::parse_projection() {
 	            tokenizer.consume_token(")")                      &&
                 parse_atomic();
 	if(ret){
-    cout << "Projection parsed.\n\n";
+   // cout << "Projection parsed.\n\n";
 	}
 	else {
 		tokenizer.backup();
-		cout << "Projection parse failed.\n\n";
+		//cout << "Projection parse failed.\n\n";
 	}
 	return ret;
 }
@@ -122,11 +119,11 @@ bool Parser::parse_renaming() {
 	            tokenizer.consume_token(")")                      &&
                     parse_atomic();
 	if(ret){
-    cout << "Renaming parsed.\n";
+    //cout << "Renaming parsed.\n";
 	}
 	else {
 		tokenizer.backup();
-		cout << "Renaming parse failed.\n";
+		//cout << "Renaming parse failed.\n";
 	}
 	return ret;
 }
@@ -137,11 +134,11 @@ bool Parser::parse_union() {
 	            tokenizer.consume_token("+")                      &&
 	            parse_atomic();
 	if(ret){
-	  cout << "Union parsed.\n";
+	  //cout << "Union parsed.\n";
 	}
 	else {
 		tokenizer.backup();
-		cout << "Union parse failed.\n";
+		//cout << "Union parse failed.\n";
 	}
 	return ret;
 }
@@ -152,7 +149,7 @@ bool Parser::parse_difference() {
 	            tokenizer.consume_token("-")                      &&
 	            parse_atomic();
 	if(ret){
-    cout << "Difference parsed.\n";
+    //cout << "Difference parsed.\n";
 	}
 	else {
 		tokenizer.backup();
@@ -166,7 +163,7 @@ bool Parser::parse_product() {
 	            tokenizer.consume_token("*")                      &&
 	            parse_atomic();
 	if(ret){
-    cout << "Product parsed.\n";
+    //cout << "Product parsed.\n";
 	}
 	else {
 		tokenizer.backup();
@@ -179,7 +176,7 @@ bool Parser::parse_condition() {
 	bool ret = parse_conjunction();
 	while (tokenizer.consume_token( "||")) ret = ret && parse_conjunction();
 	if(ret){
-	    cout << "Condition parsed.\n";
+	    //cout << "Condition parsed.\n";
 	}
 	else{
 	    tokenizer.backup();
@@ -195,7 +192,7 @@ bool Parser::parse_conjunction(){
 	while(tokenizer.consume_token("&&")) ret = ret && parse_comparison();
 
 	if(ret){
-    cout << "Conjunction parsed.\n";
+    //cout << "Conjunction parsed.\n";
 	}
 	else tokenizer.backup();
 	return ret;
@@ -213,7 +210,7 @@ bool Parser::parse_comparison(){
 		tokenizer.consume_token(")");
 		
     if(ret){
-      cout<<"Comparison parsed.\n";
+      //cout<<"Comparison parsed.\n";
     }
     else tokenizer.backup();
     return ret;
@@ -233,7 +230,7 @@ string Parser::parse_op(){
 	op == ""    )
 	ret = true;
     if (ret){
-      cout<<"Comparison parsed.\n";
+      //cout<<"Comparison parsed.\n";
     }
     else tokenizer.backup();
     return op;
@@ -263,7 +260,7 @@ bool Parser::parse_open() {
 	bool ret = tokenizer.consume_token("OPEN")		&&
 		((name = parse_relation()) != "");
 	if(ret){
-		cout<<"Open parsed.\n";
+		//cout<<"Open parsed.\n";
 		db->Open(name);
 	}
 	else tokenizer.backup();
@@ -271,13 +268,13 @@ bool Parser::parse_open() {
 }
 
 bool Parser::parse_close() {
-  //cout << "Parsing close...";
+  	//cout << "Parsing close...";
 	tokenizer.checkpoint();
 	string name = "";
 	bool ret = tokenizer.consume_token("CLOSE")		&&
 		((name = parse_relation()) != "");
 	if(ret){
-    cout << "Close parsed.\n";
+    //cout << "Close parsed.\n";
     db->Close();
 	}
 	else tokenizer.backup();
@@ -290,7 +287,7 @@ bool Parser::parse_write() {
 	bool ret = tokenizer.consume_token("WRITE")		&&
 		((name = parse_relation()) != "");
 	if(ret){
-    cout << "Write parsed.\n";
+    //cout << "Write parsed.\n";
 	}
 	else tokenizer.backup();
 	return ret;
@@ -301,7 +298,7 @@ bool Parser::parse_exit() {
 	string name = "";
 	bool ret = tokenizer.consume_token("EXIT");
 	if(ret){
-    cout << "Exit parsed.\n";
+    //cout << "Exit parsed.\n";
 	}
 	else tokenizer.backup();
 	return ret;
@@ -313,7 +310,7 @@ bool Parser::parse_show() {
 	bool ret = tokenizer.consume_token("SHOW")		&&
 		parse_atomic();
 	if(ret){
-    cout << "Show parsed.\n";
+    //cout << "Show parsed.\n";
 	}
 	else tokenizer.backup();
 	return ret;
@@ -336,7 +333,7 @@ bool Parser::parse_create() {
               tokenizer.consume_token(")")                                  ;
 	if(ret){
 	  //execute db engine calls
-		cout<<"Create Table parsed.\n";	
+		//cout<<"Create Table parsed.\n";	
 	}
 	else {
 		tokenizer.backup();
@@ -364,7 +361,7 @@ bool Parser::parse_update() {
 				((name = parse_literal()) != "");
 	if(ret){
 		//do some stuff
-		cout<<"Update parsed.\n";
+		//cout<<"Update parsed.\n";
 	}
 	else tokenizer.backup();
 	return ret;
@@ -389,7 +386,7 @@ bool Parser::parse_insert() {
 		parse_expr();
 
 	if(ret){
-    cout << "Insert parsed.\n";
+    //cout << "Insert parsed.\n";
 	}
 	else tokenizer.backup();
 	return ret;
@@ -404,7 +401,7 @@ bool Parser::parse_delete() {
 		parse_condition();
 
 	if(ret){
-    cout << "Delete parsed.\n";
+    //cout << "Delete parsed.\n";
 	}
 	else tokenizer.backup();
 	return ret;
@@ -430,7 +427,7 @@ bool Parser::parse_attribute_list() {
   s = parse_attribute_name();
   if(s != "") { // attribute name parse succeeded
     ret = true;
-	  cout<<"Attribute list parsed.\n";
+	  //cout<<"Attribute list parsed.\n";
   }
   else {
     tokenizer.backup();
@@ -452,7 +449,7 @@ bool Parser::parse_typed_attribute_list() { // this is broken, not parsing types
   bool loop = ret;
   
   if(ret){
-    cout<<"typed attribute list parsed.\n";
+    //cout<<"typed attribute list parsed.\n";
   }
   else {
     tokenizer.backup();
@@ -510,7 +507,7 @@ string Parser::parse_literal(){
 	bool ret = false;
 	string s = tokenizer.get_token();
 	tokenizer.index++;
-	cout<<"Literal parsed.\n";
+	//cout<<"Literal parsed.\n";
 	return s;
 }
 
@@ -523,12 +520,10 @@ bool Parser::isid(string id){
   bool ret = false;
   if(isalpha(id[0])) {
     ret = true;
-    //cout << ret << endl;
   }
   for(int i=1; i<id.length(); i++) {
     if(isalnum(id[i])) {
       ret = true;
-      //cout << ret << endl;
     }
   }
   return ret;
