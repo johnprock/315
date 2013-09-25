@@ -62,7 +62,7 @@ public:
 private:
 };
 
-SimpleParser::SimpleParser(){}
+SimpleParser::SimpleParser(){db = DbEngine();}
 
 bool SimpleParser::parse(string input) {
 
@@ -112,7 +112,7 @@ bool SimpleParser::parse(string input) {
           //make the call
           
           int table_loc = db.find(name);
-          if (table_loc > 0) db.Show(db.tables[table_loc]);
+          db.Show(db.tables[table_loc]);
 
         }
 
@@ -120,9 +120,31 @@ bool SimpleParser::parse(string input) {
         else if(input[0] == 'I') {
           
           // first we extract the name
-        
+          int start = 12;
+          int end = start;
+          while(input[end] != ' ') end++;
+          int length = end - start;
+          string name = input.substr(start, length);
+          
           // then extract the values, for now assume one value
-
+          int table_loc = db.find(name);
+          
+          start = start + length + 14;
+          if (input[start+1] = '"'){
+            start += 1;
+            end = start + 1;
+            while(input[end] != '"') end++;
+            length = end - start;
+            name = input.substr(start, length);
+            cout<< name<<'\n';
+            Type temptype = Type(length, false);
+            Attribute tempattribute = Attribute(name, false, "name");
+            vector<Attribute> tempattributes;
+            tempattributes.push_back(tempattribute);
+            Tuple temptuple = Tuple(tempattributes);
+            db.Insert(db.tables[table_loc], temptuple);
+          }
+          //end = (int) input.find(
           // then make dbengine call
         }
 
