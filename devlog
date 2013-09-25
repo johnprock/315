@@ -42,3 +42,32 @@ Work Assignments: Due Friday Night
 Patrick: Select, Reaname, Update, Insert
 Ben: Projection, Difference, Union, Cross Product
 JuAnne: Create, Close 
+
+
+9/25/2013
+Project: Grocery List Application
+
+The basic application will have three functions: Create List, Delete list, and Show Lists.
+After this is implemented we can add functions like Edit list. The application will make calls
+directly to the dbEngine. This will be a terminal application.
+
+Example:
+
+user# ./listapp
+Type 1 for Create List.
+Type 2 for Delete List.
+Type 3 for Show Lists.
+-->
+
+
+
+There is a root menu that asks for a basic action. Each action opens a submenu with a dialogue
+for that action. Our application should have one Database object. Each list should be a table in this database.
+Since our parser isn't functioning, our application won't have persistant storage. The root menu and application
+layout should be completed by tomorrow night. The application will be a class. Each action is a function within
+the class. 
+
+Ben     -- Create
+Patrick -- Delete
+JuAnne  -- Show
+
