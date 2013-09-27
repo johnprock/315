@@ -56,6 +56,7 @@ int main() {
   type_vector.push_back(Type(2, true));
   db.createTable("test_table", type_vector);
   db.Show(db.tables[0]);
+  db.tables.push_back(table);
   
   //testing union function
   Attribute attr3 = Attribute(4, true, "attr3");
@@ -78,10 +79,12 @@ int main() {
   
   Table table2 = Table("test_table2", tuples2);
   table2.show();
+  db.tables.push_back(table2);
   
   //testing union
   Table table3 = table + table2; 
   table3.show();
+  db.tables.push_back(table3);
   
   //testing insert
   vector<Attribute> attrs5;

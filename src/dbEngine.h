@@ -72,6 +72,7 @@ class DbEngine {
     //finds a table in the tables vector by its name
     int find(string name);
     
+    Table gettables();
 
   //private: //i made this public to get DbEngine.Show() to work. This is gross. 
     vector<Table> tables;

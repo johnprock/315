@@ -66,6 +66,40 @@ void App::create(){
   db.createTable(name, types);
 }
 
+void App::show(){
+  cout << "Retrieving lists...\n\n";
+  if(db.tables.size() == 0){
+    cout << "Database is empty, no lists to show.\n\n";
+  }
+  else{
+    for(int i = 0; i<db.tables.size(); i++){
+      db.Show(db.tables[i]);
+    }
+  }  
+}
+
 void App::init(){
-  
+  char choice;
+  App app = App();
+
+  cout << "Please choose from the options listed below: \n\n"
+       << "1. Create New List \n"
+       << "2. Show Lists \n"
+       << "3. EXIT \n";
+  cin >> choice;
+  cout << "\n\n";
+  switch(choice){
+    case '1':
+      app.create();
+      break;
+    case '2':
+      app.show();
+      break;
+    case '3':
+      break;
+    default:
+      cout << "Not a valid entry.\n\n";
+      app.init();
+      break;
+  }
 }
