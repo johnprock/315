@@ -33,6 +33,14 @@ App::App(){
   db = DbEngine();
 }
 
+// reads in the name of a table then calls db code to remove
+void App::remove(){
+  string name;
+  cout << "Which list would you like to delete? ";
+  cin >> name;
+  
+}
+
 void App::create(){
   string name;
   int num_attr;
@@ -81,25 +89,29 @@ void App::show(){
 void App::init(){
   char choice;
   App app = App();
+  bool loop = true;
 
-  cout << "Please choose from the options listed below: \n\n"
+  while(loop) {
+    cout << "Please choose from the options listed below: \n\n"
        << "1. Create New List \n"
        << "2. Show Lists \n"
        << "3. EXIT \n";
-  cin >> choice;
-  cout << "\n\n";
-  switch(choice){
-    case '1':
-      app.create();
-      break;
-    case '2':
-      app.show();
-      break;
-    case '3':
-      break;
-    default:
-      cout << "Not a valid entry.\n\n";
-      app.init();
-      break;
+    cin >> choice;
+    cout << "\n\n";
+    switch(choice){
+      case '1':
+        app.create();
+        break;
+      case '2':
+        app.show();
+        break;
+      case '3':
+        loop = false;
+        break;
+      default:
+        cout << "Not a valid entry.\n\n";
+        app.init();
+        break;
+    }
   }
 }
