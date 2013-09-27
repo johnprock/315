@@ -177,6 +177,11 @@ cout << "\n\n\nCommand Line Interface Test\n===========================\n";
   parser.parse();
   }
 */
+
+
+cout << "\n\n\nApp Test\n===========================\n";
+  App app = App();
+  app.init();
   return 0;
 
 }
