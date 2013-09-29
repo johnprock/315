@@ -38,7 +38,15 @@ void App::remove(){
   string name;
   cout << "Which list would you like to delete? ";
   cin >> name;
-  
+  int tableIndex = db.find(name);
+  if(tableIndex == -1) {
+    cout << "The list you have named does not exist.\n";
+  }
+  else {
+    cout << "Working... ";
+    db.Delete(db.tables[tableIndex]);
+    cout << "List deleted.\n";
+  }
 }
 
 void App::create(){
