@@ -103,7 +103,8 @@ void App::init(){
     cout << "Please choose from the options listed below: \n\n"
        << "1. Create New List \n"
        << "2. Show Lists \n"
-       << "3. EXIT \n";
+       << "3. Remove List \n"
+       << "4. EXIT \n";
     cin >> choice;
     cout << "\n\n";
     switch(choice){
@@ -114,6 +115,9 @@ void App::init(){
         app.show();
         break;
       case '3':
+        app.remove();
+        break;
+      case '4':
         loop = false;
         break;
       default:
