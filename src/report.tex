@@ -15,12 +15,14 @@ is in the final application. We initially planned to make a calendar style app. 
 based on your planned activites. This proved to be too complex to implement with the resources available to us. 
 We decided instead to make a grocery list management application. This application makes use of the database by 
 allowing the user to create and track grocery lists. Each grocery list is a table in the database. Lists can 
-be added and delted. Our fututre development plans if we were to continue work on the application include:
+be added and deleted. Our fututre development plans if we were to continue work on the application include:
 allowing lists to be edited, creating a GUI, fixing the database parser to allow persitstant storage of lists. 
 
 \section{Difficulties and Solutions}
 We had major difficulties in building the parser.
-Attribute lists were not being processed correctly, and the group didn’t agree on a data-flow model.
+Attribute lists were not being processed correctly, and the group didn’t agree on a data-flow model for how the
+parser's functions would return necessary data to their callers. This mis-match made debugging and difficult and
+completion within the timeframe very unlikely, as we would likely have had to re-write huge portions of the parser.
 
 \section{Lessons Learned}
 \subsection{Patrick} Testing and planning are important parts of developing software. As a group we did not spend enough
@@ -31,7 +33,11 @@ and debugging last week's code. I learned that it is important to be physically 
 done. I thought that our work could be done through github and everyone would understand, but this was not the case.
 In the next project I will make it a point to meet often and work physically with my group.
 
-\subsection{Ben}
+\subsection{Ben}Our failure with the parser is clearly due to bad in-group communication. This is what caused the
+parser to be implemented with two ideas on how it should work and forced its integration to be more difficult than
+it had to be. This could have been avoided by planning as a group how the implementation should be carried out. Also,
+parts of the project were completed slower than they had to be because certain parts were implemented out of order.
+
 
 \subsection{Juaune}
 
