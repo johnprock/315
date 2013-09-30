@@ -284,8 +284,9 @@ vector<Attribute> Table::getColumn(string attr_name) {
 }
 
 void Table::show() {
-  cout << "Table: " << name << "\n\n";
+  cout << "Table: " << name << "\n";
   for(int i=0; i<tuples.size(); i++){
+    cout << i << "Contents: ";
     tuples[i].show();
     cout << "\n";
   }
@@ -300,6 +301,8 @@ Table::Table(string _name, vector<Tuple> _tuples) {
 Table::Table(string _name, vector<Type> _types){
   name = _name;
   types = _types;
+  tuples = vector<Tuple>();
+
 }
 
 Table::Table(vector<Type> _types){

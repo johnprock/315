@@ -47,7 +47,7 @@ int main() {
 
   //attr1.show();
   //tuple1.show();
-  table.show();
+  //table.show();
   
   //testing DbEngine interface
   DbEngine db;
@@ -78,12 +78,12 @@ int main() {
   tuples2.push_back(tuple4);
   
   Table table2 = Table("test_table2", tuples2);
-  table2.show();
+  //table2.show();
   db.tables.push_back(table2);
   
   //testing union
   Table table3 = table + table2; 
-  table3.show();
+ // table3.show();
   db.tables.push_back(table3);
   
   //testing insert
@@ -92,7 +92,7 @@ int main() {
   attrs5.push_back(attr4);
   Tuple tuple5 = Tuple(attrs5);
   table3.insert(tuple5);
-  table3.show();
+ // table3.show();
 
   // testing select
   cout << "Selecting...";

@@ -56,7 +56,7 @@ void DbEngine::Update(Table table, string attr_name, Attribute attr, bool (*f)(A
 void DbEngine::Insert(Table table, Tuple tuple) {
     for(int i = 0; i < tables.size(); i++){
         if(tables[i].getname() == table.getname())
-	    table.insert(tuple);
+	        tables[i].insert(tuple);
 	}
 }
 
