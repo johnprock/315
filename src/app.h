@@ -27,10 +27,15 @@ public:
   // shows all of the lists in the 
   void show();
 
+  // adds items to the list
+  void add();
 };
 
 App::App(){
   db = DbEngine();
+}
+
+void App::add() {
 }
 
 // reads in the name of a table then calls db code to remove
