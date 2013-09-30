@@ -27,31 +27,10 @@ public:
   // shows all of the lists in the 
   void show();
 
-  // adds items to the list
-  void add();
 };
 
 App::App(){
   db = DbEngine();
-}
-
-void App::add() {
-  string name;
-  cout << "Which list would you like to add to? ";
-  cin >> name;
-
-  int tableIndex = db.find(name);
-  Table table = db.tables[tableIndex];
-  vector<Attribute> attrs; // used to collect user input and build tuple object
-
-  if(tableIndex == -1) {
-    cout << "The list you have named does not exits.\n";
-  }
-  else {
-    // iterate through the list of types and build a tuple for insertion
-    for(int i=0; i<table.types.size(); i++) {
-    } 
-  }
 }
 
 // reads in the name of a table then calls db code to remove
@@ -84,10 +63,10 @@ void App::create(){
   
   cout<<"List name:\n";
   cin >> name;
-  cout<<"\nHow many attributes?\n";
+  cout<<"\nHow many items?\n";
   cin >> num_attr;
   for(int i = 0; i < num_attr; i++){
-    cout<<"\n Attribute Type:\n1. for INTEGER\n2. for VARCHAR\n";
+    cout<<"\nItem Type:\n1. for INTEGER\n2. for VARCHAR\n";
     cin >> datatype;
     if(datatype == 1){
       Type temp_type = Type(false);
@@ -100,7 +79,35 @@ void App::create(){
       types.push_back(temp_type);
     }
   }
+  
   db.createTable(name, types);
+  int tableIndex = db.find(name);
+  Table table = db.tables[tableIndex];
+  vector<Attribute> attrs; // holds user input and builds tuple for insertion 
+  int ival;      // holds integer input
+  string sval;   // holds string input
+
+  // now we populate table with values
+  // iterate through the list of types and build a tuple for insertion
+  for(int i=0; i<table.types.size(); i++) {
+   
+    cout << "\nEnter the " << i << "th item: ";
+   
+    if(table.types[i].isInt()) {
+      cin >> ival;
+      attrs.push_back(Attribute(ival, true, "item"));   
+    }
+   
+    else {
+      cin >> sval;
+      attrs.push_back(Attribute(sval, true, "item")); 
+    }
+  }
+  
+  // build tuple and insert
+  Tuple tuple = Tuple(attrs);  
+  db.Insert(table, tuple);
+  cout << "\nDone.\n";
 }
 
 void App::show(){
