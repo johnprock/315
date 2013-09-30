@@ -2,7 +2,7 @@
 // 9/25/2013
 
 #include <iostream>
-
+#include <vector>
 
 // This class represents the final application
 // This app is a grocery list tracking system
@@ -36,6 +36,22 @@ App::App(){
 }
 
 void App::add() {
+  string name;
+  cout << "Which list would you like to add to? ";
+  cin >> name;
+
+  int tableIndex = db.find(name);
+  Table table = db.tables[tableIndex];
+  vector<Attribute> attrs; // used to collect user input and build tuple object
+
+  if(tableIndex == -1) {
+    cout << "The list you have named does not exits.\n";
+  }
+  else {
+    // iterate through the list of types and build a tuple for insertion
+    for(int i=0; i<table.types.size(); i++) {
+    } 
+  }
 }
 
 // reads in the name of a table then calls db code to remove
