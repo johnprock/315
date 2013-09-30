@@ -1,3 +1,6 @@
 a.out
 table.cpp
 *.dSYM
+*.pdf
+*.log
+*.aux
