@@ -178,3 +178,13 @@ Assumptions:
 Risks:
 The data is stored in plaintext. This makes the database insecure and vunerable to attack. The app has the potential
 to waste the users time.
+
+9/29/2013
+Design Updates:
+Our design changed as we grew to understand the project requirements more fully. The most dramatic change 
+is in the final application. We initially planned to make a calendar style app. The app would provide suggestions
+based on your planned activites. This proved to be too complex to implement with the resources available to us. 
+We decided instead to make a grocery list management application. This application makes use of the database by 
+allowing the user to create and track grocery lists. Each grocery list is a table in the database. Lists can 
+be added and delted. Our fututre development plans if we were to continue work on the application include:
+allowing lists to be edited, creating a GUI, fixing the database parser to allow persitstant storage of lists. 
