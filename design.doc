@@ -10,16 +10,16 @@ Ben Creighton
 Section 1 Purpose:
 The purpose of this project is to create a simple database system and become familiar with version control systems.
 We have chosen to use git for version control. 
-The app we have chosen to make for this project is a tool to help maximize procrastination. The goal is to schedule activities during freetime which would 
-otherwise be wasted by the user. The activities are selected randomly by the application to fill unused time. The system
-will use a super-uuber simplistic database to manage the different users and the activities that they are involved in.
+The app we have chosen to make for this project is a tool to help organize shopping lists. The goal is to help the user
+plan out their weekly grocery and other shopping. The lists can be created in any order and can store any amount of items.
+The system will use a super-uuber simplistic database to manage the lists and what they contain.
 
 
 Sectction 2 High Level Entities:
 
 App:
-  The app allows the user to enter her schedule. The user should also be able to choose what sorts of activites 
-  she prefers. The app will examine your schedule and suggest fun activites. 
+  The app allows the user to enter any number of new lists with any number of elements for each list.
+  The app will allow you to create new lists in the database, view and show current lists.
   
 Database Engine:
   The module does the actual manipulation of the database file based on the instructions recieved from the parser.
@@ -31,15 +31,16 @@ Lexer
   The lexer creates a token stream which can be scanned through a token at a time. The token stream can be backed up.
 
 Parser
-  This module checks the simplistic SQL syntax of the token stream and then calls the Database Engine functions to exectue
+  This module checks the simplistic SQL syntax of the token stream and then calls the Database Engine functions to execute
   the commands. The parser uses a recursive descent technique and calls DB engine code as a side effect. 
   The parser performs syntax directed translation. Every production rule in the SQL grammar has a corresponding
   function in the parser class which recognizes it. Terminal expressions call code within the DB engine if they evaluate
-  to true.
+  to true. Our parser does not fully work so will not be implemented in it's entirety in our app.
 
 Data Model
   All data is stored as relationships. Relationships are tuples of values. We need to decide how to represent a relation
-  and a table in text for storage.
+  and a table in text for storage. Since our parser is not functioning fully we are unable to store relationships as a 
+  file.
   
 Section 3 Low Level Design:
 
@@ -49,6 +50,7 @@ Engine design:
   Class DB_Engine
     Members:
       Open_Files - a vector containing all of the file descriptors opened by the database engine.
+      vector<Table> tables - a list of tables in the database
     Functions:
       Open(String filename) - Opens a database file at a given location
       Close() - Takes a file descriptor and closes the database file
@@ -66,14 +68,29 @@ Engine design:
       Operator+(Relation relation_name1, Relation relation_name2) - Returns the union of two relations
       Operator-(Relation relation_name1, Relation relation_name2) - Returns the difference between two relations
       Operator*(Relation relation_name1, Relation relation_name2) - Returns the cartesian product of two relations
+      find(string name) - finds a table in the tables vector by it's name
 
 Lexer:
   Class Lexer
     Members:
-      Token_Stream - a vector containing the tokenized input
+      vector<string> tokens - a vector containing the tokenized input
+      int index - current index in token stream
     Funtions:
       get_token(int pos) - Returns a token. The argument specifies the token position relative to the current position.
       consume_token() - Returns a token. Consumes one token from the stream. 
+      void checkpoint() - set a chekpoint to back up to. 
+      void backup() - backs up the lexer in the case that we need to recheck a token.
+      Tokenizer(string * text) - constructor
+      Tokenizer() - default constructor
+    private:
+      int position;
+      int point - index where the checkpoint is.
+      bool match(string * text, int position , string exp) - Checks to see if the token matches the token it is being 
+                                                             compared to.
+      string get_integer(string * text, int position) - If no matches were found in the grammar the token is tested to 
+                                                        see if it is an integer.
+      string get_varchar(string * text, int position) - If no matches were found in the grammar the token is tested to
+                                                        see if it is a string of characters.
 
 Parser:
   Class Parser
@@ -84,12 +101,7 @@ Parser:
 
 
 Data Model:
-  Data is stored persistantly in an ASCII file. A log of all commands executed within the database system is stored.
-  When the system is started, it executes the commands in the ASCII file to restore state. This is a very primitive
-  and insecure way of storing data. Its main advantage is simplicity.
-  
-  The data also has an internal data representation when the program is up and running. Table objects and 
-  relation objects will hold all data. 
+  this is a non-persistent database because our parser is non-functional.
   
 Grammar:
   The grammar consists of queries and commands. The complete grammar specification is shown below, lifted from 
@@ -166,18 +178,18 @@ integer ::= digit { digit }
 Section 4 Benefits, assumptions, risks/issues:
 
 Benefits:
-The database is very simple. It should be easy to build and maintain. The app will help with procrastination.
+The database is very simple. It should be easy to build and maintain. The app will help with weekly meal planning.
 This should reduce stress and increase the happieness of users. Stress is the silent killer after all.
 
 Assumptions:
   Assuming that the simplistic database will be robust enough to meet the needs of our application.
-  We are assuming that we will be able to invent activities for our procrastination app. Relations will be able to 
-  contain entities. We are assuming that we will be able to create a system capable of understanding entites within 
-  relations. We are assuming that the database will only be used to store entites built from integers and strings.
+  We are assuming that we will be able to make shopping lists easy to create and view on the user end. Relations 
+  will be able to contain entities. We are assuming that we will be able to create a system capable of understanding 
+  entites within relations. We are assuming that the database will only be used to store entites built from integers and strings.
 
 Risks:
-The data is stored in plaintext. This makes the database insecure and vunerable to attack. The app has the potential
-to waste the users time.
+  The data is stored in plaintext. This makes the database insecure and vunerable to attack. The app has the potential
+  to waste the users time.
 
 9/29/2013
 Design Updates:
