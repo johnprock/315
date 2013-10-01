@@ -12,17 +12,17 @@
 \section{Design Changes}
 Our design changed as we grew to understand the project requirements more fully. The most dramatic change 
 is in the final application. We initially planned to make a calendar style app. The app would provide suggestions
-based on your planned activites. This proved to be too complex to implement with the resources available to us. 
+based on your planned activities. This proved to be too complex to implement with the resources available to us. 
 We decided instead to make a grocery list management application. This application makes use of the database by 
 allowing the user to create and track grocery lists. Each grocery list is a table in the database. Lists can 
-be added and deleted. Our fututre development plans if we were to continue work on the application include:
-allowing lists to be edited, creating a GUI, fixing the database parser to allow persitstant storage of lists. 
+be added and deleted. Our future development plans if we were to continue work on the application include:
+allowing lists to be edited, creating a GUI, fixing the database parser to allow persistent storage of lists. 
 
 \section{Difficulties and Solutions}
 We had major difficulties in building the parser.
 Attribute lists were not being processed correctly, and the group didn’t agree on a data-flow model for how the
-parser's functions would return necessary data to their callers. This mis-match made debugging and difficult and
-completion within the timeframe very unlikely, as we would likely have had to re-write huge portions of the parser.
+parser's functions would return necessary data to their callers. This mismatch made debugging and difficult and
+completion within the time frame very unlikely, as we would likely have had to re-write huge portions of the parser.
 Some of the parsing functions work. Commands are parsed correctly. Queries are not parsed. Integration functions
 for Open and Close operations. We were forced to move on when building the final application and work directly with
 the database API. 
@@ -91,10 +91,10 @@ Type 3 for Show Lists.
 
 
 There is a root menu that asks for a basic action.
-Each action opens a submenu with a dialogue
+Each action opens a sub-menu with a dialogue
 for that action. Our application should have one Database object. 
 Each list should be a table in this database.
-Since our parser isn't functioning, our application won't have persistant storage. 
+Since our parser isn't functioning, our application won't have persistent storage. 
 The root menu and application layout should be completed by tomorrow night.
 The application will be a class. Each action is a function within
 the class. 
@@ -108,7 +108,7 @@ JuAnne  -- Show
 \subsection{Patrick} Testing and planning are important parts of developing software. As a group we did not spend enough
 time testing our code. Our design should have been more precise. An imprecise design makes collaboration
 difficult, as different people have different ideas about what the code should be. Each week we would 
-finish the code and submit withought testing. This put us very behind since each week would begin with testing
+finish the code and submit without testing. This put us very behind since each week would begin with testing
 and debugging last week's code. I learned that it is important to be physically together in order to get work 
 done. I thought that our work could be done through github and everyone would understand, but this was not the case.
 In the next project I will make it a point to meet often and work physically with my group.
@@ -123,11 +123,11 @@ development and testing go much faster and avoided waiting.
 
 
 \subsection{JuAune} Not meeting as a group was our ultimate downfall. With less frequent meeting our group was unable to 
-communicate very important ideas for our project. With littles things falling through the cracks here and there our 
+communicate very important ideas for our project. With little things falling through the cracks here and there our 
 project hit bottom at the parser implementation. The parser turned out to be more difficult than we had planned for and 
-with and testing being tossed to the wayside to make up for lost time we lost most functinality of our parser. With this 
+with and testing being tossed to the wayside to make up for lost time we lost most functionality of our parser. With this 
 I learned that we will need to be more available to meet with each other and not wait until the end of the week to start 
-the next phase. All in all, for the next project it would be beneficial to develope a more detailed design, better 
+the next phase. All in all, for the next project it would be beneficial to develop a more detailed design, better 
 communication and more in depth testing.
 
 \section{Example Session}
