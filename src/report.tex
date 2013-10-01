@@ -23,6 +23,86 @@ We had major difficulties in building the parser.
 Attribute lists were not being processed correctly, and the group didn’t agree on a data-flow model for how the
 parser's functions would return necessary data to their callers. This mis-match made debugging and difficult and
 completion within the timeframe very unlikely, as we would likely have had to re-write huge portions of the parser.
+Some of the parsing functions work. Commands are parsed correctly. Queries are not parsed. Integration functions
+for Open and Close operations. We were forced to move on when building the final application and work directly with
+the database API. 
+
+\section{Devlog}
+This is a copy of the devlog from our github repository.
+\begin{verbatim}
+
+8/30/2013
+All team members are working on the design document.
+
+9/1/2013
+Additions to the design document
+
+9/5/2013
+Patrick is working on setting up data structures for the engine.
+
+9/8/2013
+Patrick is working on Select, Rename, and Update
+Ben is working on Projection, Difference, and Cross Product
+JuAnne: Delete(table), Delete(tuple), Insert(tuple)
+
+9/15/2013
+Patrick is working on create table in the parser.
+
+The following functions are completed:
+show
+create Table
+Union
+delete(tuple)
+delete(table)
+insert(tuple)
+select
+rename
+update
+insert into
+projection
+set difference
+cross product
+
+
+9/18/2013
+Work Assignments: Due Friday Night
+Patrick: Select, Reaname, Update, Insert
+Ben: Projection, Difference, Union, Cross Product
+JuAnne: Create, Close 
+
+
+9/25/2013
+Project: Grocery List Application
+
+The basic application will have three functions: 
+Create List, Delete list, and Show Lists.
+After this is implemented we can add functions like Edit list. 
+The application will make calls directly to the dbEngine. 
+This will be a terminal application.
+
+Example:
+
+user# ./listapp
+Type 1 for Create List.
+Type 2 for Delete List.
+Type 3 for Show Lists.
+-->
+
+
+
+There is a root menu that asks for a basic action.
+Each action opens a submenu with a dialogue
+for that action. Our application should have one Database object. 
+Each list should be a table in this database.
+Since our parser isn't functioning, our application won't have persistant storage. 
+The root menu and application layout should be completed by tomorrow night.
+The application will be a class. Each action is a function within
+the class. 
+
+Ben     -- Create
+Patrick -- Delete
+JuAnne  -- Show
+\end{verbatim}
 
 \section{Lessons Learned}
 \subsection{Patrick} Testing and planning are important parts of developing software. As a group we did not spend enough
@@ -51,6 +131,72 @@ the next phase. All in all, for the next project it would be beneficial to devel
 communication and more in depth testing.
 
 \section{Example Session}
+\begin{verbatim}
+> make
+g++ -g main.cpp
+> ./a.out
+Please choose from the options listed below: 
+
+1. Create New List 
+2. Show Lists 
+3. Remove List 
+4. EXIT 
+1
+
+
+List name:
+Groceries
+
+How many items?
+2
+
+Item Type:
+1. for INTEGER
+2. for VARCHAR
+2
+
+Datafield Size:
+
+6
+
+Item Type:
+1. for INTEGER
+2. for VARCHAR
+2
+
+Datafield Size:
+5
+
+Enter the 0th item: Apples
+
+Enter the 1th item: Plums
+
+Done.
+Please choose from the options listed below: 
+
+1. Create New List 
+2. Show Lists 
+3. Remove List 
+4. EXIT 
+2
+
+
+Retrieving lists...
+
+Table: Groceries
+0Contents: Apples Plums 
+Please choose from the options listed below: 
+
+1. Create New List 
+2. Show Lists 
+3. Remove List 
+4. EXIT 
+4
+
+
+>
+\end{verbatim}
+
 
 
 \end{document}
